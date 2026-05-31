@@ -322,28 +322,28 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-3 py-6 sm:px-4 sm:py-8 lg:px-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="mb-4 sm:mb-6 flex h-auto flex-wrap gap-1.5 bg-blue-50 p-1.5 overflow-x-auto">
-            <TabsTrigger value="courses" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+      <main className="mx-auto max-w-7xl min-w-0 px-3 py-6 sm:px-4 sm:py-8 lg:px-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="min-w-0 w-full">
+          <TabsList className="mb-4 flex h-auto w-full justify-start gap-1.5 overflow-x-auto rounded-xl bg-blue-50 p-1.5 sm:mb-6">
+            <TabsTrigger value="courses" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Courses <span className="ml-1 rounded-full bg-white/20 px-1.5 text-[10px] sm:text-xs">{courses.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="blogs" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="blogs" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Blogs
             </TabsTrigger>
-            <TabsTrigger value="notices" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="notices" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <Bell className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Notices <span className="ml-1 rounded-full bg-white/20 px-1.5 text-[10px] sm:text-xs">{notices.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="students" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="students" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Students <span className="ml-1 rounded-full bg-white/20 px-1.5 text-[10px] sm:text-xs">{students.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="admissions" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="admissions" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <ClipboardList className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Admissions <span className="ml-1 rounded-full bg-white/20 px-1.5 text-[10px] sm:text-xs">{admissions.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="leads" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="leads" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Contact <span className="ml-1 rounded-full bg-white/20 px-1.5 text-[10px] sm:text-xs">{leads.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="library" className="gap-1.5 data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 whitespace-nowrap">
+            <TabsTrigger value="library" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Library
             </TabsTrigger>
           </TabsList>
@@ -351,10 +351,10 @@ export default function AdminPage() {
           {/* ==================== COURSES ==================== */}
           <TabsContent value="courses" className="space-y-6">
             <Card className="border-blue-100 shadow-sm">
-              <CardHeader>
+              <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-blue-900">{editingType === 'course' ? 'Edit Course' : 'Add New Course'}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-4 sm:px-6">
                 <form onSubmit={handleSubmitCourse} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="course-title">Course Title *</Label>
@@ -368,11 +368,11 @@ export default function AdminPage() {
                     <Label>Course Image</Label>
                     <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url })} folder="courses" />
                   </div>
-                  <div className="flex gap-2">
-                    <Button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white hover:bg-blue-700">
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
                       {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : editingType === 'course' ? 'Update Course' : 'Add Course'}
                     </Button>
-                    {editingType === 'course' && <Button type="button" variant="outline" onClick={cancelEdit} className="border-blue-200 text-blue-700 hover:bg-blue-50">Cancel</Button>}
+                    {editingType === 'course' && <Button type="button" variant="outline" onClick={cancelEdit} className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto">Cancel</Button>}
                   </div>
                 </form>
               </CardContent>
@@ -412,10 +412,10 @@ export default function AdminPage() {
           {/* ==================== NOTICES ==================== */}
           <TabsContent value="notices" className="space-y-6">
             <Card className="border-blue-100 shadow-sm">
-              <CardHeader>
+              <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-blue-900">{editingType === 'notice' ? 'Edit Notice' : 'Add New Notice'}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-4 sm:px-6">
                 <form onSubmit={handleSubmitNotice} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="notice-title">Notice Title *</Label>
@@ -425,7 +425,7 @@ export default function AdminPage() {
                     <Label htmlFor="notice-content">Content *</Label>
                     <Textarea id="notice-content" value={noticeForm.content} onChange={(e) => setNoticeForm({ ...noticeForm, content: e.target.value })} required placeholder="Notice content" rows={3} className={inputClass} />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label>Priority *</Label>
                       <Select value={noticeForm.priority} onValueChange={(v) => setNoticeForm({ ...noticeForm, priority: v })}>
@@ -448,11 +448,11 @@ export default function AdminPage() {
                       </Select>
                     </div>
                   </div>
-                  <div className="flex gap-2">
-                    <Button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white hover:bg-blue-700">
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
                       {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : editingType === 'notice' ? 'Update Notice' : 'Add Notice'}
                     </Button>
-                    {editingType === 'notice' && <Button type="button" variant="outline" onClick={cancelEdit} className="border-blue-200 text-blue-700 hover:bg-blue-50">Cancel</Button>}
+                    {editingType === 'notice' && <Button type="button" variant="outline" onClick={cancelEdit} className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto">Cancel</Button>}
                   </div>
                 </form>
               </CardContent>
@@ -461,7 +461,7 @@ export default function AdminPage() {
               {notices.map((notice) => (
                 <Card key={notice.id} className="border-blue-100 transition-all hover:shadow-md hover:shadow-blue-100/50">
                   <CardHeader>
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
                       <div className="min-w-0">
                         <CardTitle className="truncate">{notice.title}</CardTitle>
                         <CardDescription>
@@ -469,7 +469,7 @@ export default function AdminPage() {
                           {' | '}Status: <span className={notice.is_active ? 'text-green-600' : 'text-gray-400'}>{notice.is_active ? 'Active' : 'Inactive'}</span>
                         </CardDescription>
                       </div>
-                      <div className="flex shrink-0 gap-2">
+                      <div className="flex w-full shrink-0 gap-2 sm:w-auto">
                         <Button size="sm" variant="outline" onClick={() => handleEdit(notice, 'notice')} className="border-yellow-200 text-yellow-700 hover:bg-yellow-50"><Edit2 className="h-4 w-4" /></Button>
                         <Button size="sm" variant="destructive" onClick={() => confirmDelete(notice.id, 'notices')}><Trash2 className="h-4 w-4" /></Button>
                       </div>
@@ -484,10 +484,10 @@ export default function AdminPage() {
           {/* ==================== STUDENTS ==================== */}
           <TabsContent value="students" className="space-y-6">
             <Card className="border-blue-100 shadow-sm">
-              <CardHeader>
+              <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-blue-900">{editingType === 'student' ? 'Edit Student' : 'Add New Student'}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-4 sm:px-6">
                 <form onSubmit={handleSubmitStudent} className="space-y-4">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -523,11 +523,11 @@ export default function AdminPage() {
                       <Input id="student-subjects" value={studentForm.subjects} onChange={(e) => setStudentForm({ ...studentForm, subjects: e.target.value })} placeholder="e.g., Math, Science, English" className={inputClass} />
                     </div>
                   </div>
-                  <div className="flex gap-2">
-                    <Button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white hover:bg-blue-700">
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
                       {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</> : editingType === 'student' ? 'Update Student' : 'Add Student'}
                     </Button>
-                    {editingType === 'student' && <Button type="button" variant="outline" onClick={cancelEdit} className="border-blue-200 text-blue-700 hover:bg-blue-50">Cancel</Button>}
+                    {editingType === 'student' && <Button type="button" variant="outline" onClick={cancelEdit} className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto">Cancel</Button>}
                   </div>
                 </form>
               </CardContent>
@@ -580,7 +580,7 @@ export default function AdminPage() {
                     </div>
                   </div>
                   {(studentSearchQuery || studentFilterCourse !== 'all' || studentFilterClass !== 'all') && (
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                       <Button
                         size="sm"
                         variant="outline"
@@ -601,7 +601,7 @@ export default function AdminPage() {
                 </div>
               </CardHeader>
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse text-sm">
+                <table className="min-w-[720px] w-full border-collapse text-sm">
                   <thead>
                     <tr className="border-b border-blue-100 bg-blue-50">
                       <th className="px-4 py-3 text-left font-semibold text-blue-900">Name</th>
@@ -649,7 +649,7 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
-                  <table className="w-full border-collapse text-sm">
+                  <table className="min-w-[780px] w-full border-collapse text-sm">
                     <thead>
                       <tr className="border-b border-blue-100 bg-blue-50">
                         <th className="px-4 py-3 text-left font-semibold text-blue-900">Student</th>
@@ -683,7 +683,7 @@ export default function AdminPage() {
                             </span>
                           </td>
                           <td className="px-4 py-3">
-                            <div className="flex gap-1">
+                            <div className="flex items-center gap-1">
                               <Select
                                 value={admissionStatusForm.id === admission.id ? admissionStatusForm.status : admission.status}
                                 onValueChange={(v) => setAdmissionStatusForm({ id: admission.id, status: v })}
@@ -724,7 +724,7 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
-                  <table className="w-full border-collapse text-sm">
+                  <table className="min-w-[680px] w-full border-collapse text-sm">
                     <thead>
                       <tr className="border-b border-blue-100 bg-blue-50">
                         <th className="px-4 py-3 text-left font-semibold text-blue-900">Name</th>
@@ -766,14 +766,14 @@ export default function AdminPage() {
       </main>
 
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="border-blue-100">
+        <DialogContent className="w-[calc(100vw-2rem)] max-w-md border-blue-100">
           <DialogHeader>
             <DialogTitle className="text-blue-900">Delete Item</DialogTitle>
             <DialogDescription>Are you sure you want to delete this item? This action cannot be undone.</DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)} className="border-blue-200 text-blue-700 hover:bg-blue-50">Cancel</Button>
-            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setShowDeleteDialog(false)} className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto">Cancel</Button>
+            <Button variant="destructive" onClick={handleDelete} className="w-full sm:w-auto">Delete</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

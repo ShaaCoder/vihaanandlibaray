@@ -71,14 +71,14 @@ export function MobileMenu() {
       {/* MENU BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-11 h-11 rounded-xl border border-blue-100 bg-white shadow-sm hover:bg-blue-50 transition-all duration-300"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:bg-blue-50 sm:h-11 sm:w-11"
         aria-label="Toggle Menu"
         aria-expanded={isOpen}
       >
         {isOpen ? (
-          <X className="h-6 w-6 text-blue-700" />
+          <X className="h-5 w-5 text-blue-700 sm:h-6 sm:w-6" />
         ) : (
-          <Menu className="h-6 w-6 text-blue-700" />
+          <Menu className="h-5 w-5 text-blue-700 sm:h-6 sm:w-6" />
         )}
       </button>
 
@@ -92,15 +92,15 @@ export function MobileMenu() {
 
       {/* MOBILE DRAWER */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[300px] max-w-[85vw] bg-white shadow-2xl z-[70] flex flex-col transition-all duration-300 ease-in-out ${
+        className={`fixed right-0 top-0 z-[70] flex h-dvh w-[min(300px,88vw)] flex-col bg-white shadow-2xl transition-all duration-300 ease-in-out ${
           isOpen ? 'drawer-visible' : 'drawer-hidden'
         }`}
       >
         {/* HEADER */}
-        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-6 text-white">
+        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-5 text-white sm:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-xl font-bold sm:text-2xl">
                 Vihaan Education
               </h2>
 

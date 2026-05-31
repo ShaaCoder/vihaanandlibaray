@@ -185,7 +185,7 @@ export default function LibraryStudents({
           </div>
         </form>
 
-        <div className="flex gap-4 mt-6">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
           {editingStudent && (
             <button
               type="button"
@@ -202,14 +202,14 @@ export default function LibraryStudents({
                   paymentStatus: "paid",
                 });
               }}
-              className="h-12 px-6 rounded-xl bg-gray-200 hover:bg-gray-300 font-medium"
+              className="h-12 w-full rounded-xl bg-gray-200 px-6 font-medium hover:bg-gray-300 sm:w-auto"
             >
               Cancel
             </button>
           )}
           <button
             type="submit"
-            className="h-12 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            className="h-12 w-full rounded-xl bg-blue-600 px-6 font-medium text-white hover:bg-blue-700 sm:w-auto"
             form="form-element"
           >
             {editingStudent ? "Update Student" : "Add Student"}
@@ -218,8 +218,8 @@ export default function LibraryStudents({
       </div>
 
       {/* LIST */}
-      <div className="bg-white border border-blue-100 rounded-2xl p-6">
-        <h2 className="text-4xl font-bold mb-6">Students List</h2>
+      <div className="rounded-2xl border border-blue-100 bg-white p-4 sm:p-6">
+        <h2 className="mb-6 text-2xl font-bold sm:text-4xl">Students List</h2>
 
         {/* SEARCH */}
         <div className="relative mb-4">
@@ -274,7 +274,7 @@ export default function LibraryStudents({
 
         {/* TABLE */}
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="min-w-[820px] w-full">
             <thead>
               <tr className="border-b border-blue-100 text-left">
                 <th className="py-4 px-3">Name</th>

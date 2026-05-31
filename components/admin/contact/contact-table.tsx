@@ -18,8 +18,8 @@ export default function ContactTable({ contacts, onDelete }: Props) {
       "
     >
       {/* HEADER */}
-      <div className="p-6 border-b border-blue-100">
-        <h2 className="text-3xl font-bold text-blue-900">
+      <div className="border-b border-blue-100 p-4 sm:p-6">
+        <h2 className="text-2xl font-bold text-blue-900 sm:text-3xl">
           Contact Form Submissions
         </h2>
 
@@ -30,7 +30,7 @@ export default function ContactTable({ contacts, onDelete }: Props) {
 
       {/* TABLE */}
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="min-w-[760px] w-full">
           <thead className="bg-blue-50">
             <tr className="text-left">
               <th className="px-6 py-4 text-sm font-semibold text-blue-900">

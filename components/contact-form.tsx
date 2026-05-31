@@ -69,13 +69,13 @@ export function ContactForm({ initialCourse = '' }: ContactFormProps) {
 
   return (
     <Card className="mx-auto w-full max-w-2xl border-blue-100 shadow-xl shadow-blue-100/50">
-      <CardHeader>
+      <CardHeader className="px-4 sm:px-6">
         <CardTitle className="text-blue-900">Contact Us</CardTitle>
         <CardDescription>
-          Fill out the form below and we'll get back to you soon.
+          Fill out the form below and we&apos;ll get back to you soon.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4 sm:px-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Name *</Label>

@@ -68,8 +68,32 @@
   * {
     @apply border-border;
   }
+  html,
   body {
-    @apply bg-background text-foreground;
+    @apply w-full overflow-x-hidden;
+  }
+  body {
+    @apply min-w-0 bg-background text-foreground;
+  }
+  img,
+  video,
+  canvas,
+  svg,
+  iframe {
+    max-width: 100%;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a,
+  span,
+  td,
+  th {
+    overflow-wrap: anywhere;
   }
 }
 

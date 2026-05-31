@@ -331,20 +331,20 @@ export function BlogCMS() {
     return (
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div className="min-w-0">
             <h2 className="text-2xl font-bold text-slate-900">Blog Posts</h2>
             <p className="text-sm text-slate-500 mt-1">{blogs.length} total posts</p>
           </div>
-          <Button onClick={handleNewBlog} className="bg-sky-600 hover:bg-sky-700 text-white gap-2">
+          <Button onClick={handleNewBlog} className="w-full gap-2 bg-sky-600 text-white hover:bg-sky-700 sm:w-auto">
             <Plus className="h-4 w-4" />
             New Post
           </Button>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1 max-w-md">
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="relative w-full flex-1 sm:max-w-md">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input
               value={searchQuery}
@@ -353,7 +353,7 @@ export function BlogCMS() {
               className="pl-10 border-slate-200"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex w-full gap-2 overflow-x-auto sm:w-auto">
             {(['all', 'published', 'draft'] as const).map(status => (
               <Button
                 key={status}
@@ -386,10 +386,10 @@ export function BlogCMS() {
             {filteredBlogs.map(blog => (
               <div
                 key={blog.id}
-                className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 hover:shadow-md transition-shadow"
+                className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-shadow hover:shadow-md sm:flex-row sm:items-center"
               >
                 {/* Thumbnail */}
-                <div className="relative h-16 w-16 shrink-0 rounded-lg overflow-hidden bg-slate-100">
+                <div className="relative h-32 w-full shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:h-16 sm:w-16">
                   {blog.featured_image ? (
                     <img src={blog.featured_image} alt="" className="h-full w-full object-cover" />
                   ) : (
@@ -401,11 +401,11 @@ export function BlogCMS() {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="mb-1 flex min-w-0 items-center gap-2">
                     <h3 className="text-sm font-semibold text-slate-900 truncate">{blog.title}</h3>
                     {blog.featured && <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500 shrink-0" />}
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3">
                     <span>{blog.author}</span>
                     <span>{new Date(blog.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                     <span>{blog.reading_time || 0} min</span>
@@ -421,7 +421,7 @@ export function BlogCMS() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-1.5 shrink-0">
+                <div className="flex w-full shrink-0 items-center justify-end gap-1.5 sm:w-auto">
                   <Button
                     variant="ghost"
                     size="sm"
@@ -469,8 +469,8 @@ export function BlogCMS() {
   return (
     <div className="space-y-6">
       {/* Editor Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => setView('list')} className="gap-1.5 text-slate-600">
             <ArrowLeft className="h-4 w-4" />
             Back
@@ -479,7 +479,7 @@ export function BlogCMS() {
             {editingBlog ? 'Edit Post' : 'New Post'}
           </h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
           <div className="flex items-center gap-2">
             <Switch
               checked={form.published}
@@ -487,21 +487,21 @@ export function BlogCMS() {
             />
             <Label className="text-sm text-slate-600">{form.published ? 'Published' : 'Draft'}</Label>
           </div>
-          <Button onClick={handleSave} className="bg-sky-600 hover:bg-sky-700 text-white gap-2">
+          <Button onClick={handleSave} className="w-full gap-2 bg-sky-600 text-white hover:bg-sky-700 sm:w-auto">
             <Save className="h-4 w-4" />
             Save
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6">
+      <div className="grid min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
         {/* Left Column - Editor */}
         <div className="space-y-6">
-          <Tabs defaultValue="content">
-            <TabsList className="bg-slate-100">
-              <TabsTrigger value="content">Content</TabsTrigger>
-              <TabsTrigger value="seo">SEO</TabsTrigger>
-              <TabsTrigger value="faq">FAQ</TabsTrigger>
+          <Tabs defaultValue="content" className="min-w-0">
+            <TabsList className="flex h-auto w-full justify-start gap-1 overflow-x-auto bg-slate-100 p-1">
+              <TabsTrigger value="content" className="shrink-0">Content</TabsTrigger>
+              <TabsTrigger value="seo" className="shrink-0">SEO</TabsTrigger>
+              <TabsTrigger value="faq" className="shrink-0">FAQ</TabsTrigger>
             </TabsList>
 
             {/* Content Tab */}
@@ -519,7 +519,7 @@ export function BlogCMS() {
               {/* Slug */}
               <div>
                 <label className="text-xs font-medium text-slate-500 mb-1.5 block">URL Slug</label>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                   <span className="text-xs text-slate-400">/blogs/</span>
                   <Input
                     value={form.slug}
@@ -533,13 +533,13 @@ export function BlogCMS() {
               {/* Featured Image */}
               <div>
                 <label className="text-xs font-medium text-slate-500 mb-1.5 block">Featured Image</label>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   {form.featured_image && (
-                    <div className="relative h-20 w-28 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:h-20 sm:w-28">
                       <img src={form.featured_image} alt="" className="h-full w-full object-cover" />
                     </div>
                   )}
-                  <div className="flex-1">
+                  <div className="w-full flex-1">
                     <label className="cursor-pointer">
                       <div className="flex items-center gap-2 rounded-lg border border-dashed border-slate-300 px-4 py-3 text-sm text-slate-500 hover:border-sky-400 hover:text-sky-600 transition-colors">
                         <Upload className="h-4 w-4" />

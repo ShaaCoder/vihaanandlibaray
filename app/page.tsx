@@ -56,14 +56,14 @@ export default async function Home() {
       <main className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
         {/* Hero Section */}
         <section className="py-12 sm:py-16 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-            <div className="space-y-4 sm:space-y-6">
+          <div className="grid min-w-0 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="min-w-0 space-y-4 sm:space-y-6">
               <div className="space-y-3 sm:space-y-4">
                 <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-900 shadow-sm">
                   <Star className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
                   Excellence in Education
                 </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
+                <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
                   Your Journey to <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Success</span> Starts Here
                 </h1>
                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
@@ -97,7 +97,7 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative h-64 sm:h-80 lg:h-full lg:min-h-[500px]">
+            <div className="relative min-w-0 h-64 sm:h-80 lg:h-full lg:min-h-[500px]">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-200/50 via-cyan-200/50 to-blue-100/50 rounded-2xl lg:rounded-3xl"></div>
               <div className="absolute inset-4 bg-gradient-to-br from-blue-400/20 via-transparent to-yellow-300/20 rounded-2xl lg:rounded-3xl backdrop-blur-sm flex items-center justify-center">
                 <div className="text-center">
@@ -143,7 +143,7 @@ export default async function Home() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold text-gray-900 text-sm sm:text-base line-clamp-1">{notice.title}</h3>
+                          <h3 className="min-w-0 font-semibold text-gray-900 text-sm sm:text-base line-clamp-2">{notice.title}</h3>
                           <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold ${
                             notice.priority === 'high' ? 'bg-red-200 text-red-800' :
                             notice.priority === 'medium' ? 'bg-yellow-200 text-yellow-800' :
@@ -358,12 +358,12 @@ export default async function Home() {
               Join thousands of successful students who have achieved their dreams with Vihaan Education Academy and Library.
             </p>
             <div className="flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-4">
-              <Link href="/admission">
+              <Link href="/admission" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto bg-yellow-400 text-gray-900 hover:bg-yellow-300 font-semibold gap-2 shadow-lg text-sm sm:text-base">
                   Apply Now <ChevronRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href="/contact" className="w-full sm:w-auto">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/20 font-semibold gap-2 text-sm sm:text-base">
                   Get In Touch <MessageCircle className="h-4 w-4" />
                 </Button>

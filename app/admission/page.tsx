@@ -87,11 +87,11 @@ function AdmissionFormContent() {
           <p className="mb-8 text-lg text-gray-600">
             Thank you for applying to Vihaan Education Academy and Library. We have received your application and will contact you shortly.
           </p>
-          <div className="flex gap-3">
-            <Link href="/">
-              <Button variant="outline" className="border-blue-200 text-blue-700 hover:bg-blue-50">Back to Home</Button>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <Link href="/" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto">Back to Home</Button>
             </Link>
-            <Button onClick={() => { setSubmitted(false); setFormData({ student_name: '', email: '', phone: '', course: '', class: '', subjects: '', reference_number: '', parent_name: '', parent_phone: '', address: '', message: '' }); }} className="bg-blue-600 text-white hover:bg-blue-700">
+            <Button onClick={() => { setSubmitted(false); setFormData({ student_name: '', email: '', phone: '', course: '', class: '', subjects: '', reference_number: '', parent_name: '', parent_phone: '', address: '', message: '' }); }} className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
               Submit Another
             </Button>
           </div>
@@ -116,7 +116,7 @@ function AdmissionFormContent() {
         </div>
 
         <Card className="border-blue-100 shadow-xl shadow-blue-100/50">
-          <CardContent className="pt-6">
+          <CardContent className="p-4 pt-6 sm:p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="rounded-lg bg-blue-50 p-4">
                 <h3 className="font-semibold text-blue-900">Student Information</h3>
@@ -182,7 +182,7 @@ function AdmissionFormContent() {
                 {isSubmitting ? (
                   <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting Application...</>
                 ) : (
-                  'Submit Application'
+                  <span className="truncate">Submit Application</span>
                 )}
               </Button>
             </form>

@@ -77,8 +77,8 @@ export default function StudentForm({
   };
 
   return (
-    <div className="bg-white border border-blue-100 rounded-2xl p-6">
-      <h2 className="text-4xl font-bold text-blue-900 mb-8">
+    <div className="rounded-2xl border border-blue-100 bg-white p-4 sm:p-6">
+      <h2 className="mb-6 text-2xl font-bold text-blue-900 sm:mb-8 sm:text-4xl">
         {editingStudent ? "Edit Student" : "Add New Student"}
       </h2>
 
@@ -268,7 +268,7 @@ export default function StudentForm({
         </div>
 
         {/* BUTTONS */}
-        <div className="md:col-span-2 flex gap-4">
+        <div className="flex flex-col gap-3 md:col-span-2 sm:flex-row sm:gap-4">
           {editingStudent && (
             <button
               type="button"
@@ -278,12 +278,14 @@ export default function StudentForm({
               }}
               className="
                 h-12
+                w-full
                 px-6
                 bg-gray-200
                 hover:bg-gray-300
                 transition
                 rounded-xl
                 font-medium
+                sm:w-auto
               "
             >
               Cancel
@@ -293,6 +295,7 @@ export default function StudentForm({
             type="submit"
             className="
               h-12
+              w-full
               px-6
               bg-blue-600
               hover:bg-blue-700
@@ -300,6 +303,7 @@ export default function StudentForm({
               rounded-xl
               text-white
               font-medium
+              sm:w-auto
             "
           >
             {editingStudent ? "Update Student" : "Add Student"}

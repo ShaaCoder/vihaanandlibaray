@@ -15,12 +15,12 @@ export function ContactPopover() {
       <PopoverTrigger asChild>
         <Button
           size="icon"
-          className="rounded-full bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl h-12 w-12 sm:h-14 sm:w-14 transition-all duration-300"
+          className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl sm:h-12 sm:w-12"
         >
-          <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" />
+          <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 border-0 shadow-2xl p-0 rounded-xl overflow-hidden">
+      <PopoverContent className="w-[calc(100vw-1.5rem)] max-w-80 overflow-hidden rounded-xl border-0 p-0 shadow-2xl">
         {/* Header */}
         <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-700 text-white p-5">
           <div className="flex items-center gap-3 mb-2">
@@ -29,7 +29,7 @@ export function ContactPopover() {
             </div>
             <div>
               <h3 className="font-bold text-lg">Get in Touch</h3>
-              <p className="text-xs opacity-90">We'd love to hear from you</p>
+              <p className="text-xs opacity-90">We&apos;d love to hear from you</p>
             </div>
           </div>
         </div>

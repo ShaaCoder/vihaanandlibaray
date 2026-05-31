@@ -106,7 +106,7 @@ export default function CoursesSection() {
 
   return (
     <div className="space-y-6">
-      <div className="flex gap-4 items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <input
           type="text"
           placeholder="Search courses..."

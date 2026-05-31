@@ -19,7 +19,7 @@ export default function StudentsTable({ students, onEdit, onDelete }: Props) {
       "
     >
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="min-w-[760px] w-full">
           <thead className="bg-blue-50">
             <tr className="text-left">
               <th className="px-6 py-4 text-sm font-semibold text-blue-900">

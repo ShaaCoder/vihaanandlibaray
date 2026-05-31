@@ -82,21 +82,21 @@ export default function AboutPage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-100/30 to-yellow-100/30" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-28">
           {/* LEFT */}
           <div className="flex flex-col justify-center">
             <div className="mb-6 inline-flex w-fit items-center rounded-full bg-yellow-100 px-5 py-2 text-sm font-semibold text-yellow-800 shadow-sm">
               About Vihaan Education
             </div>
 
-            <h1 className="mb-6 text-3xl font-black leading-tight text-gray-900 sm:text-4xl lg:text-5xl sm:text-6xl">
+            <h1 className="mb-5 text-3xl font-black leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Building Skills
               <span className="block text-blue-600">
                 For The Future
               </span>
             </h1>
 
-            <p className="mb-8 max-w-2xl text-lg leading-relaxed text-gray-600">
+            <p className="mb-8 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
               Vihaan Education Academy and Library empowers students
               with practical learning, modern technology
               education, and industry-ready skills to help
@@ -104,22 +104,22 @@ export default function AboutPage() {
               digital world.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Link href="/admission">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <Link href="/admission" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="h-12 gap-2 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 px-8 text-black hover:from-yellow-500 hover:to-yellow-600"
+                  className="h-12 w-full gap-2 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 px-8 text-black hover:from-yellow-500 hover:to-yellow-600 sm:w-auto"
                 >
                   Apply Now
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
 
-              <Link href="/contact">
+              <Link href="/contact" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 rounded-xl border-blue-200 px-8 text-blue-700 hover:bg-blue-50"
+                  className="h-12 w-full rounded-xl border-blue-200 px-8 text-blue-700 hover:bg-blue-50 sm:w-auto"
                 >
                   Contact Us
                 </Button>
@@ -133,13 +133,13 @@ export default function AboutPage() {
 
             <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-blue-200 blur-3xl" />
 
-            <div className="relative overflow-hidden rounded-3xl border border-blue-100 bg-white p-6 shadow-2xl">
-              <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 p-10 text-white">
+            <div className="relative overflow-hidden rounded-3xl border border-blue-100 bg-white p-4 shadow-2xl sm:p-6">
+              <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 text-white sm:p-10">
                 <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
                   <GraduationCap className="h-10 w-10" />
                 </div>
 
-                <h3 className="mb-4 text-3xl font-bold">
+                <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
                   Transform Your Career
                 </h3>
 
@@ -170,15 +170,15 @@ export default function AboutPage() {
       </section>
 
       {/* STORY */}
-      <section className="py-20">
-        <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
           {/* STORY */}
           <div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900">
+            <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
               Our Story
             </h2>
 
-            <div className="space-y-5 text-lg leading-relaxed text-gray-600">
+            <div className="space-y-5 text-base leading-relaxed text-gray-600 sm:text-lg">
               <p>
                 Vihaan Education Academy and Library started with a
                 mission to make quality technical education
@@ -217,8 +217,8 @@ export default function AboutPage() {
           </div>
 
           {/* CONTACT CARD */}
-          <div className="rounded-3xl border border-blue-100 bg-white p-8 shadow-xl">
-            <h3 className="mb-8 text-3xl font-bold text-gray-900">
+          <div className="rounded-3xl border border-blue-100 bg-white p-5 shadow-xl sm:p-8">
+            <h3 className="mb-8 text-2xl font-bold text-gray-900 sm:text-3xl">
               Visit Our Campus
             </h3>
 
@@ -290,10 +290,10 @@ export default function AboutPage() {
       </section>
 
       {/* VALUES */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
               Our Values
             </h2>
 
@@ -336,10 +336,10 @@ export default function AboutPage() {
       </section>
 
       {/* STATS */}
-      <section className="py-20">
+      <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
               Our Impact
             </h2>
 
@@ -353,9 +353,9 @@ export default function AboutPage() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="rounded-3xl bg-white p-10 text-center shadow-xl"
+                className="rounded-3xl bg-white p-6 text-center shadow-xl sm:p-10"
               >
-                <div className="mb-3 text-5xl font-black text-blue-600">
+                <div className="mb-3 text-4xl font-black text-blue-600 sm:text-5xl">
                   {stat.number}
                 </div>
 
@@ -371,8 +371,8 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[40px] bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-10 text-center text-white shadow-2xl lg:p-16">
-            <h2 className="mb-6 text-4xl font-black">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-6 text-center text-white shadow-2xl sm:p-10 lg:p-16">
+            <h2 className="mb-6 text-3xl font-black sm:text-4xl">
               Start Your Learning Journey Today
             </h2>
 
@@ -384,7 +384,7 @@ export default function AboutPage() {
             <Link href="/admission">
               <Button
                 size="lg"
-                className="h-14 rounded-2xl bg-yellow-400 px-10 text-lg font-bold text-black hover:bg-yellow-300"
+                className="h-14 w-full rounded-2xl bg-yellow-400 px-8 text-base font-bold text-black hover:bg-yellow-300 sm:w-auto sm:px-10 sm:text-lg"
               >
                 Apply For Admission
               </Button>

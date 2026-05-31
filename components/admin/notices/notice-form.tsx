@@ -40,8 +40,8 @@ export default function NoticeForm({
   };
 
   return (
-    <div className="bg-white border border-blue-100 rounded-2xl p-6">
-      <h2 className="text-4xl font-bold text-blue-900 mb-8">
+    <div className="rounded-2xl border border-blue-100 bg-white p-4 sm:p-6">
+      <h2 className="mb-6 text-2xl font-bold text-blue-900 sm:mb-8 sm:text-4xl">
         {editingNotice ? "Edit Notice" : "Add New Notice"}
       </h2>
 
@@ -109,7 +109,7 @@ export default function NoticeForm({
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
           {editingNotice && (
             <button
               type="button"
@@ -119,12 +119,14 @@ export default function NoticeForm({
               }}
               className="
                 h-12
+                w-full
                 px-6
                 bg-gray-200
                 hover:bg-gray-300
                 transition
                 rounded-xl
                 font-medium
+                sm:w-auto
               "
             >
               Cancel
@@ -134,6 +136,7 @@ export default function NoticeForm({
             type="submit"
             className="
               h-12
+              w-full
               px-6
               bg-blue-600
               hover:bg-blue-700
@@ -141,6 +144,7 @@ export default function NoticeForm({
               rounded-xl
               text-white
               font-medium
+              sm:w-auto
             "
           >
             {editingNotice ? "Update Notice" : "Add Notice"}

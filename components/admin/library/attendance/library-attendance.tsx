@@ -115,6 +115,7 @@ export default function LibraryAttendance({
           className="
             mt-6
             h-12
+            w-full
             px-6
             rounded-xl
             bg-blue-600
@@ -124,6 +125,7 @@ export default function LibraryAttendance({
             items-center
             gap-2
             transition
+            sm:w-auto
           "
         >
           <Clock3 size={18} />
@@ -132,13 +134,13 @@ export default function LibraryAttendance({
       </div>
 
       {/* TABLE */}
-      <div className="bg-white border border-blue-100 rounded-2xl p-6">
-        <h2 className="text-4xl font-bold mb-6">
+      <div className="rounded-2xl border border-blue-100 bg-white p-4 sm:p-6">
+        <h2 className="mb-6 text-2xl font-bold sm:text-4xl">
           Recent Attendance
         </h2>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="min-w-[620px] w-full">
             <thead>
               <tr className="border-b border-blue-100 text-left">
                 <th className="py-4 px-3">Date</th>

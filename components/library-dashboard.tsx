@@ -274,18 +274,18 @@ export function LibraryDashboard() {
   const inputClass = 'border-blue-200 focus:border-blue-500 focus:ring-blue-500';
 
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-5">
-        <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="students">Students</TabsTrigger>
-        <TabsTrigger value="attendance">Attendance</TabsTrigger>
-        <TabsTrigger value="payments">Payments</TabsTrigger>
-        <TabsTrigger value="analytics">Analytics</TabsTrigger>
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="min-w-0 w-full">
+      <TabsList className="mb-4 flex h-auto w-full justify-start gap-1 overflow-x-auto rounded-xl bg-blue-50 p-1.5">
+        <TabsTrigger value="overview" className="shrink-0 whitespace-nowrap text-xs sm:text-sm">Overview</TabsTrigger>
+        <TabsTrigger value="students" className="shrink-0 whitespace-nowrap text-xs sm:text-sm">Students</TabsTrigger>
+        <TabsTrigger value="attendance" className="shrink-0 whitespace-nowrap text-xs sm:text-sm">Attendance</TabsTrigger>
+        <TabsTrigger value="payments" className="shrink-0 whitespace-nowrap text-xs sm:text-sm">Payments</TabsTrigger>
+        <TabsTrigger value="analytics" className="shrink-0 whitespace-nowrap text-xs sm:text-sm">Analytics</TabsTrigger>
       </TabsList>
 
       {/* Overview Tab */}
       <TabsContent value="overview" className="space-y-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <Card className="border-blue-100 bg-gradient-to-br from-blue-50 to-cyan-50">
             <CardHeader className="p-4">
               <CardTitle className="text-sm text-gray-600">Total Students</CardTitle>
@@ -334,11 +334,12 @@ export function LibraryDashboard() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-blue-100">
-            <CardHeader>
+            <CardHeader className="px-4 sm:px-6">
               <CardTitle className="text-sm">Attendance Trends (Last 7 Days)</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
+            <CardContent className="px-2 sm:px-6">
+              <div className="h-[250px] min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={attendanceByDay}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="date" stroke="#6b7280" />
@@ -347,15 +348,17 @@ export function LibraryDashboard() {
                   <Line type="monotone" dataKey="visits" stroke="#3b82f6" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
 
           <Card className="border-blue-100">
-            <CardHeader>
+            <CardHeader className="px-4 sm:px-6">
               <CardTitle className="text-sm">Revenue Trends (Last 6 Months)</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
+            <CardContent className="px-2 sm:px-6">
+              <div className="h-[250px] min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={revenueByMonth}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="month" stroke="#6b7280" />
@@ -364,16 +367,18 @@ export function LibraryDashboard() {
                   <Bar dataKey="revenue" fill="#10b981" />
                 </BarChart>
               </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle className="text-sm">Membership Distribution</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={250}>
+          <CardContent className="px-2 sm:px-6">
+            <div className="h-[250px] min-w-0">
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={membershipDistribution} cx="50%" cy="50%" labelLine={false} label={{ fill: '#666', fontSize: 12 }} outerRadius={80} fill="#8884d8" dataKey="value">
                   {membershipDistribution.map((entry, index) => (
@@ -383,6 +388,7 @@ export function LibraryDashboard() {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
       </TabsContent>
@@ -390,10 +396,10 @@ export function LibraryDashboard() {
       {/* Students Tab */}
       <TabsContent value="students" className="space-y-6">
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>{editingId ? 'Edit Student' : 'Add New Library Student'}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6">
             <form onSubmit={handleSubmitStudent} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -432,18 +438,18 @@ export function LibraryDashboard() {
                   <Input type="date" value={studentForm.membership_end} onChange={(e) => setStudentForm({ ...studentForm, membership_end: e.target.value })} className={inputClass} />
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Button type="submit" disabled={isSubmitting} className="gap-2 bg-blue-600 hover:bg-blue-700">
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button type="submit" disabled={isSubmitting} className="w-full gap-2 bg-blue-600 hover:bg-blue-700 sm:w-auto">
                   {isSubmitting ? 'Saving...' : editingId ? 'Update' : 'Add'} Student
                 </Button>
-                {editingId && <Button type="button" variant="outline" onClick={resetStudentForm}>Cancel</Button>}
+                {editingId && <Button type="button" variant="outline" onClick={resetStudentForm} className="w-full sm:w-auto">Cancel</Button>}
               </div>
             </form>
           </CardContent>
         </Card>
 
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>Students List</CardTitle>
             <div className="space-y-3 mt-4">
               <div className="flex gap-2">
@@ -473,9 +479,9 @@ export function LibraryDashboard() {
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 sm:px-6">
             <div className="overflow-x-auto">
-              <Table className="text-xs sm:text-sm">
+              <Table className="min-w-[760px] text-xs sm:text-sm">
                 <TableHeader>
                   <TableRow className="border-blue-100">
                     <TableHead>Name</TableHead>
@@ -514,12 +520,12 @@ export function LibraryDashboard() {
       {/* Attendance Tab */}
       <TabsContent value="attendance" className="space-y-6">
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>Record Check-In</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6">
             <form onSubmit={handleSubmitAttendance} className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-3">
                 <div className="space-y-2">
                   <Label>Student *</Label>
                   <Select value={attendanceForm.student_id} onValueChange={(value) => setAttendanceForm({ ...attendanceForm, student_id: value })}>
@@ -542,7 +548,7 @@ export function LibraryDashboard() {
                   <Input type="datetime-local" value={attendanceForm.check_in.slice(0, 16)} onChange={(e) => setAttendanceForm({ ...attendanceForm, check_in: new Date(e.target.value).toISOString() })} className={inputClass} />
                 </div>
               </div>
-              <Button type="submit" disabled={isSubmitting} className="gap-2 bg-blue-600 hover:bg-blue-700">
+              <Button type="submit" disabled={isSubmitting} className="w-full gap-2 bg-blue-600 hover:bg-blue-700 sm:w-auto">
                 <Clock className="h-4 w-4" /> Record Check-In
               </Button>
             </form>
@@ -550,12 +556,12 @@ export function LibraryDashboard() {
         </Card>
 
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>Recent Attendance</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 sm:px-6">
             <div className="overflow-x-auto">
-              <Table className="text-xs sm:text-sm">
+              <Table className="min-w-[560px] text-xs sm:text-sm">
                 <TableHeader>
                   <TableRow className="border-blue-100">
                     <TableHead>Date</TableHead>
@@ -586,12 +592,12 @@ export function LibraryDashboard() {
       {/* Payments Tab */}
       <TabsContent value="payments" className="space-y-6">
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>Record Payment</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6">
             <form onSubmit={handleSubmitPayment} className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-4">
+              <div className="grid gap-4 md:grid-cols-4">
                 <div className="space-y-2">
                   <Label>Student *</Label>
                   <Select value={paymentForm.student_id} onValueChange={(value) => setPaymentForm({ ...paymentForm, student_id: value })}>
@@ -623,7 +629,7 @@ export function LibraryDashboard() {
                   </Select>
                 </div>
               </div>
-              <Button type="submit" disabled={isSubmitting} className="gap-2 bg-blue-600 hover:bg-blue-700">
+              <Button type="submit" disabled={isSubmitting} className="w-full gap-2 bg-blue-600 hover:bg-blue-700 sm:w-auto">
                 <DollarSign className="h-4 w-4" /> Record Payment
               </Button>
             </form>
@@ -631,12 +637,12 @@ export function LibraryDashboard() {
         </Card>
 
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle>Payment History</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 sm:px-6">
             <div className="overflow-x-auto">
-              <Table className="text-xs sm:text-sm">
+              <Table className="min-w-[620px] text-xs sm:text-sm">
                 <TableHeader>
                   <TableRow className="border-blue-100">
                     <TableHead>Date</TableHead>
@@ -670,11 +676,12 @@ export function LibraryDashboard() {
       <TabsContent value="analytics" className="space-y-6">
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-blue-100">
-            <CardHeader>
+            <CardHeader className="px-4 sm:px-6">
               <CardTitle className="text-sm">Daily Attendance</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+            <CardContent className="px-2 sm:px-6">
+              <div className="h-[300px] min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={attendanceByDay}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="date" stroke="#6b7280" angle={-45} textAnchor="end" height={80} />
@@ -683,15 +690,17 @@ export function LibraryDashboard() {
                   <Bar dataKey="visits" fill="#3b82f6" />
                 </BarChart>
               </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
 
           <Card className="border-blue-100">
-            <CardHeader>
+            <CardHeader className="px-4 sm:px-6">
               <CardTitle className="text-sm">Monthly Revenue</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+            <CardContent className="px-2 sm:px-6">
+              <div className="h-[300px] min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={revenueByMonth}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="month" stroke="#6b7280" />
@@ -701,15 +710,16 @@ export function LibraryDashboard() {
                   <Line type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={2} name="Revenue" />
                 </LineChart>
               </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <Card className="border-blue-100">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle className="text-sm">Payment Status Overview</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="p-4 bg-green-50 rounded-lg border border-green-100">
                 <p className="text-sm text-green-600 font-medium">Active</p>
@@ -726,14 +736,14 @@ export function LibraryDashboard() {
 
       {/* Delete Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent>
+        <DialogContent className="w-[calc(100vw-2rem)] max-w-md">
           <DialogHeader>
             <DialogTitle>Delete Student</DialogTitle>
             <DialogDescription>Are you sure you want to delete this student? This action cannot be undone.</DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>Cancel</Button>
-            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setShowDeleteDialog(false)} className="w-full sm:w-auto">Cancel</Button>
+            <Button variant="destructive" onClick={handleDelete} className="w-full sm:w-auto">Delete</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

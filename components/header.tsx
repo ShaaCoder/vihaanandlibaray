@@ -49,27 +49,27 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/90 backdrop-blur-md shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
         
         {/* LOGO */}
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex min-w-0 items-center gap-2 sm:gap-3"
         >
           <Image
             src="/vihaanlogo.png"
             alt="Vihaan Education Academy and Library Logo"
             width={48}
             height={48}
-            className="h-12 w-12 rounded-2xl object-contain"
+            className="h-10 w-10 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12 sm:rounded-2xl"
           />
 
-          <div>
-            <h1 className="text-lg font-bold text-gray-900 sm:text-2xl">
+          <div className="min-w-0">
+            <h1 className="truncate text-sm font-bold text-gray-900 sm:text-2xl">
               Vihaan Education
             </h1>
 
-            <p className="text-xs text-gray-500">
+            <p className="truncate text-[11px] text-gray-500 sm:text-xs">
               Academy and Library
             </p>
           </div>
@@ -123,7 +123,7 @@ export function Header() {
         </nav>
 
         {/* MOBILE MENU + CONTACT */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="shrink-0 flex items-center gap-2 lg:hidden">
           <ContactPopover />
           <MobileMenu />
         </div>

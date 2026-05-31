@@ -62,11 +62,11 @@ export default function LibraryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
+      <section className="relative overflow-hidden py-14 sm:py-20 lg:py-28">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-100/40 to-cyan-100/40" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="grid min-w-0 items-center gap-10 lg:grid-cols-2 lg:gap-12">
             {/* Left */}
             <div>
               <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
@@ -74,7 +74,7 @@ export default function LibraryPage() {
                 Knowledge Hub
               </div>
 
-              <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
                 Welcome to Our
                 <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {" "}
@@ -89,15 +89,15 @@ export default function LibraryPage() {
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/admission">
-                  <button className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105">
+                <Link href="/admission" className="w-full sm:w-auto">
+                  <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 sm:w-auto">
                     Join Academy
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </Link>
 
-                <Link href="/contact">
-                  <button className="rounded-xl border-2 border-blue-300 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50">
+                <Link href="/contact" className="w-full sm:w-auto">
+                  <button className="w-full rounded-xl border-2 border-blue-300 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50 sm:w-auto">
                     Visit Library
                   </button>
                 </Link>
@@ -116,7 +116,7 @@ export default function LibraryPage() {
                 />
               </div>
 
-              <div className="absolute -bottom-6 -left-6 rounded-2xl bg-white p-5 shadow-xl">
+              <div className="absolute bottom-4 left-4 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur sm:-bottom-6 sm:-left-6 sm:p-5">
                 <div className="flex items-center gap-4">
                   <div className="rounded-xl bg-blue-100 p-3">
                     <Users className="h-6 w-6 text-blue-600" />
@@ -142,7 +142,7 @@ export default function LibraryPage() {
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
               Library Features
             </h2>
 
@@ -189,7 +189,7 @@ export default function LibraryPage() {
               Book Categories
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
               Available Resources
             </h2>
           </div>
@@ -227,7 +227,7 @@ export default function LibraryPage() {
                 Smart Learning Space
               </div>
 
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
                 A Perfect Place
                 <span className="text-blue-600"> To Study</span>
               </h2>
@@ -275,8 +275,8 @@ export default function LibraryPage() {
       {/* CTA */}
       <section className="pb-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 p-8 text-center text-white shadow-2xl sm:p-12">
-            <h2 className="text-3xl font-bold sm:text-4xl">
+          <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 p-6 text-center text-white shadow-2xl sm:p-12">
+            <h2 className="text-2xl font-bold sm:text-4xl">
               Start Learning Today
             </h2>
 
@@ -286,14 +286,14 @@ export default function LibraryPage() {
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/contact">
-                <button className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-gray-900 transition hover:bg-yellow-300">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <button className="w-full rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-gray-900 transition hover:bg-yellow-300 sm:w-auto">
                   Visit Library
                 </button>
               </Link>
 
-              <Link href="/admission">
-                <button className="rounded-xl border border-white px-6 py-3 font-semibold text-white transition hover:bg-white/10">
+              <Link href="/admission" className="w-full sm:w-auto">
+                <button className="w-full rounded-xl border border-white px-6 py-3 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
                   Take Admission
                 </button>
               </Link>

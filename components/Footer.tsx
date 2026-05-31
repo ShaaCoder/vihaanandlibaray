@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2">
             {/* Brand */}
             <div>
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-4 flex min-w-0 items-center gap-3">
                 <Image
                   src="/vihaanlogo.png"
                   alt="Vihaan Education Academy and Library"
@@ -33,7 +33,7 @@ export default function Footer() {
                   className="h-12 w-12 object-contain"
                 />
 
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-lg font-bold text-gray-900">
                     Vihaan Education
                   </h3>
@@ -181,7 +181,7 @@ export default function Footer() {
                 <li className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-red-500" />
 
-                  <span>info@vihaaneducation.in</span>
+                  <span className="min-w-0 break-all">info@vihaaneducation.in</span>
                 </li>
               </ul>
             </div>
@@ -227,7 +227,7 @@ export default function Footer() {
                 </p>
               </div>
 
-              <div className="h-[350px] w-full">
+              <div className="h-[260px] w-full sm:h-[350px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d218.70294315081043!2d77.10189916194851!3d28.7121608012656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d06ae769c788f%3A0xac313f49064bf5d9!2sVIHAAN%20EDUCATION%20ACADEMY!5e0!3m2!1sen!2sin!4v1779955985930!5m2!1sen!2sin"
                   width="100%"
@@ -249,7 +249,7 @@ export default function Footer() {
               © 2026 Vihaan Education Academy and Library. All rights reserved.
             </p>
 
-            <div className="flex items-center gap-5 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500 sm:justify-end sm:gap-5">
               <Link
                 href="/privacy-policy"
                 className="transition hover:text-blue-600"

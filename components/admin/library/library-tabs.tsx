@@ -47,6 +47,7 @@ export default function LibraryTabs({
         p-1
         flex
         items-center
+        gap-1
         overflow-x-auto
       "
     >
@@ -57,7 +58,8 @@ export default function LibraryTabs({
             setActiveTab(tab.value)
           }
           className={`
-            flex-1
+            shrink-0
+            px-4
             h-12
             rounded-lg
             text-sm

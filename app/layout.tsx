@@ -24,8 +24,6 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
   },
 
   icons: {
@@ -67,7 +65,7 @@ export default function RootLayout({
           <Header />
 
           {/* PAGE CONTENT */}
-          <main>
+          <main className="min-w-0">
             {children}
           </main>
 
