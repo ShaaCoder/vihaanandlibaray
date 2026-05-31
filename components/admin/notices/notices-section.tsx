@@ -9,7 +9,15 @@ import NoticeForm from "./notice-form";
 import NoticesList from "./notices-list";
 
 export default function NoticesSection() {
-  const [notices, setNotices] = useState<Notice[]>(initialNotices);
+  const [notices, setNotices] = useState<Notice[]>(
+    (initialNotices as any[]).map(n => ({
+      id: n.id,
+      title: n.title,
+      description: n.content || "",
+      important: n.priority === "high",
+      createdAt: n.created_at || new Date().toISOString()
+    }))
+  );
   const [editingNotice, setEditingNotice] = useState<Notice | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 

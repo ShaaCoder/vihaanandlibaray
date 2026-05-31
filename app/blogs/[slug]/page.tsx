@@ -12,7 +12,11 @@ import { BlogShareButtons } from '@/components/blog/blog-share-buttons';
 import { BlogNavigation } from '@/components/blog/blog-navigation';
 import { BlogNewsletter } from '@/components/blog/blog-newsletter';
 import { BlogCTA } from '@/components/blog/blog-cta';
-
+import type {
+  BlogTag,
+  BlogCategory,
+  BlogFAQ,
+} from '@/lib/types';
 type Props = {
   params: { slug: string };
 };
@@ -37,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'education',
       'blog',
       ...(blog.focus_keyword ? [blog.focus_keyword] : []),
-      ...(blog.tags?.map(t => t.name) || []),
+     ...(blog.tags?.map((t: BlogTag) => t.name) || []),
       'Vihaan Education Academy and Library',
     ],
     authors: [{ name: blog.author }],
@@ -131,7 +135,7 @@ export default async function BlogDetailPage({ params }: Props) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8">
-            {blog.categories?.map(cat => (
+            {blog.categories?.map((cat: BlogCategory) => (
               <Badge key={cat.id} className="bg-sky-600 text-white hover:bg-sky-700 text-xs mb-3">
                 {cat.name}
               </Badge>
@@ -174,7 +178,7 @@ export default async function BlogDetailPage({ params }: Props) {
               {/* Tags + Share */}
               <div className="flex flex-wrap items-center justify-between gap-3 mb-8 pb-6 border-b border-slate-100">
                 <div className="flex flex-wrap gap-1.5">
-                  {blog.tags?.map(tag => (
+                 {blog.tags?.map((tag: BlogTag) => (
                     <Link key={tag.id} href={`/blogs/tag/${tag.slug}`}>
                       <Badge variant="outline" className="text-xs text-slate-500 border-slate-200 hover:bg-slate-50 cursor-pointer">
                         {tag.name}
@@ -189,7 +193,12 @@ export default async function BlogDetailPage({ params }: Props) {
               <div className="mb-8 flex items-center gap-3 rounded-xl bg-gradient-to-r from-sky-50 to-slate-50 p-4 border border-sky-100/50">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sky-600 shadow-md">
                   <span className="text-xs font-bold text-white">
-                    {(blog.author || 'VA').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                  {(blog.author || 'VA')
+  .split(' ')
+  .map((n: string) => n[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase()}
                   </span>
                 </div>
                 <div className="min-w-0">
@@ -303,7 +312,7 @@ export default async function BlogDetailPage({ params }: Props) {
               ? {
                   hasPart: {
                     '@type': 'FAQPage',
-                    mainEntity: blog.faqs.map(faq => ({
+                    mainEntity: blog.faqs.map((faq: BlogFAQ) => ({
                       '@type': 'Question',
                       name: faq.question,
                       acceptedAnswer: {

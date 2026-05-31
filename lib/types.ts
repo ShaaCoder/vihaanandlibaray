@@ -2,8 +2,11 @@ export interface Course {
   id: string;
   title: string;
   description: string;
-  image_url: string | null;
+  image_url?: string | null;
   created_at: string;
+  duration?: string;
+  price?: number;
+  image?: string;
 }
 
 export interface Lead {

@@ -1,74 +1,34 @@
 import { createServerClient } from '@/lib/supabase/server';
 import type { Blog, BlogCategory, BlogTag, BlogFAQ } from '@/lib/types';
+import { blogs as fallbackBlogs } from '@/lib/data/blogs';
 
 export async function getPublishedBlogs(limit = 12, offset = 0) {
   const supabase = createServerClient();
-  const { data, error } = await supabase
-    .from('blogs')
-    .select(`
-      *,
-      blog_categories(categories(*)),
-      blog_tags(tags(*))
-    `)
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1);
+  try {
+    const { data, error } = await supabase
+      .from('blogs')
+      .select(`
+        *,
+        blog_categories(categories(*)),
+        blog_tags(tags(*))
+      `)
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
 
-  if (error) return [];
-
-  return (data || []).map(formatBlog);
+    if (!error && data && data.length > 0) {
+      return (data || []).map(formatBlog);
+    }
+  } catch (e) {
+    // Fall through to use fallback data
+  }
+  
+  // Use fallback data
+  return fallbackBlogs.slice(offset, offset + limit);
 }
 
 export async function getFeaturedBlog() {
   const supabase = createServerClient();
-  const { data } = await supabase
-    .from('blogs')
-    .select(`
-      *,
-      blog_categories(categories(*)),
-      blog_tags(tags(*))
-    `)
-    .eq('featured', true)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  return data ? formatBlog(data) : null;
-}
-
-export async function getBlogBySlug(slug: string) {
-  const supabase = createServerClient();
-  const { data } = await supabase
-    .from('blogs')
-    .select(`
-      *,
-      blog_categories(categories(*)),
-      blog_tags(tags(*))
-    `)
-    .eq('slug', slug)
-    .maybeSingle();
-
-  if (!data) return null;
-
-  const { data: faqs } = await supabase
-    .from('blog_faqs')
-    .select('*')
-    .eq('blog_id', data.id)
-    .order('sort_order', { ascending: true });
-
-  return formatBlog({ ...data, faqs: faqs || [] });
-}
-
-export async function getRelatedBlogs(blogId: string, limit = 3) {
-  const supabase = createServerClient();
-
-  const { data: catData } = await supabase
-    .from('blog_categories')
-    .select('category_id')
-    .eq('blog_id', blogId);
-
-  const categoryIds = (catData || []).map(c => c.category_id);
-
-  if (categoryIds.length === 0) {
+  try {
     const { data } = await supabase
       .from('blogs')
       .select(`
@@ -76,33 +36,95 @@ export async function getRelatedBlogs(blogId: string, limit = 3) {
         blog_categories(categories(*)),
         blog_tags(tags(*))
       `)
-      .neq('id', blogId)
+      .eq('featured', true)
       .order('created_at', { ascending: false })
-      .limit(limit);
-    return (data || []).map(formatBlog);
+      .limit(1)
+      .maybeSingle();
+
+    if (data) {
+      return formatBlog(data);
+    }
+  } catch (e) {
+    // Fall through
   }
+  
+  // Use fallback featured blog
+  return fallbackBlogs.find(b => b.featured) || fallbackBlogs[0] || null;
+}
 
-  const { data: relatedIds } = await supabase
-    .from('blog_categories')
-    .select('blog_id')
-    .in('category_id', categoryIds)
-    .neq('blog_id', blogId);
+export async function getBlogBySlug(slug: string) {
+  const supabase = await createServerClient();
 
-  const ids = Array.from(new Set((relatedIds || []).map(r => r.blog_id))).slice(0, limit);
+  console.log("Searching slug:", slug);
 
-  if (ids.length === 0) return [];
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
-  const { data } = await supabase
-    .from('blogs')
-    .select(`
-      *,
-      blog_categories(categories(*)),
-      blog_tags(tags(*))
-    `)
-    .in('id', ids)
-    .limit(limit);
+  console.log("Blog data:", data);
+  console.log("Blog error:", error);
 
-  return (data || []).map(formatBlog);
+  return data;
+}
+
+export async function getRelatedBlogs(blogId: string, limit = 3) {
+  const supabase = createServerClient();
+  try {
+    const { data: catData } = await supabase
+      .from('blog_categories')
+      .select('category_id')
+      .eq('blog_id', blogId);
+
+    const categoryIds = (catData || []).map(c => c.category_id);
+
+    if (categoryIds.length === 0) {
+      const { data } = await supabase
+        .from('blogs')
+        .select(`
+          *,
+          blog_categories(categories(*)),
+          blog_tags(tags(*))
+        `)
+        .neq('id', blogId)
+        .order('created_at', { ascending: false })
+        .limit(limit);
+      
+      if (data && data.length > 0) {
+        return (data || []).map(formatBlog);
+      }
+    } else {
+      const { data: relatedIds } = await supabase
+        .from('blog_categories')
+        .select('blog_id')
+        .in('category_id', categoryIds)
+        .neq('blog_id', blogId);
+
+      const ids = Array.from(new Set((relatedIds || []).map(r => r.blog_id))).slice(0, limit);
+
+      if (ids.length > 0) {
+        const { data } = await supabase
+          .from('blogs')
+          .select(`
+            *,
+            blog_categories(categories(*)),
+            blog_tags(tags(*))
+          `)
+          .in('id', ids)
+          .limit(limit);
+
+        if (data && data.length > 0) {
+          return (data || []).map(formatBlog);
+        }
+      }
+    }
+  } catch (e) {
+    // Fall through
+  }
+  
+  // Use fallback related blogs (exclude current blog)
+  return fallbackBlogs.filter(b => b.id !== blogId).slice(0, limit);
 }
 
 export async function getBlogsByCategory(categorySlug: string, limit = 12, offset = 0) {

@@ -12,9 +12,9 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Card className="overflow-hidden border-blue-100 transition-all hover:shadow-lg hover:shadow-blue-100/50">
       <div className="relative h-48 w-full bg-gradient-to-br from-yellow-50 to-blue-50">
-        {course.image_url ? (
+        {course.image_url || course.image ? (
           <Image
-            src={course.image_url}
+            src={course.image_url || course.image!}
             alt={course.title}
             fill
             className="object-cover"

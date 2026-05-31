@@ -198,9 +198,23 @@ export function BlogCMS() {
 
   const handleSave = async () => {
     const readingTime = calculateReadingTime(form.content);
+
+    // Sanitize slug (extract last segment if full URL or path is pasted)
+    const sanitizeSlug = (input: string): string => {
+      if (!input) return '';
+      let cleaned = input.trim();
+      if (cleaned.includes('/')) {
+        const segments = cleaned.split('/').filter(Boolean);
+        cleaned = segments[segments.length - 1] || '';
+      }
+      return generateSlug(cleaned);
+    };
+
+    const cleanSlug = form.slug ? sanitizeSlug(form.slug) : generateSlug(form.title);
+
     const blogData = {
       title: form.title,
-      slug: form.slug || generateSlug(form.title),
+      slug: cleanSlug,
       content: form.content,
       excerpt: form.excerpt,
       featured_image: form.featured_image,
@@ -384,80 +398,103 @@ export function BlogCMS() {
         ) : (
           <div className="grid gap-3">
             {filteredBlogs.map(blog => (
-              <div
-                key={blog.id}
-                className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-shadow hover:shadow-md sm:flex-row sm:items-center"
-              >
-                {/* Thumbnail */}
-                <div className="relative h-32 w-full shrink-0 overflow-hidden rounded-lg bg-slate-100 sm:h-16 sm:w-16">
-                  {blog.featured_image ? (
-                    <img src={blog.featured_image} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-slate-300">
-                      <FileText className="h-6 w-6" />
-                    </div>
-                  )}
-                </div>
+            <div
+  key={blog.id}
+  className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm"
+>
+  <div className="flex gap-3">
+    {/* Thumbnail */}
+    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+      {blog.featured_image ? (
+        <img
+          src={blog.featured_image}
+          alt={blog.title}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          <FileText className="h-5 w-5 text-slate-300" />
+        </div>
+      )}
+    </div>
 
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="mb-1 flex min-w-0 items-center gap-2">
-                    <h3 className="text-sm font-semibold text-slate-900 truncate">{blog.title}</h3>
-                    {blog.featured && <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500 shrink-0" />}
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3">
-                    <span>{blog.author}</span>
-                    <span>{new Date(blog.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                    <span>{blog.reading_time || 0} min</span>
-                    <Badge variant={blog.published ? 'default' : 'secondary'} className={`text-[10px] px-1.5 py-0 ${blog.published ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
-                      {blog.published ? 'Published' : 'Draft'}
-                    </Badge>
-                    {blog.categories?.map(c => (
-                      <Badge key={c.id} variant="outline" className="text-[10px] px-1.5 py-0 border-sky-200 text-sky-600">
-                        {c.name}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+    {/* Content */}
+    <div className="min-w-0 flex-1">
+      <h3 className="line-clamp-2 text-sm font-semibold text-slate-900">
+        {blog.title}
+      </h3>
 
-                {/* Actions */}
-                <div className="flex w-full shrink-0 items-center justify-end gap-1.5 sm:w-auto">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleToggleFeatured(blog)}
-                    className="h-8 w-8 p-0"
-                    title={blog.featured ? 'Remove from featured' : 'Mark as featured'}
-                  >
-                    {blog.featured ? <Star className="h-4 w-4 text-amber-500 fill-amber-500" /> : <StarOff className="h-4 w-4 text-slate-400" />}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleTogglePublished(blog)}
-                    className="h-8 w-8 p-0"
-                    title={blog.published ? 'Unpublish' : 'Publish'}
-                  >
-                    {blog.published ? <Eye className="h-4 w-4 text-emerald-600" /> : <EyeOff className="h-4 w-4 text-slate-400" />}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleEditBlog(blog)}
-                    className="h-8 w-8 p-0"
-                  >
-                    <Edit3 className="h-4 w-4 text-slate-600" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleDelete(blog.id)}
-                    className="h-8 w-8 p-0 hover:text-red-600"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+      <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+        <span>{blog.author}</span>
+        <span>
+          {new Date(blog.created_at).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })}
+        </span>
+        <span>{blog.reading_time || 0} min</span>
+      </div>
+
+      <div className="mt-2">
+        <Badge
+          variant={blog.published ? 'default' : 'secondary'}
+          className={
+            blog.published
+              ? 'bg-green-100 text-green-700'
+              : 'bg-slate-100 text-slate-600'
+          }
+        >
+          {blog.published ? 'Published' : 'Draft'}
+        </Badge>
+      </div>
+    </div>
+  </div>
+
+  {/* Actions */}
+  <div className="mt-3 flex justify-end gap-2 border-t pt-3">
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => handleToggleFeatured(blog)}
+    >
+      {blog.featured ? (
+        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+      ) : (
+        <StarOff className="h-4 w-4" />
+      )}
+    </Button>
+
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => handleTogglePublished(blog)}
+    >
+      {blog.published ? (
+        <Eye className="h-4 w-4 text-green-600" />
+      ) : (
+        <EyeOff className="h-4 w-4" />
+      )}
+    </Button>
+
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => handleEditBlog(blog)}
+    >
+      <Edit3 className="h-4 w-4" />
+    </Button>
+
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => handleDelete(blog.id)}
+      className="text-red-600"
+    >
+      <Trash2 className="h-4 w-4" />
+    </Button>
+  </div>
+</div>
             ))}
           </div>
         )}
