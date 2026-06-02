@@ -75,23 +75,22 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50">
     
-
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/30 to-yellow-100/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/30 to-red-100/30" />
 
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-28">
           {/* LEFT */}
           <div className="flex flex-col justify-center">
-            <div className="mb-6 inline-flex w-fit items-center rounded-full bg-yellow-100 px-5 py-2 text-sm font-semibold text-yellow-800 shadow-sm">
+            <div className="mb-6 inline-flex w-fit items-center rounded-full bg-blue-100 px-5 py-2 text-sm font-semibold text-blue-800 shadow-sm border border-blue-200">
               About Vihaan Education
             </div>
 
             <h1 className="mb-5 text-3xl font-black leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Building Skills
-              <span className="block text-blue-600">
+              <span className="block bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
                 For The Future
               </span>
             </h1>
@@ -108,7 +107,7 @@ export default function AboutPage() {
               <Link href="/admission" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="h-12 w-full gap-2 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 px-8 text-black hover:from-yellow-500 hover:to-yellow-600 sm:w-auto"
+                  className="h-12 w-full gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-8 text-white hover:from-red-700 hover:to-red-800 shadow-lg shadow-red-200 transition-all duration-200 sm:w-auto"
                 >
                   Apply Now
                   <ArrowRight className="h-5 w-5" />
@@ -119,7 +118,7 @@ export default function AboutPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 w-full rounded-xl border-blue-200 px-8 text-blue-700 hover:bg-blue-50 sm:w-auto"
+                  className="h-12 w-full rounded-xl border-gray-200 px-8 text-gray-900 hover:bg-gray-50 sm:w-auto"
                 >
                   Contact Us
                 </Button>
@@ -129,12 +128,11 @@ export default function AboutPage() {
 
           {/* RIGHT */}
           <div className="relative">
-            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-yellow-200 blur-3xl" />
-
+            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-red-200 blur-3xl" />
             <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-blue-200 blur-3xl" />
 
             <div className="relative overflow-hidden rounded-3xl border border-blue-100 bg-white p-4 shadow-2xl sm:p-6">
-              <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 text-white sm:p-10">
+              <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-red-600 p-6 text-white sm:p-10">
                 <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
                   <GraduationCap className="h-10 w-10" />
                 </div>
@@ -204,10 +202,9 @@ export default function AboutPage() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm"
+                  className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm border border-gray-100 card-hover"
                 >
                   <CheckCircle className="h-5 w-5 text-blue-600" />
-
                   <span className="font-medium text-gray-700">
                     {feature}
                   </span>
@@ -217,7 +214,7 @@ export default function AboutPage() {
           </div>
 
           {/* CONTACT CARD */}
-          <div className="rounded-3xl border border-blue-100 bg-white p-5 shadow-xl sm:p-8">
+          <div className="rounded-3xl border border-blue-100 bg-white p-5 shadow-xl sm:p-8 card-hover">
             <h3 className="mb-8 text-2xl font-bold text-gray-900 sm:text-3xl">
               Visit Our Campus
             </h3>
@@ -227,36 +224,32 @@ export default function AboutPage() {
                 <div className="rounded-xl bg-blue-100 p-3">
                   <MapPin className="h-6 w-6 text-blue-700" />
                 </div>
-
-               <div>
-  <h4 className="mb-1 font-bold text-gray-900">
-    Address
-  </h4>
-
-  <p className="text-gray-600">
-    VIHAAN EDUCATION ACADEMY AND LIBRARY,
-    <br />
-    2nd Floor, Vijay Vihar,
-    <br />
-    Vijay Vihar Phase I,
-    <br />
-    Phase 1, Sector 4, Rohini,
-    <br />
-    New Delhi, Delhi - 110085
-  </p>
-</div>
+                <div>
+                  <h4 className="mb-1 font-bold text-gray-900">
+                    Address
+                  </h4>
+                  <p className="text-gray-600">
+                    VIHAAN EDUCATION ACADEMY AND LIBRARY,
+                    <br />
+                    2nd Floor, Vijay Vihar,
+                    <br />
+                    Vijay Vihar Phase I,
+                    <br />
+                    Phase 1, Sector 4, Rohini,
+                    <br />
+                    New Delhi, Delhi - 110085
+                  </p>
+                </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="rounded-xl bg-yellow-100 p-3">
-                  <Phone className="h-6 w-6 text-yellow-700" />
+                <div className="rounded-xl bg-red-100 p-3">
+                  <Phone className="h-6 w-6 text-red-700" />
                 </div>
-
                 <div>
                   <h4 className="mb-1 font-bold text-gray-900">
                     Phone
                   </h4>
-
                   <p className="text-gray-600">
                     +91 92126 44428
                   </p>
@@ -264,15 +257,13 @@ export default function AboutPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="rounded-xl bg-green-100 p-3">
-                  <Clock className="h-6 w-6 text-green-700" />
+                <div className="rounded-xl bg-blue-100 p-3">
+                  <Clock className="h-6 w-6 text-blue-700" />
                 </div>
-
                 <div>
                   <h4 className="mb-1 font-bold text-gray-900">
                     Working Hours
                   </h4>
-
                   <p className="text-gray-600">
                     Monday - Friday:
                     <br />
@@ -296,7 +287,6 @@ export default function AboutPage() {
             <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
               Our Values
             </h2>
-
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
               Everything we do is focused on helping
               students succeed with confidence and practical
@@ -307,22 +297,19 @@ export default function AboutPage() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {values.map((value, index) => {
               const Icon = value.icon;
-
               return (
                 <Card
                   key={index}
-                  className="rounded-3xl border-blue-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                  className="rounded-3xl border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl card-hover"
                 >
                   <CardHeader>
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-100 to-yellow-100">
-                      <Icon className="h-8 w-8 text-blue-700" />
+                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-red-600">
+                      <Icon className="h-8 w-8 text-white" />
                     </div>
-
                     <CardTitle className="text-2xl">
                       {value.title}
                     </CardTitle>
                   </CardHeader>
-
                   <CardContent>
                     <p className="leading-relaxed text-gray-600">
                       {value.description}
@@ -342,7 +329,6 @@ export default function AboutPage() {
             <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
               Our Impact
             </h2>
-
             <p className="text-lg text-gray-600">
               Numbers that reflect our dedication to
               education
@@ -353,12 +339,11 @@ export default function AboutPage() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="rounded-3xl bg-white p-6 text-center shadow-xl sm:p-10"
+                className="rounded-3xl bg-white p-6 text-center shadow-xl border border-gray-100 sm:p-10 card-hover"
               >
-                <div className="mb-3 text-4xl font-black text-blue-600 sm:text-5xl">
+                <div className="mb-3 text-4xl font-black bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent sm:text-5xl">
                   {stat.number}
                 </div>
-
                 <div className="text-lg font-medium text-gray-600">
                   {stat.label}
                 </div>
@@ -371,20 +356,18 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 p-6 text-center text-white shadow-2xl sm:p-10 lg:p-16">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 p-6 text-center text-white shadow-2xl sm:p-10 lg:p-16">
             <h2 className="mb-6 text-3xl font-black sm:text-4xl">
               Start Your Learning Journey Today
             </h2>
-
             <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100">
               Join thousands of students building successful
               careers with Vihaan Education Academy and Library.
             </p>
-
             <Link href="/admission">
               <Button
                 size="lg"
-                className="h-14 w-full rounded-2xl bg-yellow-400 px-8 text-base font-bold text-black hover:bg-yellow-300 sm:w-auto sm:px-10 sm:text-lg"
+                className="h-14 w-full rounded-2xl bg-white text-gray-900 hover:bg-gray-100 px-8 text-base font-bold shadow-lg sm:w-auto sm:px-10 sm:text-lg"
               >
                 Apply For Admission
               </Button>
@@ -392,8 +375,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-     
     </div>
   );
 }

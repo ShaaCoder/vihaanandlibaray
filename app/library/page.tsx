@@ -27,49 +27,49 @@ export default function LibraryPage() {
       title: "Quiet & Peaceful Study Environment",
       description: "Distraction-free atmosphere designed for focused learning.",
       icon: BookOpen,
-      color: "from-blue-500 to-cyan-500",
+      color: "from-blue-500 to-blue-600",
     },
     {
       title: "Well-Equipped Reading Area",
       description: "Modern facilities for comfortable reading and studying.",
       icon: LampDesk,
-      color: "from-yellow-500 to-orange-500",
+      color: "from-blue-600 to-indigo-600",
     },
     {
       title: "High-Speed Wi-Fi Access",
       description: "Reliable internet for online resources and digital learning.",
       icon: Wifi,
-      color: "from-green-500 to-emerald-500",
+      color: "from-blue-700 to-indigo-700",
     },
     {
       title: "Comfortable Seating",
       description: "Ergonomic seating for long study sessions.",
       icon: Users,
-      color: "from-purple-500 to-pink-500",
+      color: "from-indigo-600 to-indigo-700",
     },
     {
       title: "CCTV Surveillance",
       description: "Safety and security with 24/7 monitoring.",
       icon: Shield,
-      color: "from-red-500 to-rose-500",
+      color: "from-red-500 to-red-600",
     },
     {
       title: "Flexible Timings",
       description: "Open 7:00 AM – 10:00 PM for your convenience.",
       icon: Clock,
-      color: "from-indigo-500 to-violet-500",
+      color: "from-red-600 to-red-700",
     },
     {
       title: "Separate Dining Area",
       description: "Space to refresh and recharge during study breaks.",
       icon: Utensils,
-      color: "from-amber-500 to-yellow-500",
+      color: "from-indigo-500 to-blue-600",
     },
     {
       title: "For All Aspirants",
       description: "Perfect for school, college, and competitive exam students.",
       icon: Target,
-      color: "from-teal-500 to-cyan-500",
+      color: "from-blue-500 to-red-600",
     },
   ];
 
@@ -96,23 +96,23 @@ export default function LibraryPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-14 sm:py-20 lg:py-28">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/40 to-cyan-100/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/40 to-red-100/40" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid min-w-0 items-center gap-10 lg:grid-cols-2 lg:gap-12">
             {/* Left */}
             <div>
-              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
                 <Library className="mr-2 h-4 w-4" />
                 Your Library, Your Success
               </div>
 
               <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
                 Welcome to
-                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
                   {" "}
                   Vihaan Library
                 </span>
@@ -124,14 +124,14 @@ export default function LibraryPage() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/admission" className="w-full sm:w-auto">
-                  <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 sm:w-auto">
+                  <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-6 py-3 font-semibold text-white shadow-lg shadow-red-200 transition hover:from-red-700 hover:to-red-800 hover:scale-105 sm:w-auto">
                     Join Academy
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </Link>
 
                 <Link href="/contact" className="w-full sm:w-auto">
-                  <button className="w-full rounded-xl border-2 border-blue-300 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50 sm:w-auto">
+                  <button className="w-full rounded-xl border-2 border-gray-200 px-6 py-3 font-semibold text-gray-900 transition hover:bg-gray-50 sm:w-auto">
                     Visit Library
                   </button>
                 </Link>
@@ -140,7 +140,7 @@ export default function LibraryPage() {
 
             {/* Right Image */}
             <div className="relative">
-              <div className="overflow-hidden rounded-3xl shadow-2xl">
+              <div className="overflow-hidden rounded-3xl border border-gray-100 shadow-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop"
                   alt="Library"
@@ -150,7 +150,7 @@ export default function LibraryPage() {
                 />
               </div>
 
-              <div className="absolute bottom-4 left-4 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur sm:-bottom-6 sm:-left-6 sm:p-5">
+              <div className="absolute bottom-4 left-4 rounded-2xl bg-white/95 p-4 shadow-xl border border-gray-100 backdrop-blur sm:-bottom-6 sm:-left-6 sm:p-5">
                 <div className="flex items-center gap-4">
                   <div className="rounded-xl bg-blue-100 p-3">
                     <Users className="h-6 w-6 text-blue-600" />
@@ -173,7 +173,7 @@ export default function LibraryPage() {
       </section>
 
       {/* What We Provide */}
-      <section className="py-16 sm:py-20">
+      <section className="py-16 sm:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center">
             <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
@@ -192,7 +192,7 @@ export default function LibraryPage() {
               return (
                 <div
                   key={index}
-                  className="rounded-3xl border border-blue-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                  className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl card-hover"
                 >
                   <div
                     className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r ${feature.color}`}
@@ -218,7 +218,7 @@ export default function LibraryPage() {
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <div className="mb-4 inline-flex items-center rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-yellow-700">
+            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
               <CheckCircle2 className="mr-2 h-4 w-4" />
               Why Choose Vihaan Library?
             </div>
@@ -232,7 +232,7 @@ export default function LibraryPage() {
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3"
+                className="rounded-2xl border border-gray-100 bg-gradient-to-r from-blue-50 to-red-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3 card-hover"
               >
                 <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0" />
                 {item}
@@ -246,7 +246,7 @@ export default function LibraryPage() {
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-3xl shadow-xl">
+            <div className="overflow-hidden rounded-3xl shadow-xl border border-gray-100">
               <Image
                 src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop"
                 alt="Study Environment"
@@ -257,7 +257,7 @@ export default function LibraryPage() {
             </div>
 
             <div>
-              <div className="mb-4 inline-flex items-center rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700">
+              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
                 <GraduationCap className="mr-2 h-4 w-4" />
                 Our Mission
               </div>
@@ -273,7 +273,7 @@ export default function LibraryPage() {
               <div className="mt-8 space-y-4">
                 {highlights.map((highlight, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <Check className="h-5 w-5 text-yellow-500" />
+                    <Check className="h-5 w-5 text-blue-600" />
                     <span className="text-gray-700">
                       {highlight}
                     </span>
@@ -288,7 +288,7 @@ export default function LibraryPage() {
       {/* Contact & Slogan */}
       <section className="pb-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 p-6 text-center text-white shadow-2xl sm:p-12">
+          <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-red-600 p-6 text-center text-white shadow-2xl sm:p-12">
             <h2 className="text-2xl font-bold sm:text-4xl">
               Start Learning Today
             </h2>
@@ -312,7 +312,7 @@ export default function LibraryPage() {
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link href="/contact" className="w-full sm:w-auto">
-                <button className="w-full rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-gray-900 transition hover:bg-yellow-300 sm:w-auto">
+                <button className="w-full rounded-xl bg-white px-6 py-3 font-semibold text-gray-900 transition hover:bg-gray-100 shadow-lg sm:w-auto">
                   Visit Library
                 </button>
               </Link>

@@ -14,39 +14,30 @@ import Footer from '@/components/Footer';
 
 const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Vihaan Education Academy and Library',
+  title: 'Vihaan Education Academy and Library - Excellence in Education',
   description:
-    'Quality education courses and library for your success',
-
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
-
-  icons: {
-    icon: '/vihaanlogo.png',
-    apple: '/vihaanlogo.png',
-  },
-
+    'Vihaan Education Academy and Library provides world-class education with expert instructors, modern facilities, and personalized learning paths. Join us for NIOS, CBSE, and foundation courses.',
+  keywords: ['Vihaan Education Academy', 'Education', 'NIOS', 'CBSE', 'Library', 'Coaching', 'Admission'],
   openGraph: {
-    images: [
-      {
-        url: '/vihaanlogo.png',
-      },
-    ],
+    title: 'Vihaan Education Academy and Library - Excellence in Education',
+    description:
+      'Vihaan Education Academy and Library provides world-class education with expert instructors, modern facilities, and personalized learning paths.',
+    url: 'https://vihaaneducation.com',
+    type: 'website',
+    siteName: 'Vihaan Education Academy and Library',
   },
-
   twitter: {
     card: 'summary_large_image',
-
-    images: [
-      {
-        url: '/vihaanlogo.png',
-      },
-    ],
+    title: 'Vihaan Education Academy and Library',
+    description: 'Excellence in Education Since 2001',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -56,20 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} bg-white text-gray-900 antialiased`}
-      >
+    <html lang="en" className={inter.className}>
+      <body className="bg-white text-gray-900 antialiased">
         <AuthProvider>
-          {/* GLOBAL HEADER */}
           <Header />
-
-          {/* PAGE CONTENT */}
-          <main className="min-w-0">
-            {children}
-          </main>
-
-          {/* TOASTER */}
+          <main className="min-h-screen">{children}</main>
           <Toaster />
           <SonnerToaster />
         </AuthProvider>
@@ -130,7 +112,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* GLOBAL FOOTER */}
         <Footer />
       </body>
     </html>

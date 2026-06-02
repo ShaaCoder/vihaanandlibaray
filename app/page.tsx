@@ -5,54 +5,94 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
-import { BookOpen, GraduationCap, MapPin, Phone, MessageCircle, ChevronRight, Star, Users, Trophy, Clock, ArrowRight, Calendar, Facebook, Instagram, Linkedin, Twitter, Globe, Languages, Monitor, PlayCircle, Award, Zap, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import {
+  BookOpen,
+  GraduationCap,
+  Users,
+  Trophy,
+  Clock,
+  ArrowRight,
+  Calendar,
+  CheckCircle,
+  Star,
+  Quote,
+} from 'lucide-react';
 import Image from 'next/image';
+import { getPublishedBlogs } from '@/lib/blog/queries';
+import { courses as fallbackCourses } from '@/lib/data/courses';
+import { notices as fallbackNotices } from '@/lib/data/notices';
+
+const testimonials = [
+  {
+    name: "Rahul Sharma",
+    course: "NIOS Class 10",
+    content: "Vihaan Academy helped me clear my NIOS exams with excellent marks. The teachers are very supportive.",
+    rating: 5,
+  },
+  {
+    name: "Priya Singh",
+    course: "Foundation Course",
+    content: "Amazing library facilities and great teaching. The study environment is perfect for learning.",
+    rating: 5,
+  },
+  {
+    name: "Amit Kumar",
+    course: "NIOS Class 12",
+    content: "Thank you Vihaan Academy for guiding me throughout my Class 12 journey. Highly recommended!",
+    rating: 5,
+  },
+];
+
+const features = [
+  {
+    icon: <GraduationCap className="h-6 w-6" />,
+    title: "Expert Faculty",
+    description: "Learn from experienced teachers with proven track record",
+  },
+  {
+    icon: <BookOpen className="h-6 w-6" />,
+    title: "Comprehensive Library",
+    description: "Well-stocked library with all study materials and books",
+  },
+  {
+    icon: <Trophy className="h-6 w-6" />,
+    title: "Excellent Results",
+    description: "95% success rate with top scores in board exams",
+  },
+  {
+    icon: <Clock className="h-6 w-6" />,
+    title: "Flexible Timings",
+    description: "Classes available at convenient times for students",
+  },
+];
 
 export default async function Home() {
   const supabase = createServerClient();
 
-  const [coursesResult, blogsResult, noticesResult] = await Promise.all([
-    supabase.from('courses').select('*').order('created_at', { ascending: false }).limit(6),
-    supabase.from('blogs').select('*').order('created_at', { ascending: false }).limit(3),
-    supabase.from('notices').select('*').eq('is_active', true).order('created_at', { ascending: false }).limit(5),
-  ]);
+  let courses: Course[] = [];
+  let notices: Notice[] = [];
 
-  const courses = (coursesResult.data || []) as Course[];
-  const blogs = (blogsResult.data || []) as Blog[];
-  const notices = (noticesResult.data || []) as Notice[];
+  try {
+    const [coursesResult, noticesResult] = await Promise.all([
+      supabase.from('courses').select('*').order('created_at', { ascending: false }).limit(6),
+      supabase.from('notices').select('*').eq('is_active', true).order('created_at', { ascending: false }).limit(5),
+    ]);
 
-  const whatWeOffer = [
-    {
-      title: 'School Tuition (Classes 6th to 12th)',
-      description: 'Comprehensive coaching for CBSE students with concept-based learning, regular assessments, and individual attention.',
-      icon: BookOpen,
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'CBSE All Subjects',
-      description: 'Expert guidance in all major subjects with a focus on strong fundamentals and excellent academic performance.',
-      icon: GraduationCap,
-      color: 'from-indigo-500 to-purple-500',
-    },
-    {
-      title: 'French Language Tuition',
-      description: 'Professional French language classes for school curriculum, beginners, and language enthusiasts.',
-      icon: Languages,
-      color: 'from-pink-500 to-rose-500',
-    },
-    {
-      title: 'Spoken English',
-      description: 'Improve communication skills, vocabulary, pronunciation, and confidence through interactive spoken English sessions.',
-      icon: PlayCircle,
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
-      title: 'Computer Classes',
-      description: 'Practical computer education covering basic computer skills, MS Office, internet usage, and digital literacy.',
-      icon: Monitor,
-      color: 'from-yellow-500 to-orange-500',
-    },
-  ];
+    courses = (coursesResult.data || []) as Course[];
+    notices = (noticesResult.data || []) as Notice[];
+  } catch (e) {
+    // Use fallback data
+  }
+
+  // Apply fallbacks
+  if (!courses || courses.length === 0) {
+    courses = fallbackCourses;
+  }
+  if (!notices || notices.length === 0) {
+    notices = fallbackNotices;
+  }
+
+  const blogs = await getPublishedBlogs(3, 0);
 
   const faqs = [
     {
@@ -83,144 +123,133 @@ export default async function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-yellow-50">
-   
-
-      <main className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
+    <div className="min-h-screen bg-white">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 lg:py-24">
-          <div className="grid min-w-0 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-            <div className="min-w-0 space-y-4 sm:space-y-6">
-              <div className="space-y-3 sm:space-y-4">
-                <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-900 shadow-sm">
-                  <Award className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
-                  Welcome to Vihaan Education Academy
-                </div>
-                <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
-                  Shaping Futures with <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Quality Education</span>
+        <section className="py-16 sm:py-24 lg:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm border border-blue-100">
+                <Star className="h-4 w-4 text-yellow-500" />
+                <span>Excellence in Education Since 2001</span>
+              </div>
+              <div className="space-y-4">
+                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                  Your Journey to <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">Success</span> Starts Here
                 </h1>
-                <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                  At Vihaan Education Academy, we are committed to providing quality education and personalized guidance to help students achieve academic excellence and build a successful future. Our experienced faculty, student-focused approach, and supportive learning environment make us a trusted choice for students and parents.
+                <p className="text-lg text-gray-600 leading-relaxed sm:text-xl">
+                  Vihaan Education Academy and Library provides world-class education with expert instructors, modern facilities, and personalized learning paths designed to unlock your potential.
                 </p>
               </div>
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 pt-2">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 pt-2">
                 <Link href="/admission" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 hover:from-yellow-500 hover:to-yellow-600 shadow-lg">
-                    Enroll Now <ChevronRight className="h-5 w-5" />
+                  <Button size="lg" className="w-full gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 shadow-lg shadow-red-200 transition-all duration-200">
+                    Apply Now
+                    <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
-                <Link href="/contact" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full gap-2 border-2 border-blue-300 text-blue-700 hover:bg-blue-50">
-                    Contact Us <Phone className="h-5 w-5" />
+                <Link href="/about" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full gap-2 border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300">
+                    Learn More
+                    <BookOpen className="h-5 w-5" />
                   </Button>
                 </Link>
               </div>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6">
+              <div className="grid grid-cols-3 gap-4 pt-4">
                 <div className="text-center">
-                  <div className="text-lg sm:text-2xl font-bold text-blue-600">500+</div>
-                  <p className="text-xs sm:text-sm text-gray-600">Happy Students</p>
+                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">500+</div>
+                  <p className="text-sm text-gray-500 sm:text-base">Happy Students</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg sm:text-2xl font-bold text-blue-600">50+</div>
-                  <p className="text-xs sm:text-sm text-gray-600">Expert Courses</p>
+                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">50+</div>
+                  <p className="text-sm text-gray-500 sm:text-base">Expert Courses</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg sm:text-2xl font-bold text-blue-600">95%</div>
-                  <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative min-w-0 h-64 sm:h-80 lg:h-full lg:min-h-[500px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-200/50 via-cyan-200/50 to-blue-100/50 rounded-2xl lg:rounded-3xl"></div>
-              <div className="absolute inset-4 bg-gradient-to-br from-blue-400/20 via-transparent to-yellow-300/20 rounded-2xl lg:rounded-3xl backdrop-blur-sm flex items-center justify-center">
-                <div className="text-center">
-                  <GraduationCap className="mx-auto h-20 sm:h-24 w-20 sm:w-24 text-blue-600/40 mb-4" />
-                  <p className="text-gray-600 font-semibold text-sm sm:text-base">Better Education, Brighter Future</p>
+                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">95%</div>
+                  <p className="text-sm text-gray-500 sm:text-base">Success Rate</p>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* What We Offer Section */}
-        <section className="py-12 sm:py-16 lg:py-20">
-          <div className="mb-8 sm:mb-12 text-center">
-            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-800">
-              <Zap className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
-              What We Offer
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-br from-blue-50 to-red-50 rounded-3xl blur-xl opacity-50"></div>
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 to-red-50 border border-gray-100 shadow-card">
+                <div className="p-8 sm:p-12 flex flex-col items-center justify-center min-h-[350px] sm:min-h-[450px]">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-gradient-to-br from-blue-200 to-red-200 flex items-center justify-center shadow-lg mb-6">
+                    <GraduationCap className="h-16 w-16 sm:h-20 sm:w-20 text-white" />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Transform Your Future</h3>
+                    <p className="text-gray-600">Join thousands of successful students</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-              Our <span className="text-blue-600">Programs</span>
-            </h2>
-            <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">Comprehensive courses designed for every student's success</p>
-          </div>
-
-          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {whatWeOffer.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <Card key={index} className="border-blue-100 bg-white hover:shadow-xl transition-all hover:-translate-y-1">
-                  <CardHeader className="p-4 sm:p-6">
-                    <div className={`mb-4 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-gradient-to-r ${item.color}`}>
-                      <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
-                    </div>
-                    <CardTitle className="text-base sm:text-lg font-bold">{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
           </div>
         </section>
 
         {/* Notices Section */}
         {notices.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20">
-            <div className="mb-8 sm:mb-12 text-center">
-              <div className="mb-4 inline-flex items-center rounded-full bg-red-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-red-800">
-                <Clock className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                Latest Updates
+          <section className="py-16 sm:py-20">
+            <div className="mb-10 text-center">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 border border-red-100">
+                <Clock className="h-4 w-4" />
+                <span>Latest Updates</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
                 Important <span className="text-red-600">Notices</span>
               </h2>
             </div>
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-4">
               {notices.map((notice) => (
-                <Card key={notice.id} className={`border-2 transition-all hover:shadow-lg ${
-                  notice.priority === 'high' ? 'border-red-200 bg-gradient-to-r from-red-50/80 to-white' :
-                  notice.priority === 'medium' ? 'border-yellow-200 bg-gradient-to-r from-yellow-50/80 to-white' :
-                  'border-blue-200 bg-gradient-to-r from-blue-50/80 to-white'
-                }`}>
-                  <CardContent className="p-4 sm:p-5">
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className={`shrink-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl shadow-sm ${
-                        notice.priority === 'high' ? 'bg-red-100' :
-                        notice.priority === 'medium' ? 'bg-yellow-100' :
-                        'bg-blue-100'
-                      }`}>
-                        <Clock className={`h-5 w-5 sm:h-6 sm:w-6 ${
-                          notice.priority === 'high' ? 'text-red-600' :
-                          notice.priority === 'medium' ? 'text-yellow-600' :
-                          'text-blue-600'
-                        }`} />
+                <Card
+                  key={notice.id}
+                  className={`border-2 transition-all card-hover hover:shadow-lg ${
+                    notice.priority === 'high'
+                      ? 'border-red-100 bg-gradient-to-r from-red-50 to-white'
+                      : notice.priority === 'medium'
+                      ? 'border-blue-100 bg-gradient-to-r from-blue-50 to-white'
+                      : 'border-gray-100 bg-gradient-to-r from-gray-50 to-white'
+                  }`}
+                >
+                  <CardContent className="p-5 sm:p-6">
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`shrink-0 flex h-12 w-12 items-center justify-center rounded-xl shadow-sm ${
+                          notice.priority === 'high'
+                            ? 'bg-red-100 text-red-600'
+                            : notice.priority === 'medium'
+                            ? 'bg-blue-100 text-blue-600'
+                            : 'bg-gray-100 text-gray-600'
+                        }`}
+                      >
+                        <Calendar className="h-5 w-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="min-w-0 font-semibold text-gray-900 text-sm sm:text-base line-clamp-2">{notice.title}</h3>
-                          <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold ${
-                            notice.priority === 'high' ? 'bg-red-200 text-red-800' :
-                            notice.priority === 'medium' ? 'bg-yellow-200 text-yellow-800' :
-                            'bg-blue-200 text-blue-800'
-                          }`}>
+                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                          <h3 className="min-w-0 font-semibold text-gray-900 text-base sm:text-lg">
+                            {notice.title}
+                          </h3>
+                          <span
+                            className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
+                              notice.priority === 'high'
+                                ? 'bg-red-100 text-red-700'
+                                : notice.priority === 'medium'
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-gray-100 text-gray-700'
+                            }`}
+                          >
                             {notice.priority}
                           </span>
                         </div>
-                        <p className="line-clamp-2 text-xs sm:text-sm text-gray-600">{notice.content}</p>
-                        <p className="mt-2 text-xs text-gray-400">
-                          {new Date(notice.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        <p className="line-clamp-3 text-sm sm:text-base text-gray-600">
+                          {notice.content}
+                        </p>
+                        <p className="mt-3 text-xs sm:text-sm text-gray-400">
+                          {new Date(notice.created_at).toLocaleDateString('en-IN', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          })}
                         </p>
                       </div>
                     </div>
@@ -232,87 +261,179 @@ export default async function Home() {
         )}
 
         {/* Courses Section */}
-        <section className="py-12 sm:py-16 lg:py-20">
-          <div className="mb-8 sm:mb-12 text-center">
-            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-800">
-              <BookOpen className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-              Featured Programs
+        <section className="py-16 sm:py-20">
+          <div className="mb-10 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-100">
+              <BookOpen className="h-4 w-4" />
+              <span>Featured Programs</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
               Our <span className="text-blue-600">Courses</span>
             </h2>
-            <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">Explore our comprehensive range of courses designed for every level</p>
+            <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Explore our comprehensive range of courses designed for every level
+            </p>
           </div>
 
           {courses && courses.length > 0 ? (
             <>
-              <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {courses.map((course) => (
                   <CourseCard key={course.id} course={course} />
                 ))}
               </div>
               {courses.length === 6 && (
-                <div className="mt-8 sm:mt-12 text-center">
-                  <Link href="/about">
-                    <Button size="lg" variant="outline" className="gap-2 border-2 border-blue-300 text-blue-700 hover:bg-blue-50">
-                      View All Courses <ChevronRight className="h-5 w-5" />
+                <div className="mt-10 text-center">
+                  <Link href="/courses">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="gap-2 border-gray-200 text-gray-900 hover:bg-gray-50"
+                    >
+                      View All Courses
+                      <ArrowRight className="h-5 w-5" />
                     </Button>
                   </Link>
                 </div>
               )}
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50/30 py-12 sm:py-16">
-              <BookOpen className="mb-4 h-10 sm:h-12 w-10 sm:w-12 text-blue-300" />
-              <p className="text-base sm:text-lg text-gray-600">No courses available yet</p>
-              <p className="mt-2 text-xs sm:text-sm text-gray-400">Check back soon for new courses!</p>
+            <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 py-16 sm:py-20">
+              <BookOpen className="mb-4 h-12 w-12 text-gray-300" />
+              <p className="text-lg text-gray-600">No courses available yet</p>
+              <p className="mt-2 text-sm text-gray-400">Check back soon for new courses!</p>
             </div>
           )}
         </section>
 
+        {/* Features Section */}
+        <section className="py-16 sm:py-20">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              Why Choose <span className="text-blue-600">Us?</span>
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+                className="border-gray-100 bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all card-hover"
+              >
+                <CardHeader className="p-6">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-red-600 text-white">
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="text-base sm:text-lg">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 pt-0">
+                  <p className="text-sm text-gray-600">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-16 sm:py-20">
+          <div className="mb-10 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-100">
+              <Quote className="h-4 w-4" />
+              <span>Student Testimonials</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              What Our <span className="text-blue-600">Students Say</span>
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="border-gray-100 bg-white shadow-card card-hover">
+                <CardHeader className="p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <CardDescription className="text-sm text-gray-600 leading-relaxed">
+                    "{testimonial.content}"
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6 pt-0">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-100 to-red-100 flex items-center justify-center">
+                      <span className="text-blue-700 font-bold text-sm">
+                        {testimonial.name.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                      <p className="text-xs text-gray-500">{testimonial.course}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         {/* Blogs Section */}
         {blogs.length > 0 && (
-          <section className="py-12 sm:py-16 lg:py-20">
-            <div className="mb-8 sm:mb-12 text-center">
-              <div className="mb-4 inline-flex items-center rounded-full bg-teal-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-teal-800">
-                <BookOpen className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                Insights & Stories
+          <section className="py-16 sm:py-20">
+            <div className="mb-10 text-center">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-100">
+                <BookOpen className="h-4 w-4" />
+                <span>Insights & Stories</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-                Latest <span className="text-teal-600">Blogs</span>
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                Latest <span className="text-blue-600">Blogs</span>
               </h2>
-              <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">Tips, stories, and insights from our community</p>
+              <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                Tips, stories, and insights from our community
+              </p>
             </div>
-            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {blogs.map((blog) => (
                 <Link key={blog.id} href={`/blogs/${blog.slug}`} className="group block">
-                  <Card className="flex flex-col overflow-hidden border-blue-100 transition-all hover:shadow-xl hover:border-teal-200 h-full">
+                  <Card className="flex flex-col overflow-hidden border-gray-100 shadow-card transition-all card-hover h-full">
                     <div className="relative h-48 sm:h-56 w-full overflow-hidden">
                       {blog.featured_image ? (
-                        <Image src={blog.featured_image} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <Image
+                          src={blog.featured_image}
+                          alt={blog.image_alt || blog.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       ) : (
-                        <div className="flex h-full items-center justify-center bg-gradient-to-br from-teal-100 via-cyan-50 to-blue-100">
-                          <BookOpen className="h-12 sm:h-16 w-12 sm:w-16 text-teal-300" />
+                        <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue-50 to-red-50">
+                          <BookOpen className="h-16 w-16 text-blue-300" />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-teal-700 backdrop-blur-sm">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-blue-700 backdrop-blur-sm">
                           <Calendar className="h-3 w-3" />
-                          {new Date(blog.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          {new Date(blog.created_at).toLocaleDateString('en-IN', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
                         </span>
                       </div>
                     </div>
-                    <CardHeader className="flex-1 p-3 sm:p-4">
-                      <CardTitle className="line-clamp-2 text-sm sm:text-base group-hover:text-teal-600 transition-colors">{blog.title}</CardTitle>
+                    <CardHeader className="flex-1 p-5 sm:p-6">
+                      <CardTitle className="line-clamp-2 text-base sm:text-lg group-hover:text-blue-600 transition-colors">
+                        {blog.title}
+                      </CardTitle>
                       <CardDescription className="text-xs sm:text-sm">By {blog.author}</CardDescription>
                     </CardHeader>
-                    <CardContent className="flex-1 p-3 sm:p-4 pt-0">
-                      <p className="line-clamp-3 text-xs sm:text-sm text-gray-600">{blog.excerpt || blog.content?.replace(/<[^>]*>/g, '').slice(0, 120)}</p>
+                    <CardContent className="flex-1 p-5 sm:p-6 pt-0">
+                      <p className="line-clamp-3 text-xs sm:text-sm text-gray-600">
+                        {blog.excerpt || blog.content?.replace(/<[^>]*>/g, '').slice(0, 150)}
+                      </p>
                     </CardContent>
-                    <div className="border-t border-blue-100 p-3 sm:p-4">
-                      <span className="text-xs sm:text-sm font-semibold text-teal-600 hover:text-teal-700 flex items-center gap-1 group-hover:gap-2 transition-all">
-                        Read More <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <div className="border-t border-gray-100 p-5 sm:p-6">
+                      <span className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Read More
+                        <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       </span>
                     </div>
                   </Card>
@@ -322,138 +443,68 @@ export default async function Home() {
           </section>
         )}
 
-        {/* Features Section */}
-        <section className="py-12 sm:py-16 lg:py-20">
-          <div className="mb-8 sm:mb-12 text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-              Why Choose <span className="text-blue-600">Us?</span>
+        {/* FAQ Section */}
+        <section className="py-16 sm:py-20">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              Frequently Asked <span className="text-blue-600">Questions</span>
             </h2>
+            <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Find answers to common questions about our academy
+            </p>
           </div>
-          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <Card className="border-blue-100 bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-lg transition-all">
-              <CardHeader className="p-4 sm:p-6">
-                <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-blue-600">
-                  <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <CardTitle className="text-base sm:text-lg">Expert Faculty</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0">
-                <p className="text-xs sm:text-sm text-gray-600">Learn from experienced educators with industry expertise</p>
-              </CardContent>
-            </Card>
-            <Card className="border-yellow-100 bg-gradient-to-br from-yellow-50 to-amber-50 hover:shadow-lg transition-all">
-              <CardHeader className="p-4 sm:p-6">
-                <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-yellow-500">
-                  <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <CardTitle className="text-base sm:text-lg">Proven Results</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0">
-                <p className="text-xs sm:text-sm text-gray-600">95% of our students achieve their academic goals</p>
-              </CardContent>
-            </Card>
-            <Card className="border-green-100 bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-lg transition-all">
-              <CardHeader className="p-4 sm:p-6">
-                <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-green-600">
-                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <CardTitle className="text-base sm:text-lg">Flexible Learning</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0">
-                <p className="text-xs sm:text-sm text-gray-600">Online and offline classes at your convenience</p>
-              </CardContent>
-            </Card>
-            <Card className="border-purple-100 bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-lg transition-all">
-              <CardHeader className="p-4 sm:p-6">
-                <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-purple-600">
-                  <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <CardTitle className="text-base sm:text-lg">Modern Curriculum</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0">
-                <p className="text-xs sm:text-sm text-gray-600">Updated courses aligned with industry standards</p>
-              </CardContent>
-            </Card>
+          <div className="mx-auto max-w-3xl">
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {faqs.map((faq) => (
+                <AccordionItem
+                  key={faq.id}
+                  value={faq.id}
+                  className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all"
+                >
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-gray-900 hover:no-underline hover:text-blue-600 sm:text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 pt-0 text-sm leading-relaxed text-gray-600">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
-     {/* FAQ Section */}
-<section className="py-12 sm:py-16 lg:py-20">
-  <div className="mb-8 sm:mb-12 text-center">
-    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-      Frequently Asked{" "}
-      <span className="text-blue-600">Questions</span>
-    </h2>
-
-    <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">
-      Find answers to common questions about our academy
-    </p>
-  </div>
-
-  <div className="mx-auto max-w-3xl">
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full space-y-4"
-    >
-      {faqs.map((faq) => (
-        <AccordionItem
-          key={faq.id}
-          value={faq.id}
-          className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all"
-        >
-          <AccordionTrigger className="px-5 py-4 text-left text-sm font-semibold text-gray-900 hover:no-underline hover:text-blue-600 sm:text-base">
-            {faq.question}
-          </AccordionTrigger>
-
-          <AccordionContent className="px-5 pb-5 pt-0 text-sm leading-relaxed text-gray-600">
-            {faq.answer}
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  </div>
-</section>
-
-      
 
         {/* CTA Section */}
-        <section className="py-12 sm:py-16 lg:py-20">
-          <div className="rounded-2xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 p-6 sm:p-8 lg:p-12 text-center text-white shadow-2xl">
-            <div className="mb-4 inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
-              <CheckCircle2 className="mr-2 h-4 w-4 text-yellow-400" />
-              Admission Open Now
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">Ready to Transform Your Future?</h2>
-            <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg opacity-90 mb-4">
-              Enroll today and take the first step towards a brighter future with Vihaan Education Academy.
+        <section className="py-16 sm:py-20">
+          <div className="rounded-3xl bg-gradient-to-br from-blue-600 via-purple-600 to-red-600 p-8 sm:p-12 lg:p-16 text-center text-white shadow-2xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
+              Ready to Transform Your Future?
+            </h2>
+            <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg opacity-90 mb-8 sm:mb-10">
+              Join thousands of successful students who have achieved their dreams with Vihaan Education Academy and Library.
             </p>
-            <div className="flex flex-col items-center justify-center gap-2 mb-6 sm:mb-8">
-              <div className="flex items-center gap-2 text-lg font-bold">
-                <Phone className="h-5 w-5" />
-                <span>📞 Contact: 92126 44428</span>
-              </div>
-              <p className="text-sm opacity-95">
-                Vihaan Education Academy – Better Education, Brighter Future.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
               <Link href="/admission" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto bg-yellow-400 text-gray-900 hover:bg-yellow-300 font-semibold gap-2 shadow-lg text-sm sm:text-base">
-                  Apply Now <ChevronRight className="h-4 w-4" />
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 font-semibold gap-2 shadow-lg text-sm sm:text-base"
+                >
+                  Apply Now
+                  <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/contact" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/20 font-semibold gap-2 text-sm sm:text-base">
-                  Get In Touch <MessageCircle className="h-4 w-4" />
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-white text-white hover:bg-white/10 font-semibold gap-2 text-sm sm:text-base"
+                >
+                  Contact Us
                 </Button>
               </Link>
             </div>
           </div>
         </section>
       </main>
-
-    
-
     </div>
   );
 }
