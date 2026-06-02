@@ -4,9 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import {
-  ChevronRight,
-} from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { MobileMenu } from '@/components/mobile-menu';
@@ -20,6 +18,10 @@ const navItems = [
   {
     name: 'About',
     href: '/about',
+  },
+  {
+    name: 'Courses',
+    href: '/courses',
   },
   {
     name: 'Blogs',
@@ -42,53 +44,63 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
 
-  // HIDE HEADER ON ADMIN PAGE
+  // Hide Header on Admin Pages
   if (pathname.startsWith('/admin')) {
     return null;
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/90 backdrop-blur-md shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/95 backdrop-blur-md shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
         
-        {/* LOGO */}
+        {/* Logo */}
         <Link
           href="/"
-          className="flex min-w-0 items-center gap-2 sm:gap-3"
+          className="flex items-center gap-3 shrink-0"
         >
           <Image
             src="/vihaanlogo.png"
-            alt="Vihaan Education Academy and Library Logo"
-            width={48}
-            height={48}
-            className="h-10 w-10 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12 sm:rounded-2xl"
+            alt="Vihaan Education Academy Logo"
+            width={50}
+            height={50}
+            className="h-10 w-10 rounded-xl object-contain sm:h-12 sm:w-12"
           />
 
-          <div className="min-w-0">
-            <h1 className="truncate text-sm font-bold text-gray-900 sm:text-2xl">
-              Vihaan Education
-            </h1>
+          <div>
+            {/* Mobile Logo Text */}
+            <div className="block md:hidden">
+              <h1 className="text-base font-bold text-gray-900">
+                Vihaan
+              </h1>
 
-            <p className="truncate text-[11px] text-gray-500 sm:text-xs">
-              Academy and Library
-            </p>
+              <p className="text-[10px] text-gray-500">
+                Academy
+              </p>
+            </div>
+
+            {/* Desktop Logo Text */}
+            <div className="hidden md:block">
+              <h1 className="whitespace-nowrap text-xl font-bold text-gray-900 lg:text-2xl">
+                Vihaan Education Academy
+              </h1>
+
+              <p className="text-xs text-gray-500">
+                Admission Guidance & Library
+              </p>
+            </div>
           </div>
         </Link>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden items-center gap-2 lg:flex">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href;
+            const isActive = pathname === item.href;
 
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-              >
+              <Link key={item.name} href={item.href}>
                 <Button
                   variant="ghost"
-                  className={`rounded-xl px-5 ${
+                  className={`rounded-xl px-3 xl:px-4 ${
                     isActive
                       ? 'bg-blue-50 text-blue-700'
                       : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700'
@@ -103,16 +115,15 @@ export function Header() {
           <Link href="/admin">
             <Button
               variant="outline"
-              className="border-blue-200 text-blue-700 hover:bg-blue-50"
+              className="ml-2 border-blue-200 text-blue-700 hover:bg-blue-50"
             >
               Admin
             </Button>
           </Link>
 
           <Link href="/admission">
-            <Button className="gap-2 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-black hover:from-yellow-500 hover:to-yellow-600">
+            <Button className="ml-2 gap-2 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-black hover:from-yellow-500 hover:to-yellow-600">
               Apply Now
-
               <ChevronRight className="h-4 w-4" />
             </Button>
           </Link>
@@ -122,8 +133,8 @@ export function Header() {
           </div>
         </nav>
 
-        {/* MOBILE MENU + CONTACT */}
-        <div className="shrink-0 flex items-center gap-2 lg:hidden">
+        {/* Mobile Navigation */}
+        <div className="flex items-center gap-2 lg:hidden">
           <ContactPopover />
           <MobileMenu />
         </div>

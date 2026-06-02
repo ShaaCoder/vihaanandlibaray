@@ -1,44 +1,70 @@
+
 'use client';
 
 import { useState } from 'react';
+import {
+  User,
+  Phone,
+  Mail,
+  BookOpen,
+  MessageSquare,
+  Send,
+  Loader2,
+  CheckCircle,
+} from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+} from '@/components/ui/card';
+
 import { createClient } from '@/lib/supabase/client';
 import { LeadFormData } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
-import { Loader as Loader2 } from 'lucide-react';
 
 interface ContactFormProps {
   initialCourse?: string;
 }
 
-export function ContactForm({ initialCourse = '' }: ContactFormProps) {
-  const [formData, setFormData] = useState<LeadFormData>({
-    name: '',
-    phone: '',
-    email: '',
-    course: initialCourse,
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export function ContactForm({
+  initialCourse = '',
+}: ContactFormProps) {
+  const [formData, setFormData] =
+    useState<LeadFormData>({
+      name: '',
+      phone: '',
+      email: '',
+      course: initialCourse,
+      message: '',
+    });
+
+  const [isSubmitting, setIsSubmitting] =
+    useState(false);
+
   const { toast } = useToast();
   const supabase = createClient();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const { error } = await (supabase.from('leads') as any).insert([
+      const { error } = await (
+        supabase.from('leads') as any
+      ).insert([
         {
           name: formData.name,
           phone: formData.phone,
           email: formData.email || null,
           course: formData.course,
-          message: formData.message || null,
+          message:
+            formData.message || null,
         },
       ]);
 
@@ -46,7 +72,8 @@ export function ContactForm({ initialCourse = '' }: ContactFormProps) {
 
       toast({
         title: 'Success!',
-        description: 'Thank you for your interest. We will contact you soon.',
+        description:
+          'Thank you for your enquiry. Our team will contact you soon.',
       });
 
       setFormData({
@@ -59,7 +86,8 @@ export function ContactForm({ initialCourse = '' }: ContactFormProps) {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to submit form. Please try again.',
+        description:
+          'Failed to submit form. Please try again.',
         variant: 'destructive',
       });
     } finally {
@@ -68,80 +96,189 @@ export function ContactForm({ initialCourse = '' }: ContactFormProps) {
   };
 
   return (
-    <Card className="mx-auto w-full max-w-2xl border-blue-100 shadow-xl shadow-blue-100/50">
-      <CardHeader className="px-4 sm:px-6">
-        <CardTitle className="text-blue-900">Contact Us</CardTitle>
-        <CardDescription>
-          Fill out the form below and we&apos;ll get back to you soon.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="px-4 sm:px-6">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name *</Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-              placeholder="Your full name"
-              className="border-blue-100 focus:border-blue-400 focus:ring-blue-400"
-            />
-          </div>
+    <Card className="overflow-hidden border-0 bg-white shadow-2xl">
+      {/* Top Banner */}
+
+      <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 p-8 text-white">
+        <h2 className="text-3xl font-bold">
+          Admission Enquiry
+        </h2>
+
+        <p className="mt-2 text-blue-100">
+          Fill out the form and our
+          counselors will contact you
+          shortly.
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <span className="rounded-full bg-white/10 px-3 py-1 text-sm">
+            Career Guidance
+          </span>
+
+          <span className="rounded-full bg-white/10 px-3 py-1 text-sm">
+            Admission Support
+          </span>
+
+          <span className="rounded-full bg-white/10 px-3 py-1 text-sm">
+            Expert Counseling
+          </span>
+        </div>
+      </div>
+
+      <CardContent className="p-6 md:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+        >
+          {/* Name */}
 
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone *</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              required
-              placeholder="Your contact number"
-              className="border-blue-100 focus:border-blue-400 focus:ring-blue-400"
-            />
+            <Label htmlFor="name">
+              Full Name *
+            </Label>
+
+            <div className="relative">
+              <User className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
+
+              <Input
+                id="name"
+                required
+                value={formData.name}
+                placeholder="Enter your full name"
+                className="h-12 rounded-xl pl-10"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    name: e.target.value,
+                  })
+                }
+              />
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="your.email@example.com"
-              className="border-blue-100 focus:border-blue-400 focus:ring-blue-400"
-            />
-          </div>
+          {/* Phone */}
 
           <div className="space-y-2">
-            <Label htmlFor="course">Course Interested In *</Label>
-            <Input
-              id="course"
-              value={formData.course}
-              onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-              required
-              placeholder="Course name"
-              className="border-blue-100 focus:border-blue-400 focus:ring-blue-400"
-            />
+            <Label htmlFor="phone">
+              Phone Number *
+            </Label>
+
+            <div className="relative">
+              <Phone className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
+
+              <Input
+                id="phone"
+                type="tel"
+                required
+                value={formData.phone}
+                placeholder="Enter your phone number"
+                className="h-12 rounded-xl pl-10"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    phone: e.target.value,
+                  })
+                }
+              />
+            </div>
           </div>
 
+          {/* Email */}
+
           <div className="space-y-2">
-            <Label htmlFor="message">Message</Label>
-            <Textarea
-              id="message"
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Any additional questions or information..."
-              rows={4}
-              className="border-blue-100 focus:border-blue-400 focus:ring-blue-400"
-            />
+            <Label htmlFor="email">
+              Email Address
+            </Label>
+
+            <div className="relative">
+              <Mail className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
+
+              <Input
+                id="email"
+                type="email"
+                value={formData.email}
+                placeholder="your@email.com"
+                className="h-12 rounded-xl pl-10"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    email: e.target.value,
+                  })
+                }
+              />
+            </div>
           </div>
+
+          {/* Course */}
+
+          <div className="space-y-2">
+            <Label htmlFor="course">
+              Course Interested In *
+            </Label>
+
+            <div className="relative">
+              <BookOpen className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
+
+              <Input
+                id="course"
+                required
+                value={formData.course}
+                placeholder="B.Tech, MBA, B.Ed, MLT..."
+                className="h-12 rounded-xl pl-10"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    course: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          {/* Message */}
+
+          <div className="space-y-2">
+            <Label htmlFor="message">
+              Message
+            </Label>
+
+            <div className="relative">
+              <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
+              <Textarea
+                id="message"
+                rows={5}
+                value={formData.message}
+                placeholder="Tell us about your admission requirements..."
+                className="rounded-xl pl-10"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    message: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          {/* Trust */}
+
+          <div className="rounded-2xl bg-blue-50 p-4">
+            <div className="flex items-center gap-2 text-sm text-blue-700">
+              <CheckCircle className="h-4 w-4" />
+
+              100% Secure. Your information
+              will only be used for
+              admission assistance.
+            </div>
+          </div>
+
+          {/* Submit */}
 
           <Button
             type="submit"
-            className="w-full bg-blue-600 text-white hover:bg-blue-700"
             disabled={isSubmitting}
+            className="h-12 w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:opacity-90"
           >
             {isSubmitting ? (
               <>
@@ -149,7 +286,10 @@ export function ContactForm({ initialCourse = '' }: ContactFormProps) {
                 Submitting...
               </>
             ) : (
-              'Submit Enquiry'
+              <>
+                Submit Enquiry
+                <Send className="ml-2 h-4 w-4" />
+              </>
             )}
           </Button>
         </form>

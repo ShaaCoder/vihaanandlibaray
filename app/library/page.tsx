@@ -12,51 +12,87 @@ import {
   Library,
   BookMarked,
   Wifi,
-  Laptop,
+  Shield,
+  Utensils,
+  Target,
+  CheckCircle2,
+  Check,
+  Phone,
   LampDesk,
 } from "lucide-react";
 
 export default function LibraryPage() {
-  const libraryFeatures = [
+  const whatWeProvide = [
     {
-      title: "1000+ Books",
-      description:
-        "Wide collection of academic, competitive exam, and reference books.",
+      title: "Quiet & Peaceful Study Environment",
+      description: "Distraction-free atmosphere designed for focused learning.",
       icon: BookOpen,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "Silent Study Area",
-      description:
-        "Peaceful and comfortable environment for focused learning.",
+      title: "Well-Equipped Reading Area",
+      description: "Modern facilities for comfortable reading and studying.",
       icon: LampDesk,
       color: "from-yellow-500 to-orange-500",
     },
     {
-      title: "Digital Learning",
-      description:
-        "Access e-books, PDFs, and online study resources anytime.",
-      icon: Laptop,
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      title: "Free WiFi",
-      description:
-        "High-speed internet available for all students in the library.",
+      title: "High-Speed Wi-Fi Access",
+      description: "Reliable internet for online resources and digital learning.",
       icon: Wifi,
       color: "from-green-500 to-emerald-500",
     },
+    {
+      title: "Comfortable Seating",
+      description: "Ergonomic seating for long study sessions.",
+      icon: Users,
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      title: "CCTV Surveillance",
+      description: "Safety and security with 24/7 monitoring.",
+      icon: Shield,
+      color: "from-red-500 to-rose-500",
+    },
+    {
+      title: "Flexible Timings",
+      description: "Open 7:00 AM – 10:00 PM for your convenience.",
+      icon: Clock,
+      color: "from-indigo-500 to-violet-500",
+    },
+    {
+      title: "Separate Dining Area",
+      description: "Space to refresh and recharge during study breaks.",
+      icon: Utensils,
+      color: "from-amber-500 to-yellow-500",
+    },
+    {
+      title: "For All Aspirants",
+      description: "Perfect for school, college, and competitive exam students.",
+      icon: Target,
+      color: "from-teal-500 to-cyan-500",
+    },
   ];
 
-  const categories = [
-    "NIOS Study Material",
-    "CBSE Books",
-    "Competitive Exam Books",
-    "English Grammar",
-    "Computer Science",
-    "Mathematics",
-    "Science & Technology",
-    "Current Affairs",
+  const whyChooseUs = [
+    "Distraction-Free Learning Environment",
+    "Study-Friendly Atmosphere",
+    "Clean & Hygienic Facilities",
+    "Safe & Secure Premises",
+    "Spacious Reading & Study Area",
+    "Reliable Internet Connectivity",
+    "Long Operating Hours",
+    "Affordable Membership Plans",
+  ];
+
+  const highlights = [
+    "Peaceful Environment for Better Concentration",
+    "Modern Study Facilities",
+    "High-Speed Wi-Fi",
+    "CCTV Monitored Premises",
+    "Comfortable Seating",
+    "Flexible Timings",
+    "Dedicated Reading Space",
+    "Student-Focused Environment",
   ];
 
   return (
@@ -71,21 +107,19 @@ export default function LibraryPage() {
             <div>
               <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
                 <Library className="mr-2 h-4 w-4" />
-                Knowledge Hub
+                Your Library, Your Success
               </div>
 
               <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                Welcome to Our
+                Welcome to
                 <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {" "}
-                  Library
+                  Vihaan Library
                 </span>
               </h1>
 
               <p className="mt-6 text-base leading-relaxed text-gray-600 sm:text-lg">
-                Explore our modern library filled with academic books,
-                competitive exam resources, digital learning materials, and a
-                peaceful study environment designed for student success.
+                Vihaan Library offers a quiet and comfortable place for students to study, read, and prepare for exams. With a peaceful environment, Wi-Fi, and modern facilities, we help students stay focused and achieve their goals. 📚✨
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -138,12 +172,12 @@ export default function LibraryPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* What We Provide */}
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center">
             <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
-              Library Features
+              What We Provide
             </h2>
 
             <p className="mt-4 text-gray-600">
@@ -152,7 +186,7 @@ export default function LibraryPage() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {libraryFeatures.map((feature, index) => {
+            {whatWeProvide.map((feature, index) => {
               const Icon = feature.icon;
 
               return (
@@ -180,34 +214,35 @@ export default function LibraryPage() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Why Choose Us */}
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <div className="mb-4 inline-flex items-center rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-yellow-700">
-              <BookMarked className="mr-2 h-4 w-4" />
-              Book Categories
+              <CheckCircle2 className="mr-2 h-4 w-4" />
+              Why Choose Vihaan Library?
             </div>
 
             <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
-              Available Resources
+              Why Choose Us?
             </h2>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((category, index) => (
+            {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg"
+                className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3"
               >
-                {category}
+                <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                {item}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Study Environment */}
+      {/* Our Mission & Highlights */}
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2">
@@ -224,55 +259,33 @@ export default function LibraryPage() {
             <div>
               <div className="mb-4 inline-flex items-center rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-700">
                 <GraduationCap className="mr-2 h-4 w-4" />
-                Smart Learning Space
+                Our Mission
               </div>
 
               <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
-                A Perfect Place
-                <span className="text-blue-600"> To Study</span>
+                Our Mission
               </h2>
 
               <p className="mt-5 text-base leading-relaxed text-gray-600">
-                Our library provides a peaceful and motivating atmosphere where
-                students can focus on studies, prepare for exams, and access
-                quality educational resources with complete comfort.
+                To create a positive and inspiring learning environment where students can focus, learn, grow, and succeed in achieving their academic and career goals.
               </p>
 
               <div className="mt-8 space-y-4">
-                <div className="flex items-center gap-3">
-                  <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-gray-700">
-                    Comfortable Seating Area
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-gray-700">
-                    Daily Newspapers & Magazines
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-gray-700">
-                    Separate Reading Sections
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-gray-700">
-                    Competitive Exam Preparation
-                  </span>
-                </div>
+                {highlights.map((highlight, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <Check className="h-5 w-5 text-yellow-500" />
+                    <span className="text-gray-700">
+                      {highlight}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Contact & Slogan */}
       <section className="pb-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 p-6 text-center text-white shadow-2xl sm:p-12">
@@ -281,9 +294,21 @@ export default function LibraryPage() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-base opacity-90 sm:text-lg">
-              Visit our library and explore thousands of educational resources
-              designed to help students succeed academically.
+              Visit our library and explore thousands of educational resources designed to help students succeed academically.
             </p>
+
+            <div className="mt-6 flex flex-col items-center justify-center gap-2">
+              <div className="flex items-center gap-2 text-lg font-semibold">
+                <Phone className="h-5 w-5" />
+                <span>📞 Contact: 9350211222</span>
+              </div>
+              <p className="text-xl font-bold opacity-95 mt-2">
+                “Read • Learn • Grow • Succeed” 📚✨
+              </p>
+              <p className="text-sm opacity-90">
+                Your Library, Your Success.
+              </p>
+            </div>
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link href="/contact" className="w-full sm:w-auto">

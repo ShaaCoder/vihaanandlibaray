@@ -36,6 +36,11 @@ const navItems = [
     icon: FileText,
   },
   {
+    name: 'Courses',
+    href: '/courses',
+    icon: FileText,
+  },
+  {
     name: 'Library',
     href: '/library',
     icon: BookOpen,

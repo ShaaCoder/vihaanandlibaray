@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
-import { BookOpen, GraduationCap, MapPin, Phone, MessageCircle, ChevronRight, Star, Users, Trophy, Clock, ArrowRight, Calendar, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { BookOpen, GraduationCap, MapPin, Phone, MessageCircle, ChevronRight, Star, Users, Trophy, Clock, ArrowRight, Calendar, Facebook, Instagram, Linkedin, Twitter, Globe, Languages, Monitor, PlayCircle, Award, Zap, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
 export default async function Home() {
@@ -20,6 +20,39 @@ export default async function Home() {
   const courses = (coursesResult.data || []) as Course[];
   const blogs = (blogsResult.data || []) as Blog[];
   const notices = (noticesResult.data || []) as Notice[];
+
+  const whatWeOffer = [
+    {
+      title: 'School Tuition (Classes 6th to 12th)',
+      description: 'Comprehensive coaching for CBSE students with concept-based learning, regular assessments, and individual attention.',
+      icon: BookOpen,
+      color: 'from-blue-500 to-cyan-500',
+    },
+    {
+      title: 'CBSE All Subjects',
+      description: 'Expert guidance in all major subjects with a focus on strong fundamentals and excellent academic performance.',
+      icon: GraduationCap,
+      color: 'from-indigo-500 to-purple-500',
+    },
+    {
+      title: 'French Language Tuition',
+      description: 'Professional French language classes for school curriculum, beginners, and language enthusiasts.',
+      icon: Languages,
+      color: 'from-pink-500 to-rose-500',
+    },
+    {
+      title: 'Spoken English',
+      description: 'Improve communication skills, vocabulary, pronunciation, and confidence through interactive spoken English sessions.',
+      icon: PlayCircle,
+      color: 'from-green-500 to-emerald-500',
+    },
+    {
+      title: 'Computer Classes',
+      description: 'Practical computer education covering basic computer skills, MS Office, internet usage, and digital literacy.',
+      icon: Monitor,
+      color: 'from-yellow-500 to-orange-500',
+    },
+  ];
 
   const faqs = [
     {
@@ -60,25 +93,25 @@ export default async function Home() {
             <div className="min-w-0 space-y-4 sm:space-y-6">
               <div className="space-y-3 sm:space-y-4">
                 <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-900 shadow-sm">
-                  <Star className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
-                  Excellence in Education
+                  <Award className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
+                  Welcome to Vihaan Education Academy
                 </div>
                 <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
-                  Your Journey to <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Success</span> Starts Here
+                  Shaping Futures with <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Quality Education</span>
                 </h1>
                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                  Vihaan Education Academy and Library provides world-class education with expert instructors, modern facilities, and personalized learning paths designed to unlock your potential.
+                  At Vihaan Education Academy, we are committed to providing quality education and personalized guidance to help students achieve academic excellence and build a successful future. Our experienced faculty, student-focused approach, and supportive learning environment make us a trusted choice for students and parents.
                 </p>
               </div>
               <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 pt-2">
                 <Link href="/admission" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 hover:from-yellow-500 hover:to-yellow-600 shadow-lg">
-                    Start Your Journey <ChevronRight className="h-5 w-5" />
+                    Enroll Now <ChevronRight className="h-5 w-5" />
                   </Button>
                 </Link>
-                <Link href="/about" className="w-full sm:w-auto">
+                <Link href="/contact" className="w-full sm:w-auto">
                   <Button size="lg" variant="outline" className="w-full gap-2 border-2 border-blue-300 text-blue-700 hover:bg-blue-50">
-                    Learn More <BookOpen className="h-5 w-5" />
+                    Contact Us <Phone className="h-5 w-5" />
                   </Button>
                 </Link>
               </div>
@@ -102,10 +135,43 @@ export default async function Home() {
               <div className="absolute inset-4 bg-gradient-to-br from-blue-400/20 via-transparent to-yellow-300/20 rounded-2xl lg:rounded-3xl backdrop-blur-sm flex items-center justify-center">
                 <div className="text-center">
                   <GraduationCap className="mx-auto h-20 sm:h-24 w-20 sm:w-24 text-blue-600/40 mb-4" />
-                  <p className="text-gray-600 font-semibold text-sm sm:text-base">Transform Your Future</p>
+                  <p className="text-gray-600 font-semibold text-sm sm:text-base">Better Education, Brighter Future</p>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* What We Offer Section */}
+        <section className="py-12 sm:py-16 lg:py-20">
+          <div className="mb-8 sm:mb-12 text-center">
+            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-800">
+              <Zap className="mr-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
+              What We Offer
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+              Our <span className="text-blue-600">Programs</span>
+            </h2>
+            <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">Comprehensive courses designed for every student's success</p>
+          </div>
+
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {whatWeOffer.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <Card key={index} className="border-blue-100 bg-white hover:shadow-xl transition-all hover:-translate-y-1">
+                  <CardHeader className="p-4 sm:p-6">
+                    <div className={`mb-4 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-gradient-to-r ${item.color}`}>
+                      <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                    </div>
+                    <CardTitle className="text-base sm:text-lg font-bold">{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </section>
 
@@ -353,10 +419,23 @@ export default async function Home() {
         {/* CTA Section */}
         <section className="py-12 sm:py-16 lg:py-20">
           <div className="rounded-2xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 p-6 sm:p-8 lg:p-12 text-center text-white shadow-2xl">
+            <div className="mb-4 inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
+              <CheckCircle2 className="mr-2 h-4 w-4 text-yellow-400" />
+              Admission Open Now
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">Ready to Transform Your Future?</h2>
-            <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg opacity-90 mb-6 sm:mb-8">
-              Join thousands of successful students who have achieved their dreams with Vihaan Education Academy and Library.
+            <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg opacity-90 mb-4">
+              Enroll today and take the first step towards a brighter future with Vihaan Education Academy.
             </p>
+            <div className="flex flex-col items-center justify-center gap-2 mb-6 sm:mb-8">
+              <div className="flex items-center gap-2 text-lg font-bold">
+                <Phone className="h-5 w-5" />
+                <span>📞 Contact: 92126 44428</span>
+              </div>
+              <p className="text-sm opacity-95">
+                Vihaan Education Academy – Better Education, Brighter Future.
+              </p>
+            </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-4">
               <Link href="/admission" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto bg-yellow-400 text-gray-900 hover:bg-yellow-300 font-semibold gap-2 shadow-lg text-sm sm:text-base">
