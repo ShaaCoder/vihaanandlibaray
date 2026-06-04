@@ -143,11 +143,11 @@ export default function Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="mt-1 h-4 w-4 shrink-0 text-blue-600" />
                   <span className="leading-relaxed">
-                    2nd Floor, Vijay Vihar,
+                    A-309, 2nd Floor,
                     <br />
-                    Phase 1, Sector 4, Rohini,
+                    Landmark Vijay Vihar Petrol Pump &amp; Mount Abu Junior School,
                     <br />
-                    New Delhi - 110085
+                    Sector-4, Rohini, Delhi-85
                   </span>
                 </li>
                 <li className="flex items-center gap-3">

@@ -231,13 +231,11 @@ export default function AboutPage() {
                   <p className="text-gray-600">
                     VIHAAN EDUCATION ACADEMY AND LIBRARY,
                     <br />
-                    2nd Floor, Vijay Vihar,
+                    A-309, 2nd Floor,
                     <br />
-                    Vijay Vihar Phase I,
+                    Landmark Vijay Vihar Petrol Pump &amp; Mount Abu Junior School,
                     <br />
-                    Phase 1, Sector 4, Rohini,
-                    <br />
-                    New Delhi, Delhi - 110085
+                    Sector-4, Rohini, Delhi-85
                   </p>
                 </div>
               </div>

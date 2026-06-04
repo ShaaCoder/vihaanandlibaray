@@ -51,6 +51,10 @@ export default function CoursesSection() {
           title: courseData.title,
           description: courseData.description,
           image_url: courseData.image_url,
+          slug: courseData.slug,
+          duration: courseData.duration,
+          fee: courseData.fee,
+          featured: courseData.featured,
         },
       ]);
 
@@ -73,6 +77,10 @@ export default function CoursesSection() {
           title: courseData.title,
           description: courseData.description,
           image_url: courseData.image_url,
+          slug: courseData.slug,
+          duration: courseData.duration,
+          fee: courseData.fee,
+          featured: courseData.featured,
         })
         .eq("id", id);
 

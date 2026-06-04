@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   GraduationCap,
-  Briefcase,
-  HeartPulse,
   BookOpen,
-  CheckCircle,
-  Phone,
-  Mail,
   ArrowRight,
+  Clock,
+  BadgeIndianRupee,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createServerClient } from '@/lib/supabase/server';
+import { Course } from '@/lib/types';
+import { courses as fallbackCourses } from '@/lib/data/courses';
 
 export const metadata: Metadata = {
   title: "Courses | Vihaan Education Academy and Library",
@@ -41,44 +43,32 @@ export const metadata: Metadata = {
   },
 };
 
-const undergraduateCourses = [
-  "B.A.",
-  "B.Sc.",
-  "B.Tech",
-  "BBA",
-];
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
-const postgraduateCourses = [
-  "M.A.",
-  "M.Sc.",
-  "MBA",
-];
+export default async function CoursesPage() {
+  const supabase = createServerClient();
+  let courses: Course[] = [];
 
-const healthcareCourses = [
-  "Optometry",
-  "Radiology & Imaging Technology",
-  "Medical Lab Technology (MLT)",
-  "OT & Anesthesia Technology",
-  "Physician Assistant Programs",
-];
+  try {
+    const { data } = await supabase
+      .from('courses')
+      .select('*')
+      .order('created_at', { ascending: false });
+    courses = (data || []) as Course[];
+  } catch (e) {
+    // Use fallback data
+  }
 
-const teacherTrainingCourses = [
-  "JBT (Junior Basic Training)",
-  "B.Ed. (Bachelor of Education)",
-];
+  // Apply fallbacks
+  if (!courses || courses.length === 0) {
+    courses = fallbackCourses;
+  }
 
-const whyChooseUs = [
-  "Quality Education Support",
-  "Experienced Faculty & Counselors",
-  "Career Guidance & Admission Assistance",
-  "Modern Learning Environment",
-  "Multiple Course Options Under One Roof",
-  "Student-Centered Approach",
-  "Trusted Academic Support",
-  "Personalized Counseling",
-];
-
-export default function CoursesPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-red-50">
       {/* Hero Section */}
@@ -117,167 +107,117 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Intro */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 max-w-5xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-            Explore Our Academic Programs
-          </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            We help students choose the right educational path through
-            personalized counseling, admission assistance, and career-focused
-            guidance. Whether you are looking for a degree program,
-            teacher training course, or healthcare education, we are here
-            to support your journey.
-          </p>
-        </div>
-      </section>
-
-      {/* Undergraduate */}
-      <section className="py-16 bg-white">
+      {/* Courses Grid */}
+      <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
-              <GraduationCap className="w-6 h-6" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">
-              Undergraduate Programs
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Our Courses
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Explore all the courses we offer to help you achieve your academic goals
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {undergraduateCourses.map((course) => (
-              <div
-                key={course}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card card-hover"
-              >
-                <h3 className="font-bold text-xl mb-3 text-gray-900">{course}</h3>
-                <p className="text-gray-600">
-                  Professional undergraduate program with expert admission
-                  support.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Postgraduate */}
-      <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
-              <Briefcase className="w-6 h-6" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">
-              Postgraduate Programs
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {postgraduateCourses.map((course) => (
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {courses.map((course) => (
               <div
-                key={course}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card card-hover"
+                key={course.id}
+                className={`group overflow-hidden rounded-3xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
+                  course.featured 
+                    ? 'border-2 border-blue-600 shadow-blue-100' 
+                    : 'border border-slate-200'
+                }`}
               >
-                <h3 className="font-bold text-xl mb-3 text-gray-900">{course}</h3>
-                <p className="text-gray-600">
-                  Advanced postgraduate education for career growth and
-                  specialization.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                {/* Top Gradient */}
+                <div className={`h-2 ${
+                  course.featured 
+                    ? 'bg-gradient-to-r from-red-600 via-blue-600 to-red-600' 
+                    : 'bg-gradient-to-r from-blue-600 via-blue-500 to-red-600'
+                }`} />
 
-      {/* Healthcare */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-red-600 to-red-700 text-white">
-              <HeartPulse className="w-6 h-6" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">
-              Healthcare & Paramedical Courses
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {healthcareCourses.map((course) => (
-              <div
-                key={course}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card card-hover"
-              >
-                <h3 className="font-bold text-lg mb-3 text-gray-900">{course}</h3>
-                <p className="text-gray-600">
-                  Industry-focused healthcare education with excellent career
-                  opportunities.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                {/* Image */}
+              <div className="relative h-60 overflow-hidden">
+                {course.image_url || course.image ? (
+                  <Image
+                    src={course.image_url || course.image!}
+                    alt={course.title}
+                    fill
+                    sizes="(max-width:768px) 100vw, 50vw"
+                    className="object-cover transition duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue-100 to-red-100">
+                    <GraduationCap className="h-20 w-20 text-blue-600" />
+                  </div>
+                )}
 
-      {/* Teacher Training */}
-      <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">
-              Teacher Training Programs
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {teacherTrainingCourses.map((course) => (
-              <div
-                key={course}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card card-hover"
-              >
-                <h3 className="font-bold text-xl mb-3 text-gray-900">{course}</h3>
-                <p className="text-gray-600">
-                  Build a successful teaching career through professional
-                  training and certification.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                  <div className="absolute left-4 top-4 flex gap-2">
+                    {course.featured && (
+                      <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white backdrop-blur flex items-center gap-1">
+                        <Star className="h-3 w-3" />
+                        Featured
+                      </span>
+                    )}
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-blue-700 backdrop-blur">
+                      Popular Course
+                    </span>
+                  </div>
+                </div>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-14 text-gray-900">
-            Why Choose Vihaan Education Academy?
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyChooseUs.map((item) => (
-              <div
-                key={item}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-card card-hover"
-              >
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="text-blue-600 w-5 h-5" />
-                  <span className="font-medium text-gray-800">{item}</span>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="mb-3 text-xl font-bold text-slate-900 transition-colors group-hover:text-blue-600">
+                    {course.title}
+                  </h3>
+
+                  <p className="line-clamp-3 text-sm leading-7 text-slate-600 mb-4">
+                    {course.description || 'Professional course designed for academic excellence and career growth.'}
+                  </p>
+
+                  {/* Duration & Fee */}
+                  <div className="flex flex-wrap gap-4 mb-4">
+                    {course.duration && (
+                      <div className="flex items-center gap-2 text-sm text-slate-600 bg-blue-50 px-3 py-1.5 rounded-full">
+                        <Clock className="h-4 w-4 text-blue-600" />
+                        {course.duration}
+                      </div>
+                    )}
+                    {course.fee && (
+                      <div className="flex items-center gap-2 text-sm text-slate-600 bg-red-50 px-3 py-1.5 rounded-full">
+                        <BadgeIndianRupee className="h-4 w-4 text-red-600" />
+                        {course.fee}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="flex gap-3">
+                    <Link
+                      href={`/courses/${course.slug || generateSlug(course.title)}`}
+                      className="flex-1"
+                    >
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-xl"
+                      >
+                        Details
+                      </Button>
+                    </Link>
+
+                    <Link
+                      href="/admission"
+                      className="flex-1"
+                    >
+                      <Button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700">
+                        Enroll
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Mission */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-red-50">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <h2 className="text-4xl font-bold mb-6 text-gray-900">
-            Our Mission
-          </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            To empower students with the right education, guidance, and
-            opportunities that help them build successful careers and achieve
-            their goals.
-          </p>
         </div>
       </section>
 
@@ -291,16 +231,6 @@ export default function CoursesPage() {
             Get personalized counseling, admission guidance, and career support
             from our experienced team.
           </p>
-          <div className="flex flex-col items-center gap-3 mb-8">
-            <div className="flex items-center gap-2">
-              <Phone className="w-5 h-5" />
-              <span className="text-lg">92126 44428</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-5 h-5" />
-              <span className="text-lg">vihaaneducationacademy@gmail.com</span>
-            </div>
-          </div>
           <Link href="/admission" className="inline-flex w-full sm:w-auto">
             <Button
               size="lg"

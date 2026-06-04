@@ -69,7 +69,14 @@ export default function AdminPage() {
   const [studentFilterClass, setStudentFilterClass] = useState('all');
   const { toast } = useToast();
 
-  const [courseForm, setCourseForm] = useState({ title: '', description: '', image_url: null as string | null });
+  function generateSlug(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
+
+  const [courseForm, setCourseForm] = useState({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
   const [noticeForm, setNoticeForm] = useState({ title: '', content: '', priority: 'medium', is_active: true });
   const [studentForm, setStudentForm] = useState({
     name: '', email: '', enrollment_number: '', course: '',
@@ -117,17 +124,34 @@ export default function AdminPage() {
   const handleSubmitCourse = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const slug = generateSlug(courseForm.title);
     try {
       if (editingId) {
-        const { error } = await (supabase.from('courses') as any).update({ title: courseForm.title, description: courseForm.description, image_url: courseForm.image_url }).eq('id', editingId);
+        const { error } = await (supabase.from('courses') as any).update({ 
+          title: courseForm.title, 
+          description: courseForm.description, 
+          image_url: courseForm.image_url,
+          slug,
+          duration: courseForm.duration,
+          fee: courseForm.fee,
+          featured: courseForm.featured
+        }).eq('id', editingId);
         if (error) throw error;
         toast({ title: 'Success', description: 'Course updated' });
       } else {
-        const { error } = await (supabase.from('courses') as any).insert([{ title: courseForm.title, description: courseForm.description, image_url: courseForm.image_url }]);
+        const { error } = await (supabase.from('courses') as any).insert([{ 
+          title: courseForm.title, 
+          description: courseForm.description, 
+          image_url: courseForm.image_url,
+          slug,
+          duration: courseForm.duration,
+          fee: courseForm.fee,
+          featured: courseForm.featured
+        }]);
         if (error) throw error;
         toast({ title: 'Success', description: 'Course added' });
       }
-      setCourseForm({ title: '', description: '', image_url: null });
+      setCourseForm({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
       setEditingId(null);
       setEditingType(null);
       loadData();
@@ -219,7 +243,14 @@ export default function AdminPage() {
     setEditingId(item.id);
     setEditingType(type);
     if (type === 'course') {
-      setCourseForm({ title: item.title, description: item.description || '', image_url: item.image_url || null });
+      setCourseForm({ 
+        title: item.title, 
+        description: item.description || '', 
+        image_url: item.image_url || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop',
+        duration: item.duration || 'Flexible',
+        fee: item.fee || '',
+        featured: item.featured || false
+      });
     } else if (type === 'notice') {
       setNoticeForm({ title: item.title, content: item.content || '', priority: item.priority || 'medium', is_active: item.is_active !== false });
     } else if (type === 'student') {
@@ -250,7 +281,7 @@ export default function AdminPage() {
   const cancelEdit = () => {
     setEditingId(null);
     setEditingType(null);
-    setCourseForm({ title: '', description: '', image_url: null });
+    setCourseForm({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
     setNoticeForm({ title: '', content: '', priority: 'medium', is_active: true });
     setStudentForm({ name: '', email: '', enrollment_number: '', course: '', phone: '', class: '', reference_number: '', subjects: '' });
   };
@@ -366,7 +397,27 @@ export default function AdminPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Course Image</Label>
-                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url })} folder="courses" />
+                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop' })} folder="courses" />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label>Duration</Label>
+                      <Input value={courseForm.duration} onChange={(e) => setCourseForm({ ...courseForm, duration: e.target.value })} placeholder="e.g., 3 months, Flexible" className={inputClass} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Fee</Label>
+                      <Input value={courseForm.fee} onChange={(e) => setCourseForm({ ...courseForm, fee: e.target.value })} placeholder="e.g., ₹5000, Contact Us" className={inputClass} />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="checkbox" 
+                      id="course-featured" 
+                      checked={courseForm.featured} 
+                      onChange={(e) => setCourseForm({ ...courseForm, featured: e.target.checked })} 
+                      className="h-4 w-4 text-blue-600" 
+                    />
+                    <Label htmlFor="course-featured" className="mb-0 cursor-pointer">Featured Course</Label>
                   </div>
                   <div className="flex flex-col gap-2 sm:flex-row">
                     <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">

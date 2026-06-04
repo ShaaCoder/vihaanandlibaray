@@ -69,7 +69,7 @@ export default function RootLayout({
               description: 'Quality education courses and library for your success since 2001',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: '65/66, Vijay Vihar Phase I, Sector 5, Rohini',
+                streetAddress: 'A-309, 2nd Floor, Landmark Vijay Vihar Petrol Pump & Mount Abu Junior School, Sector-4, Rohini',
                 addressLocality: 'Delhi',
                 postalCode: '110085',
                 addressCountry: 'IN',
@@ -92,7 +92,7 @@ export default function RootLayout({
               image: 'https://vihaaneducation.com/vihaanlogo.png',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: '65/66, Vijay Vihar Phase I, Sector 5, Rohini',
+                streetAddress: 'A-309, 2nd Floor, Landmark Vijay Vihar Petrol Pump & Mount Abu Junior School, Sector-4, Rohini',
                 addressLocality: 'Delhi',
                 postalCode: '110085',
                 addressCountry: 'IN',

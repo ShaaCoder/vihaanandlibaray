@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { Course } from "@/lib/types";
 import CourseImageUpload from "./course-image-upload";
 
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 type Props = {
   onAddCourse: (course: Omit<Course, "id" | "created_at">) => void;
   editingCourse: Course | null;
@@ -18,26 +25,51 @@ export default function CourseForm({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+  const [duration, setDuration] = useState("Flexible");
+  const [fee, setFee] = useState("");
+  const [featured, setFeatured] = useState(false);
 
   useEffect(() => {
     if (editingCourse) {
       setTitle(editingCourse.title);
       setDescription(editingCourse.description);
-      setImage(editingCourse.image_url || "");
+      setImage(editingCourse.image_url || editingCourse.image || "");
+      setDuration(editingCourse.duration || "Flexible");
+      setFee(editingCourse.fee || "");
+      setFeatured(editingCourse.featured || false);
     } else {
       setTitle("");
       setDescription("");
       setImage("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+      setDuration("Flexible");
+      setFee("");
+      setFeatured(false);
     }
   }, [editingCourse]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const slug = generateSlug(title);
     if (editingCourse) {
-      onUpdateCourse(editingCourse.id, { title, description, image_url: image });
+      onUpdateCourse(editingCourse.id, { 
+        title, 
+        description, 
+        image_url: image,
+        slug,
+        duration,
+        fee,
+        featured
+      });
     } else {
-      const slug = title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-      onAddCourse({ title, description, image_url: image, slug });
+      onAddCourse({ 
+        title, 
+        description, 
+        image_url: image, 
+        slug,
+        duration,
+        fee,
+        featured
+      });
     }
   };
 
@@ -94,6 +126,69 @@ export default function CourseForm({
               focus:border-blue-500
             "
           />
+        </div>
+
+        {/* Duration & Fee Row */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Duration */}
+          <div>
+            <label className="block text-sm font-semibold mb-3">
+              Duration
+            </label>
+            <input
+              type="text"
+              placeholder="e.g., 3 months, 6 months"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              className="
+                w-full
+                h-14
+                border
+                border-blue-100
+                rounded-xl
+                px-4
+                outline-none
+                focus:border-blue-500
+              "
+            />
+          </div>
+
+          {/* Fee */}
+          <div>
+            <label className="block text-sm font-semibold mb-3">
+              Fee
+            </label>
+            <input
+              type="text"
+              placeholder="e.g., ₹5000, Contact Us"
+              value={fee}
+              onChange={(e) => setFee(e.target.value)}
+              className="
+                w-full
+                h-14
+                border
+                border-blue-100
+                rounded-xl
+                px-4
+                outline-none
+                focus:border-blue-500
+              "
+            />
+          </div>
+        </div>
+
+        {/* Featured Checkbox */}
+        <div className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            id="featured"
+            checked={featured}
+            onChange={(e) => setFeatured(e.target.checked)}
+            className="h-5 w-5 text-blue-600"
+          />
+          <label htmlFor="featured" className="text-sm font-semibold">
+            Featured Course
+          </label>
         </div>
 
         {/* IMAGE */}

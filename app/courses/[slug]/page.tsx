@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { courses as fallbackCourses } from '@/lib/data/courses';
+import { Course } from '@/lib/types';
 
 interface PageProps {
   params: {
@@ -21,16 +23,32 @@ interface PageProps {
   };
 }
 
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 export async function generateMetadata({
   params,
 }: PageProps) {
   const supabase = createServerClient();
 
-  const { data: course } = await supabase
+  // Try to find by slug first
+  let { data: course } = await supabase
     .from('courses')
     .select('*')
     .eq('slug', params.slug)
     .single();
+
+  // If not found, try fallback courses
+  if (!course) {
+    course = fallbackCourses.find(c => 
+      c.slug === params.slug || 
+      generateSlug(c.title) === params.slug
+    ) as Course | undefined;
+  }
 
   if (!course) {
     return {
@@ -39,14 +57,12 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${course.title} | Vihaan Education Academy`,
+    title: `${course.title} | Vihaan Education Academy and Library`,
     description: course.description,
     openGraph: {
       title: course.title,
       description: course.description,
-      images: course.image_url
-        ? [course.image_url]
-        : [],
+      images: course.image_url || course.image ? [course.image_url || course.image || ''] : [],
     },
   };
 }
@@ -56,11 +72,20 @@ export default async function CourseDetailsPage({
 }: PageProps) {
   const supabase = createServerClient();
 
-  const { data: course } = await supabase
+  // Try to find by slug first
+  let { data: course } = await supabase
     .from('courses')
     .select('*')
     .eq('slug', params.slug)
     .single();
+
+  // If not found, try fallback courses
+  if (!course) {
+    course = fallbackCourses.find(c => 
+      c.slug === params.slug || 
+      generateSlug(c.title) === params.slug
+    ) as Course | undefined;
+  }
 
   if (!course) {
     notFound();
@@ -167,9 +192,9 @@ export default async function CourseDetailsPage({
 
               <div className="overflow-hidden rounded-3xl shadow-2xl">
 
-                {course.image_url ? (
+                {course.image_url || course.image ? (
                   <Image
-                    src={course.image_url}
+                    src={course.image_url || course.image || ''}
                     alt={course.title}
                     width={1200}
                     height={800}
@@ -204,15 +229,15 @@ export default async function CourseDetailsPage({
             <div className="grid gap-5 md:grid-cols-2">
 
               {[
-                'Expert faculty guidance',
-                'Comprehensive study material',
-                'Regular mock tests',
-                'Exam preparation strategy',
-                'Personalized mentoring',
-                'Doubt solving sessions',
-              ].map((item) => (
+                "Expert faculty guidance",
+                "Comprehensive study material",
+                "Regular mock tests",
+                "Exam preparation strategy",
+                "Personalized mentoring",
+                "Doubt solving sessions",
+              ].map((item, index) => (
                 <div
-                  key={item}
+                  key={index}
                   className="flex items-center gap-3"
                 >
                   <CheckCircle className="h-5 w-5 text-green-600" />
@@ -240,7 +265,7 @@ export default async function CourseDetailsPage({
             </h2>
 
             <p className="mt-3 text-lg text-white/90">
-              Join Vihaan Education Academy and achieve
+              Join Vihaan Education Academy and Library and achieve
               your academic goals with confidence.
             </p>
 
