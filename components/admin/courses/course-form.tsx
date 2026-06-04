@@ -36,7 +36,8 @@ export default function CourseForm({
     if (editingCourse) {
       onUpdateCourse(editingCourse.id, { title, description, image_url: image });
     } else {
-      onAddCourse({ title, description, image_url: image });
+      const slug = title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+      onAddCourse({ title, description, image_url: image, slug });
     }
   };
 
