@@ -21,6 +21,8 @@ import Image from 'next/image';
 import { getPublishedBlogs } from '@/lib/blog/queries';
 import { courses as fallbackCourses } from '@/lib/data/courses';
 import { notices as fallbackNotices } from '@/lib/data/notices';
+import { HeroSection } from '@/components/hero-section';
+import { CoursesSection } from '@/components/home/courses-section';
 
 const testimonials = [
   {
@@ -126,66 +128,7 @@ export default async function Home() {
     <div className="min-h-screen bg-white">
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="py-16 sm:py-24 lg:py-32">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="space-y-6 sm:space-y-8">
-              <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm border border-blue-100">
-                <Star className="h-4 w-4 text-yellow-500" />
-                <span>Excellence in Education Since 2001</span>
-              </div>
-              <div className="space-y-4">
-                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                  Your Journey to <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">Success</span> Starts Here
-                </h1>
-                <p className="text-lg text-gray-600 leading-relaxed sm:text-xl">
-                  Vihaan Education Academy and Library provides world-class education with expert instructors, modern facilities, and personalized learning paths designed to unlock your potential.
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 pt-2">
-                <Link href="/admission" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 shadow-lg shadow-red-200 transition-all duration-200">
-                    Apply Now
-                    <ArrowRight className="h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link href="/about" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full gap-2 border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300">
-                    Learn More
-                    <BookOpen className="h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">500+</div>
-                  <p className="text-sm text-gray-500 sm:text-base">Happy Students</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">50+</div>
-                  <p className="text-sm text-gray-500 sm:text-base">Expert Courses</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 sm:text-4xl">95%</div>
-                  <p className="text-sm text-gray-500 sm:text-base">Success Rate</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-br from-blue-50 to-red-50 rounded-3xl blur-xl opacity-50"></div>
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 to-red-50 border border-gray-100 shadow-card">
-                <div className="p-8 sm:p-12 flex flex-col items-center justify-center min-h-[350px] sm:min-h-[450px]">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-gradient-to-br from-blue-200 to-red-200 flex items-center justify-center shadow-lg mb-6">
-                    <GraduationCap className="h-16 w-16 sm:h-20 sm:w-20 text-white" />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Transform Your Future</h3>
-                    <p className="text-gray-600">Join thousands of successful students</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection />
 
         {/* Notices Section */}
         {notices.length > 0 && (
@@ -260,51 +203,7 @@ export default async function Home() {
           </section>
         )}
 
-        {/* Courses Section */}
-        <section className="py-16 sm:py-20">
-          <div className="mb-10 text-center">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-100">
-              <BookOpen className="h-4 w-4" />
-              <span>Featured Programs</span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Our <span className="text-blue-600">Courses</span>
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-              Explore our comprehensive range of courses designed for every level
-            </p>
-          </div>
-
-          {courses && courses.length > 0 ? (
-            <>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {courses.map((course) => (
-                  <CourseCard key={course.id} course={course} />
-                ))}
-              </div>
-              {courses.length === 6 && (
-                <div className="mt-10 text-center">
-                  <Link href="/courses">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="gap-2 border-gray-200 text-gray-900 hover:bg-gray-50"
-                    >
-                      View All Courses
-                      <ArrowRight className="h-5 w-5" />
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 py-16 sm:py-20">
-              <BookOpen className="mb-4 h-12 w-12 text-gray-300" />
-              <p className="text-lg text-gray-600">No courses available yet</p>
-              <p className="mt-2 text-sm text-gray-400">Check back soon for new courses!</p>
-            </div>
-          )}
-        </section>
+     <CoursesSection courses={courses} />
 
         {/* Features Section */}
         <section className="py-16 sm:py-20">
