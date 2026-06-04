@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { Course } from "@/types/course";
+import { Course } from "@/lib/types";
 
 type Props = {
   course: Course;
