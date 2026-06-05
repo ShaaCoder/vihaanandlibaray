@@ -1,6 +1,7 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import { Inter } from 'next/font/google';
 
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_TOKEN ? {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_TOKEN,
+  } : undefined,
 };
 
 export default function RootLayout({
@@ -48,6 +52,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
+      <head>
+        {/* Google Analytics */}
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+                `,
+              }}
+            />
+          </>
+        )}
+      </head>
       <body className="bg-white text-gray-900 antialiased">
         <AuthProvider>
           <Header />
