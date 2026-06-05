@@ -33,7 +33,7 @@ export function CoursesSection({
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/40 to-red-50/30" />
 
-      <div className="relative">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-5 py-2 text-sm font-semibold text-blue-700">
