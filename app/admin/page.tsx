@@ -397,7 +397,7 @@ export default function AdminPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Course Image</Label>
-                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop' })} folder="courses" />
+                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop' })} bucket="courses" folder="uploads" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">

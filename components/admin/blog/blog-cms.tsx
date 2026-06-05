@@ -179,14 +179,14 @@ export function BlogCMS() {
 
     setUploading(true);
     const ext = file.name.split('.').pop();
-    const path = `blogs/${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from('images').upload(path, file);
+    const path = `uploads/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
+    const { error } = await supabase.storage.from('blogs').upload(path, file);
     if (error) {
       toast.error('Image upload failed');
       setUploading(false);
       return;
     }
-    const { data: urlData } = supabase.storage.from('images').getPublicUrl(path);
+    const { data: urlData } = supabase.storage.from('blogs').getPublicUrl(path);
     setForm(prev => ({
       ...prev,
       featured_image: urlData.publicUrl,

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Course } from "@/lib/types";
-import CourseImageUpload from "./course-image-upload";
+import { ImageUpload } from "@/components/image-upload";
 
 function generateSlug(title: string): string {
   return title
@@ -196,7 +196,7 @@ export default function CourseForm({
           <label className="block text-sm font-semibold mb-3">
             Course Image
           </label>
-          <CourseImageUpload onImageChange={setImage} currentImage={image} />
+          <ImageUpload value={image} onChange={(url) => setImage(url || '')} bucket="courses" folder="uploads" />
         </div>
 
         {/* BUTTONS */}
