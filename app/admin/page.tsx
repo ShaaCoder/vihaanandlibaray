@@ -76,7 +76,7 @@ export default function AdminPage() {
       .replace(/(^-|-$)/g, '');
   }
 
-  const [courseForm, setCourseForm] = useState({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
+  const [courseForm, setCourseForm] = useState({ title: '', description: '', image_url: '', duration: 'Flexible', fee: '', featured: false });
   const [noticeForm, setNoticeForm] = useState({ title: '', content: '', priority: 'medium', is_active: true });
   const [studentForm, setStudentForm] = useState({
     name: '', email: '', enrollment_number: '', course: '',
@@ -151,7 +151,7 @@ export default function AdminPage() {
         if (error) throw error;
         toast({ title: 'Success', description: 'Course added' });
       }
-      setCourseForm({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
+      setCourseForm({ title: '', description: '', image_url: '', duration: 'Flexible', fee: '', featured: false });
       setEditingId(null);
       setEditingType(null);
       loadData();
@@ -281,7 +281,7 @@ export default function AdminPage() {
   const cancelEdit = () => {
     setEditingId(null);
     setEditingType(null);
-    setCourseForm({ title: '', description: '', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop', duration: 'Flexible', fee: '', featured: false });
+    setCourseForm({ title: '', description: '', image_url: '', duration: 'Flexible', fee: '', featured: false });
     setNoticeForm({ title: '', content: '', priority: 'medium', is_active: true });
     setStudentForm({ name: '', email: '', enrollment_number: '', course: '', phone: '', class: '', reference_number: '', subjects: '' });
   };
@@ -397,7 +397,7 @@ export default function AdminPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Course Image</Label>
-                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop' })} bucket="courses" folder="uploads" />
+                    <ImageUpload value={courseForm.image_url} onChange={(url) => setCourseForm({ ...courseForm, image_url: url || '' })} bucket="courses" folder="uploads" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">

@@ -24,7 +24,7 @@ export default function CourseForm({
 }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+  const [image, setImage] = useState("");
   const [duration, setDuration] = useState("Flexible");
   const [fee, setFee] = useState("");
   const [featured, setFeatured] = useState(false);
@@ -40,7 +40,7 @@ export default function CourseForm({
     } else {
       setTitle("");
       setDescription("");
-      setImage("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+      setImage("");
       setDuration("Flexible");
       setFee("");
       setFeatured(false);

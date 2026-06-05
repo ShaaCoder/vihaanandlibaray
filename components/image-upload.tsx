@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { ImagePlus, X, Loader as Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import { toast } from 'sonner';
 
 interface ImageUploadProps {
   value: string | null;
@@ -16,17 +16,19 @@ interface ImageUploadProps {
 export function ImageUpload({ value, onChange, bucket = 'images', folder = 'uploads' }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const supabase = createClient();
+  const supabaseRef = useRef(createClient());
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be under 5MB');
       return;
     }
 
@@ -36,16 +38,18 @@ export function ImageUpload({ value, onChange, bucket = 'images', folder = 'uplo
       const ext = file.name.split('.').pop();
       const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
 
-      const { error } = await supabase.storage
+      const { error } = await supabaseRef.current.storage
         .from(bucket)
         .upload(fileName, file, { cacheControl: '3600', upsert: false });
 
       if (error) throw error;
 
-      const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(fileName);
+      const { data: urlData } = supabaseRef.current.storage.from(bucket).getPublicUrl(fileName);
       onChange(urlData.publicUrl);
+      toast.success('Image uploaded');
     } catch (err) {
       console.error('Upload error:', err);
+      toast.error('Image upload failed');
     } finally {
       setIsUploading(false);
       if (inputRef.current) inputRef.current.value = '';
