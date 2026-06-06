@@ -10,6 +10,7 @@ const tabs = [
   "students",
   "admissions",
   "contact",
+  "gallery",
   "library",
 ];
 
