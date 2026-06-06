@@ -35,6 +35,7 @@ import {
   BookOpen,
   ClipboardList,
   Mail,
+  ImageIcon,
 } from 'lucide-react';
 import {
   Dialog,
@@ -44,7 +45,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-
+import { GalleryUpload } from '@/components/admin/gallery/gallery-upload';
+import { GallerySection } from '@/components/admin/gallery/gallery-section';
 export default function AdminPage() {
   const router = useRouter();
   const { user, isLoading: authLoading, signOut } = useAuth();
@@ -377,6 +379,13 @@ export default function AdminPage() {
             <TabsTrigger value="library" className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm">
               <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Library
             </TabsTrigger>
+            <TabsTrigger
+  value="gallery"
+  className="shrink-0 gap-1.5 whitespace-nowrap px-2 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white sm:px-3 sm:text-sm"
+>
+  <ImageIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+  Gallery
+</TabsTrigger>
           </TabsList>
 
           {/* ==================== COURSES ==================== */}
@@ -808,7 +817,10 @@ export default function AdminPage() {
               </CardContent>
             </Card>
           </TabsContent>
-
+                      {/* ==================== GALLERY ==================== */}
+<TabsContent value="gallery" className="space-y-6">
+  <GallerySection />
+</TabsContent>
           {/* ==================== LIBRARY ==================== */}
           <TabsContent value="library" className="space-y-6">
             <LibraryDashboard />
