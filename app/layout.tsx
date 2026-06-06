@@ -52,7 +52,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <head>
+      <head />
+      <body className="bg-white text-gray-900 antialiased">
+        <AuthProvider>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Toaster />
+          <SonnerToaster />
+        </AuthProvider>
+
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
           <>
@@ -74,14 +82,6 @@ export default function RootLayout({
             />
           </>
         )}
-      </head>
-      <body className="bg-white text-gray-900 antialiased">
-        <AuthProvider>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Toaster />
-          <SonnerToaster />
-        </AuthProvider>
 
         {/* Organization Schema */}
         <script

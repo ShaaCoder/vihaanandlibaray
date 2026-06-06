@@ -53,7 +53,7 @@ export async function getFeaturedBlog() {
 }
 
 export async function getBlogBySlug(slug: string) {
-  const supabase = await createServerClient();
+  const supabase = createServerClient();
 
   console.log("Searching slug:", slug);
 
