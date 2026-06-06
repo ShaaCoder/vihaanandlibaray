@@ -14,6 +14,9 @@ import { createServerClient } from '@/lib/supabase/server';
 import { Course } from '@/lib/types';
 import { courses as fallbackCourses } from '@/lib/data/courses';
 
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Courses | Vihaan Education Academy and Library",
   description:

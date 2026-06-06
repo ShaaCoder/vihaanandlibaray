@@ -3,19 +3,14 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  ArrowLeft,
-  ArrowRight,
-  Clock,
-  BookOpen,
-  GraduationCap,
-  BadgeIndianRupee,
-  CheckCircle,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, BookOpen, GraduationCap, BadgeIndianRupee, CircleCheck as CheckCircle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { courses as fallbackCourses } from '@/lib/data/courses';
 import { Course } from '@/lib/types';
+
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
 
 interface PageProps {
   params: {

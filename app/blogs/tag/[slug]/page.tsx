@@ -8,6 +8,9 @@ import { BlogSidebar } from '@/components/blog/blog-sidebar';
 import { BlogNewsletter } from '@/components/blog/blog-newsletter';
 import { BlogCTA } from '@/components/blog/blog-cta';
 
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
+
 type Props = {
   params: { slug: string };
 };

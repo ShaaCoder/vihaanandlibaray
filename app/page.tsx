@@ -5,24 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
-import {
-  BookOpen,
-  GraduationCap,
-  Users,
-  Trophy,
-  Clock,
-  ArrowRight,
-  Calendar,
-  CheckCircle,
-  Star,
-  Quote,
-} from 'lucide-react';
+import { BookOpen, GraduationCap, Users, Trophy, Clock, ArrowRight, Calendar, CircleCheck as CheckCircle, Star, Quote } from 'lucide-react';
 import Image from 'next/image';
 import { getPublishedBlogs } from '@/lib/blog/queries';
 import { courses as fallbackCourses } from '@/lib/data/courses';
 import { notices as fallbackNotices } from '@/lib/data/notices';
 import { HeroSection } from '@/components/hero-section';
 import { CoursesSection } from '@/components/home/courses-section';
+
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
 
 const testimonials = [
   {

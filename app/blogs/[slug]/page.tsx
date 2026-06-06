@@ -17,6 +17,10 @@ import type {
   BlogCategory,
   BlogFAQ,
 } from '@/lib/types';
+
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
+
 type Props = {
   params: { slug: string };
 };
