@@ -101,7 +101,7 @@ export default async function CoursesPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full border-white text-white hover:bg-white/10 rounded-xl font-semibold"
+                className="w-full border-white text-black hover:bg-white/10 rounded-xl font-semibold"
               >
                 Contact Us
               </Button>

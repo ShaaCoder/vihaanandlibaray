@@ -19,80 +19,159 @@ import {
   Check,
   Phone,
   LampDesk,
+  MapPin,
+  Award,
 } from "lucide-react";
+export const metadata = {
+title:
+"Best Study Library in Rohini Sector 5 Delhi | Vihaan Library",
+
+description:
+"Looking for a study library in Rohini? Vihaan Library offers a peaceful study environment, comfortable seating, focused learning spaces, and student-friendly facilities in Rohini Sector 5, Delhi.",
+
+keywords: [
+"Library in Rohini",
+"Library in Rohini Sector 5",
+"Study Library Rohini",
+"Study Library Delhi",
+"Reading Room Rohini",
+"Reading Library Rohini",
+"Student Library Rohini",
+"Library Near Me",
+"Best Library in Rohini",
+"Best Library in Delhi",
+"Silent Study Library",
+"Study Center Rohini",
+"Library Membership Rohini",
+"Competitive Exam Library",
+"UPSC Study Library",
+"SSC Study Library",
+"Government Exam Library",
+"Library for Students",
+"Study Room Delhi",
+"Learning Center Rohini",
+"Vihaan Library",
+"Library Sector 5 Rohini",
+"Rohini Delhi Library",
+"Reading Room Delhi"
+],
+
+alternates: {
+canonical: "https://www.vihaanacademy.com/library",
+},
+
+openGraph: {
+title:
+"Best Study Library in Rohini Sector 5 Delhi",
+description:
+"Peaceful study environment, comfortable seating, focused learning spaces and student-friendly facilities at Vihaan Library.",
+url: "https://www.vihaanacademy.com/library",
+siteName: "Vihaan Education Academy & Library",
+type: "website",
+},
+};
 
 export default function LibraryPage() {
   const whatWeProvide = [
     {
-      title: "Quiet & Peaceful Study Environment",
-      description: "Distraction-free atmosphere designed for focused learning.",
+      title: "Peaceful & Silent Study Environment",
+      description: "Distraction-free atmosphere for maximum concentration.",
       icon: BookOpen,
       color: "from-blue-500 to-blue-600",
     },
     {
-      title: "Well-Equipped Reading Area",
-      description: "Modern facilities for comfortable reading and studying.",
-      icon: LampDesk,
+      title: "Comfortable Seating Arrangements",
+      description: "Ergonomic seating for long study sessions.",
+      icon: Users,
       color: "from-blue-600 to-indigo-600",
     },
     {
-      title: "High-Speed Wi-Fi Access",
-      description: "Reliable internet for online resources and digital learning.",
-      icon: Wifi,
+      title: "Well-Lit & Clean Study Space",
+      description: "Clean, organized, and well-illuminated environment.",
+      icon: LampDesk,
       color: "from-blue-700 to-indigo-700",
     },
     {
-      title: "Comfortable Seating",
-      description: "Ergonomic seating for long study sessions.",
-      icon: Users,
+      title: "Student-Friendly Atmosphere",
+      description: "Motivating and supportive learning community.",
+      icon: GraduationCap,
       color: "from-indigo-600 to-indigo-700",
     },
     {
-      title: "CCTV Surveillance",
-      description: "Safety and security with 24/7 monitoring.",
+      title: "Safe & Secure Environment",
+      description: "CCTV surveillance for complete peace of mind.",
       icon: Shield,
       color: "from-red-500 to-red-600",
     },
     {
-      title: "Flexible Timings",
-      description: "Open 7:00 AM – 10:00 PM for your convenience.",
+      title: "Long Study Hours",
+      description: "Extended timings to suit your study schedule.",
       icon: Clock,
       color: "from-red-600 to-red-700",
     },
     {
-      title: "Separate Dining Area",
-      description: "Space to refresh and recharge during study breaks.",
-      icon: Utensils,
+      title: "Individual Study Desks",
+      description: "Personal workspace for focused learning.",
+      icon: BookMarked,
       color: "from-indigo-500 to-blue-600",
     },
     {
-      title: "For All Aspirants",
-      description: "Perfect for school, college, and competitive exam students.",
+      title: "Dedicated Learning Space",
+      description: "Perfect for all types of students and learners.",
       icon: Target,
       color: "from-blue-500 to-red-600",
     },
   ];
 
   const whyChooseUs = [
-    "Distraction-Free Learning Environment",
-    "Study-Friendly Atmosphere",
-    "Clean & Hygienic Facilities",
-    "Safe & Secure Premises",
-    "Spacious Reading & Study Area",
-    "Reliable Internet Connectivity",
-    "Long Operating Hours",
-    "Affordable Membership Plans",
+    "Peaceful & Silent Study Environment",
+    "Comfortable Seating Arrangements",
+    "Well-Lit & Clean Study Space",
+    "Student-Friendly Atmosphere",
+    "Safe & Secure Environment",
+    "Long Study Hours",
+    "Individual Study Desks",
+    "Dedicated Learning Space",
   ];
 
-  const highlights = [
-    "Peaceful Environment for Better Concentration",
-    "Modern Study Facilities",
-    "High-Speed Wi-Fi",
-    "CCTV Monitored Premises",
-    "Comfortable Seating",
-    "Flexible Timings",
-    "Dedicated Reading Space",
-    "Student-Focused Environment",
+  const competitiveExams = [
+    "UPSC & Civil Services",
+    "SSC Exams",
+    "Banking Exams",
+    "Railways Exams",
+    "Delhi Government Exams",
+    "Teaching Exams",
+    "Defence Exams",
+    "Entrance Examinations",
+    "Professional Certification Programs",
+  ];
+
+  const studentGroups = [
+    "Class 10th Students",
+    "Class 12th Students",
+    "NIOS Students",
+    "Undergraduate Students",
+    "Postgraduate Students",
+    "Distance Learning Students",
+    "Professional Course Students",
+  ];
+
+  const rohiniSectors = [
+    "Sector 5",
+    "Sector 6",
+    "Sector 7",
+    "Sector 8",
+    "Sector 9",
+    "Sector 10",
+    "Sector 11",
+    "Sector 13",
+    "Sector 14",
+    "Sector 15",
+    "Sector 16",
+    "Sector 17",
+    "Sector 18",
+    "Sector 24",
+    "Sector 25",
   ];
 
   return (
@@ -107,19 +186,22 @@ export default function LibraryPage() {
             <div>
               <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
                 <Library className="mr-2 h-4 w-4" />
-                Your Library, Your Success
+                Best Study Library in Rohini
               </div>
 
               <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                Welcome to
+                Best Study Library in
                 <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
                   {" "}
-                  Vihaan Library
+                  Rohini Sector 5, Delhi
                 </span>
               </h1>
 
               <p className="mt-6 text-base leading-relaxed text-gray-600 sm:text-lg">
-                Vihaan Library offers a quiet and comfortable place for students to study, read, and prepare for exams. With a peaceful environment, Wi-Fi, and modern facilities, we help students stay focused and achieve their goals. 📚✨
+                Welcome to Vihaan Library, a modern study library in Rohini Sector 5, Delhi, designed for students, competitive exam aspirants, working professionals, and lifelong learners who need a peaceful and productive environment to achieve their goals.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-gray-600 sm:text-lg">
+                In today's fast-paced world, finding a distraction-free study space can be challenging. At Vihaan Library, we provide a comfortable, disciplined, and motivating atmosphere where students can focus on learning, improve productivity, and maximize their study hours.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -216,36 +298,37 @@ export default function LibraryPage() {
 
       {/* Why Choose Us */}
       <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
-              <CheckCircle2 className="mr-2 h-4 w-4" />
-              Why Choose Vihaan Library?
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Content */}
+            <div>
+              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                Why Choose Vihaan Library?
+              </div>
+
+              <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-4xl">
+                Why Choose Vihaan Library?
+              </h2>
+
+              <p className="mb-8 text-base leading-relaxed text-gray-600">
+                At Vihaan Library, we understand that a great study environment plays a crucial role in academic success. That's why we have created a space where students can study with complete focus and confidence.
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {whyChooseUs.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-gray-100 bg-gradient-to-r from-blue-50 to-red-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3 card-hover"
+                  >
+                    <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
-              Why Choose Us?
-            </h2>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {whyChooseUs.map((item, index) => (
-              <div
-                key={index}
-                className="rounded-2xl border border-gray-100 bg-gradient-to-r from-blue-50 to-red-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3 card-hover"
-              >
-                <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Mission & Highlights */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
+            {/* Image */}
             <div className="overflow-hidden rounded-3xl shadow-xl border border-gray-100">
               <Image
                 src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop"
@@ -255,28 +338,48 @@ export default function LibraryPage() {
                 className="h-[300px] sm:h-[400px] lg:h-[450px] w-full object-cover"
               />
             </div>
+          </div>
+        </div>
+      </section>
 
+      {/* Competitive Exam Preparation */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Image */}
+            <div className="overflow-hidden rounded-3xl shadow-xl border border-gray-100">
+              <Image
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop"
+                alt="Competitive Exam Preparation"
+                width={800}
+                height={600}
+                className="h-[300px] sm:h-[400px] lg:h-[450px] w-full object-cover"
+              />
+            </div>
+
+            {/* Content */}
             <div>
-              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
-                <GraduationCap className="mr-2 h-4 w-4" />
-                Our Mission
+              <div className="mb-4 inline-flex items-center rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-700 border border-red-200">
+                <Target className="mr-2 h-4 w-4" />
+                For Competitive Exams
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
-                Our Mission
+              <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-4xl">
+                Library for Competitive Exam Preparation
               </h2>
 
-              <p className="mt-5 text-base leading-relaxed text-gray-600">
-                To create a positive and inspiring learning environment where students can focus, learn, grow, and succeed in achieving their academic and career goals.
+              <p className="mb-8 text-base leading-relaxed text-gray-600">
+                Vihaan Library is an excellent choice for students preparing for competitive exams. Our focused environment helps students maintain consistency, concentration, and discipline throughout their preparation journey.
               </p>
 
-              <div className="mt-8 space-y-4">
-                {highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <Check className="h-5 w-5 text-blue-600" />
-                    <span className="text-gray-700">
-                      {highlight}
-                    </span>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {competitiveExams.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-gray-100 bg-white px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3 card-hover"
+                  >
+                    <Check className="h-5 w-5 text-red-600 flex-shrink-0" />
+                    {item}
                   </div>
                 ))}
               </div>
@@ -285,28 +388,127 @@ export default function LibraryPage() {
         </div>
       </section>
 
-      {/* Contact & Slogan */}
+      {/* School & College Students */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Content */}
+            <div>
+              <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
+                <GraduationCap className="mr-2 h-4 w-4" />
+                For Students
+              </div>
+
+              <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-4xl">
+                Library for School & College Students
+              </h2>
+
+              <p className="mb-8 text-base leading-relaxed text-gray-600">
+                The library is equally beneficial for school and college students. Whether you need a quiet place for revision, assignments, project work, or exam preparation, Vihaan Library provides the perfect study atmosphere.
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {studentGroups.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-gray-100 bg-gradient-to-r from-blue-50 to-red-50 px-5 py-4 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg flex items-center gap-3 card-hover"
+                  >
+                    <Check className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Image */}
+            <div className="overflow-hidden rounded-3xl shadow-xl border border-gray-100">
+              <Image
+                src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1200&auto=format&fit=crop"
+                alt="School & College Students"
+                width={800}
+                height={600}
+                className="h-[300px] sm:h-[400px] lg:h-[450px] w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Serving Students Across Rohini */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-200">
+              <MapPin className="mr-2 h-4 w-4" />
+              Convenient Location
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl">
+              Serving Students Across Rohini
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-gray-600">
+              Students from various sectors of Rohini and nearby areas choose Vihaan Library as their preferred study destination. Our convenient location makes us one of the most accessible and trusted study libraries in Rohini, Delhi.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+            {rohiniSectors.map((sector, index) => (
+              <div
+                key={index}
+                className="rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition hover:shadow-lg hover:-translate-y-0.5 card-hover"
+              >
+                {sector}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* More Than Just a Library */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-6 inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-red-100 px-6 py-3 text-sm font-semibold bg-gradient-to-r from-blue-700 to-red-700 bg-clip-text text-transparent border border-blue-200">
+            <Award className="mr-2 h-5 w-5" />
+            More Than Just a Library
+          </div>
+
+          <h2 className="mb-8 text-2xl font-bold text-gray-900 sm:text-4xl">
+            More Than Just a Library
+          </h2>
+
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-600">
+            As part of Vihaan Education Academy & Library, students also benefit from academic guidance, educational support, and a learning-focused community dedicated to helping them achieve academic excellence.
+          </p>
+
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-gray-600">
+            We believe that success begins with the right environment, consistent effort, and proper guidance.
+          </p>
+        </div>
+      </section>
+
+      {/* Join Vihaan Library Today */}
       <section className="pb-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-red-600 p-6 text-center text-white shadow-2xl sm:p-12">
             <h2 className="text-2xl font-bold sm:text-4xl">
-              Start Learning Today
+              Join Vihaan Library Today
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-base opacity-90 sm:text-lg">
-              Visit our library and explore thousands of educational resources designed to help students succeed academically.
+              If you are looking for a study library in Rohini that offers a peaceful atmosphere, focused learning environment, and student-friendly facilities, Vihaan Library is the perfect place for you.
             </p>
 
-            <div className="mt-6 flex flex-col items-center justify-center gap-2">
-              <div className="flex items-center gap-2 text-lg font-semibold">
-                <Phone className="h-5 w-5" />
-                <span>📞 Contact: 9350211222</span>
-              </div>
-              <p className="text-xl font-bold opacity-95 mt-2">
-                “Read • Learn • Grow • Succeed” 📚✨
+            <p className="mx-auto mt-4 max-w-2xl text-base opacity-90">
+              Start your journey toward academic excellence with a library designed for serious learners and future achievers.
+            </p>
+
+            <div className="mt-8 flex flex-col items-center justify-center gap-2">
+              <p className="text-2xl font-bold opacity-95">
+                Vihaan Library
               </p>
-              <p className="text-sm opacity-90">
-                Your Library, Your Success.
+              <p className="text-xl font-semibold opacity-90">
+                Learn Better. Focus More. Achieve Success.
               </p>
             </div>
 

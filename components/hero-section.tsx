@@ -41,22 +41,20 @@ export function HeroSection() {
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-3 py-1 shadow-sm sm:px-4 sm:py-2">
               <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 fill-yellow-500" />
               <span className="text-xs sm:text-sm font-semibold text-blue-700">
-                Excellence in Education Since 2001
+                Delhi's Trusted Education Academy & Library Since 2001
               </span>
             </div>
 
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight sm:leading-[1.1] lg:leading-[0.95] tracking-tight text-slate-900">
-              Your Journey To
-
+              Learn, Study &amp;
               <span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-red-600 bg-clip-text text-transparent">
                 Success
               </span>
-
-              Starts Here
+              At Vihaan Education Academy & Library
             </h1>
 
             <p className="mt-4 sm:mt-8 max-w-2xl text-base sm:text-lg leading-relaxed sm:leading-8 text-slate-600">
-              Vihaan Education Academy & Library empowers students through expert faculty, personalized mentorship, modern classrooms, and proven learning strategies.
+              Vihaan Education Academy & Library provides quality education, expert coaching, personalized mentorship, and a modern study environment for students. Whether you are preparing for school exams, competitive exams, or looking for a peaceful library space to focus on your goals, we help you succeed with the right guidance and resources.
             </p>
 
             {/* CTA Buttons */}
@@ -131,7 +129,7 @@ export function HeroSection() {
                 <Image
                   key={current}
                   src={images[current]}
-                  alt="Vihaan Education Academy"
+                  alt="Students studying at Vihaan Education Academy and Library in Delhi"
                   fill
                   priority
                   sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 50vw"
@@ -146,15 +144,15 @@ export function HeroSection() {
 
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 sm:px-4 sm:py-2 backdrop-blur-lg text-xs sm:text-sm">
                     <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
-                    Admissions Open 2026
+                    Admissions & Library Membership Open
                   </div>
 
                   <h3 className="mt-2 sm:mt-4 text-xl sm:text-3xl lg:text-4xl font-bold">
-                    Transform Your Future
+                    Your Learning Journey Starts Here
                   </h3>
 
                   <p className="mt-2 sm:mt-3 text-xs sm:text-base text-white/90">
-                    Expert Faculty • Modern Library • Proven Results
+                    Expert Coaching • Modern Library • Academic Excellence
                   </p>
                 </div>
               </div>
@@ -169,7 +167,7 @@ export function HeroSection() {
                     500+
                   </p>
                   <p className="text-xs text-slate-500">
-                    Students
+                    Active Students
                   </p>
                 </div>
               </CardContent>
@@ -196,10 +194,10 @@ export function HeroSection() {
                 <GraduationCap className="h-8 w-8 text-green-600" />
                 <div>
                   <p className="text-xl font-bold text-slate-900">
-                    50+
+                    Modern
                   </p>
                   <p className="text-xs text-slate-500">
-                    Courses
+                    Library Facility
                   </p>
                 </div>
               </CardContent>

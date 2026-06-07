@@ -23,7 +23,102 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+export const metadata = {
+  title:
+    "About Vihaan Education Academy & Library | Best Study Library & Education Academy in Rohini Delhi",
 
+  description:
+    "Vihaan Education Academy & Library is a trusted education academy and study library located in Rohini, Delhi. Founded by Hemant Singh, we provide quality education, academic guidance, modern library facilities, peaceful study spaces, career counseling, and student support for academic success.",
+
+  keywords: [
+    // Brand
+    "Vihaan Education Academy",
+    "Vihaan Library",
+    "Hemant Singh",
+
+    // Academy
+    "Education Academy Delhi",
+    "Education Academy Rohini",
+    "Coaching Institute Rohini",
+    "Coaching Institute Delhi",
+    "Academic Guidance",
+    "Student Success",
+    "Educational Institute",
+
+    // Library Keywords
+    "Library in Rohini",
+    "Library in Rohini Delhi",
+    "Library in Rohini Sector 5",
+    "Study Library Rohini",
+    "Study Library Delhi",
+    "Reading Library Rohini",
+    "Reading Room Rohini",
+    "Silent Study Library",
+    "Library Near Me",
+    "Student Library Rohini",
+    "Best Library in Rohini",
+    "Best Library in Delhi",
+    "Modern Library",
+    "Library Membership",
+
+    // Rohini Local SEO
+    "Rohini Sector 5 Library",
+    "Rohini Sector 6 Library",
+    "Rohini Sector 7 Library",
+    "Rohini Sector 8 Library",
+    "Rohini Sector 9 Library",
+    "Rohini Sector 10 Library",
+    "Rohini Sector 11 Library",
+    "Rohini Sector 13 Library",
+    "Rohini Sector 14 Library",
+    "Rohini Sector 15 Library",
+    "Rohini Sector 16 Library",
+    "Rohini Sector 17 Library",
+    "Rohini Sector 18 Library",
+    "Rohini Sector 24 Library",
+    "Rohini Sector 25 Library",
+
+    // Delhi SEO
+    "Library Delhi",
+    "Study Library Delhi",
+    "Reading Room Delhi",
+    "Library for Students Delhi",
+    "Best Study Place Delhi",
+    "Learning Center Delhi",
+    "Education and Library"
+  ],
+
+  openGraph: {
+    title:
+      "Vihaan Education Academy & Library | Rohini Delhi",
+    description:
+      "Trusted education academy and study library in Rohini, Delhi offering quality education, career guidance, and peaceful study facilities.",
+    url: "https://www.vihaanacademy.com/about",
+    siteName: "Vihaan Education Academy & Library",
+    type: "website",
+    images: [
+      {
+        url: "/og-about.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vihaan Education Academy & Library Rohini Delhi",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Vihaan Education Academy & Library | Rohini Delhi",
+    description:
+      "Trusted study library and education academy in Rohini, Delhi.",
+    images: ["/og-about.jpg"],
+  },
+
+  alternates: {
+    canonical: "https://www.vihaanacademy.com/about",
+  },
+};
 export default function AboutPage() {
   const values = [
     {
@@ -65,13 +160,14 @@ export default function AboutPage() {
     },
   ];
 
-  const features = [
-    'Live Practical Training',
-    'Real Projects & Assignments',
-    'Placement Assistance',
-    'Updated Industry Curriculum',
-    'Affordable Fee Structure',
-    'Certification Programs',
+  const whyChooseUs = [
+    'Experienced and Dedicated Faculty',
+    'Student-Centered Learning Approach',
+    'Personalized Academic Guidance',
+    'Modern Library and Peaceful Study Environment',
+    'Regular Assessments and Performance Tracking',
+    'Focus on Academic Excellence and Skill Development',
+    'Supportive and Motivating Learning Atmosphere',
   ];
 
   return (
@@ -85,22 +181,18 @@ export default function AboutPage() {
           {/* LEFT */}
           <div className="flex flex-col justify-center">
             <div className="mb-6 inline-flex w-fit items-center rounded-full bg-blue-100 px-5 py-2 text-sm font-semibold text-blue-800 shadow-sm border border-blue-200">
-              About Vihaan Education
+              About Vihaan Education Academy &amp; Library
             </div>
 
             <h1 className="mb-5 text-3xl font-black leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              Building Skills
+              Empowering Students
               <span className="block bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
-                For The Future
+                Through Education, Guidance &amp; Growth
               </span>
             </h1>
 
             <p className="mb-8 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
-              Vihaan Education Academy and Library empowers students
-              with practical learning, modern technology
-              education, and industry-ready skills to help
-              them build successful careers in today’s
-              digital world.
+              At Vihaan Education Academy &amp; Library, we believe that every student has the potential to achieve excellence when provided with the right guidance, resources, and learning environment. Since our establishment, we have been committed to helping students build confidence, strengthen their knowledge, and achieve their academic and career goals.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
@@ -167,39 +259,110 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STORY */}
+      {/* STORY & INTRO */}
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
+              Welcome to Vihaan Education
+            </h2>
+            <p className="mx-auto max-w-4xl text-base leading-relaxed text-gray-600 sm:text-lg">
+              Our academy is more than just a place for learning. It is a supportive community where students receive expert coaching, personalized mentorship, and access to a modern library designed to encourage focused study and continuous growth.
+            </p>
+            <p className="mx-auto mt-4 max-w-4xl text-base leading-relaxed text-gray-600 sm:text-lg">
+              Whether students are preparing for school examinations, competitive exams, or seeking a productive environment for self-study, Vihaan Education Academy &amp; Library provides the tools and support needed for success.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* MISSION & VISION */}
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+          <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 sm:p-8">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600">
+              <Target className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl">
+              Our Mission
+            </h3>
+            <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
+              Our mission is to provide quality education and a disciplined learning environment that inspires students to reach their full potential. We aim to nurture knowledge, confidence, and lifelong learning habits that contribute to academic excellence and personal growth.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-red-100 bg-gradient-to-br from-red-50 to-white p-6 sm:p-8">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 to-orange-600">
+              <GraduationCap className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl">
+              Our Vision
+            </h3>
+            <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
+              Our vision is to become one of the most trusted educational institutions by combining quality teaching, innovative learning methods, and modern study facilities. We strive to create an environment where every student can learn, grow, and achieve success.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FOUNDER'S MESSAGE */}
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 p-6 sm:p-10 lg:p-12 text-white shadow-2xl">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.5fr] items-center">
+              {/* Founder Image */}
+              <div className="flex justify-center lg:justify-start">
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-white/20 rounded-full blur-2xl" />
+                  <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl">
+                    <Image
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                      alt="Mr. Hemant Singh - Founder"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white text-gray-900 px-6 py-2 rounded-full shadow-lg">
+                    <p className="font-bold text-lg">Mr. Hemant Singh</p>
+                    <p className="text-sm text-gray-600">Founder &amp; Director</p>
+                  </div>
+                </div>
+              </div>
+              {/* Message */}
+              <div>
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
+                  <Award className="h-8 w-8" />
+                </div>
+                <h3 className="mb-6 text-3xl font-black sm:text-4xl">
+                  A Message From Our Founder
+                </h3>
+                <div className="space-y-5 text-base leading-relaxed text-blue-100 sm:text-lg">
+                  <p>
+                    Vihaan Education Academy &amp; Library was founded with a simple yet powerful vision—to create a place where students can receive quality education and a peaceful study environment under one roof.
+                  </p>
+                  <p>
+                    Under the leadership of Mr. Hemant Singh, the academy has grown into a trusted destination for students seeking academic support, guidance, and self-improvement. His dedication to education and student success continues to inspire the values and teaching approach of the institution.
+                  </p>
+                  <p>
+                    Mr. Hemant Singh strongly believes that education is not only about achieving good marks but also about building confidence, discipline, and the skills needed to succeed in life. His commitment to student development remains at the heart of everything we do.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US & CONTACT */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
-          {/* STORY */}
+          {/* WHY CHOOSE US */}
           <div>
             <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Our Story
+              Why Choose Vihaan?
             </h2>
-
-            <div className="space-y-5 text-base leading-relaxed text-gray-600 sm:text-lg">
-              <p>
-                Vihaan Education Academy and Library started with a
-                mission to make quality technical education
-                accessible to every student.
-              </p>
-
-              <p>
-                We believe education should not only teach
-                theory but also prepare students for real
-                industry challenges through hands-on
-                practical learning.
-              </p>
-
-              <p>
-                Over the years, we have helped thousands of
-                students improve their careers, develop
-                confidence, and gain valuable professional
-                skills.
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {features.map((feature, index) => (
+            <div className="mt-6 grid gap-4 sm:grid-cols-1">
+              {whyChooseUs.map((feature, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm border border-gray-100 card-hover"
@@ -351,23 +514,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA - OUR COMMITMENT */}
       <section className="pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 p-6 text-center text-white shadow-2xl sm:p-10 lg:p-16">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 p-8 text-center text-white shadow-2xl sm:p-12 lg:p-16">
             <h2 className="mb-6 text-3xl font-black sm:text-4xl">
-              Start Your Learning Journey Today
+              Our Commitment
             </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100">
-              Join thousands of students building successful
-              careers with Vihaan Education Academy and Library.
+            <p className="mx-auto mb-10 max-w-3xl text-base leading-relaxed text-blue-100 sm:text-lg">
+              At Vihaan Education Academy &amp; Library, we are committed to helping every student move closer to their dreams. Through quality education, dedicated mentorship, and an inspiring study environment, we continue to empower students to build a brighter future.
+              <br /><br />
+              Join us and become part of a learning community where success begins with knowledge and determination.
             </p>
             <Link href="/admission">
               <Button
                 size="lg"
                 className="h-14 w-full rounded-2xl bg-white text-gray-900 hover:bg-gray-100 px-8 text-base font-bold shadow-lg sm:w-auto sm:px-10 sm:text-lg"
               >
-                Apply For Admission
+                Start Your Journey
               </Button>
             </Link>
           </div>
