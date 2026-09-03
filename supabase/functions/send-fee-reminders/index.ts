@@ -100,7 +100,7 @@ async function sendEmail(
     body: JSON.stringify({
       from: "Vihaan Education Academy <onboarding@resend.dev>",
       to: [to],
-      reply_to: "newstack8810@gmail.com",
+      reply_to: "shaacoder@gmail.com",
       subject,
       html,
     }),
