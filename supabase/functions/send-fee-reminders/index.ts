@@ -98,8 +98,9 @@ async function sendEmail(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Vihaan Library <noreply@vihaaneducation.com>",
+      from: "Vihaan Education Academy <onboarding@resend.dev>",
       to: [to],
+      reply_to: "vihaaneducationacademy@gmail.com",
       subject,
       html,
     }),
@@ -201,14 +202,17 @@ Deno.serve(async (req: Request) => {
       const html = buildEmailHtml(student, type);
       const emailResult = await sendEmail(student.email, subject, html);
 
-      // Log the notification attempt
-      await supabase.from("library_fee_notifications").insert({
-        student_id: student.id,
-        student_email: student.email,
-        notification_type: type,
-        membership_end: student.membership_end,
-        status: emailResult.ok ? "sent" : "failed",
-      });
+      // Only successful deliveries are logged so failed attempts can be retried.
+      if (emailResult.ok) {
+        const { error: logError } = await supabase.from("library_fee_notifications").insert({
+          student_id: student.id,
+          student_email: student.email,
+          notification_type: type,
+          membership_end: student.membership_end,
+          status: "sent",
+        });
+        if (logError) throw logError;
+      }
 
       // Update student status to expired if membership has lapsed
       if (type === "expired" && emailResult.ok && student.status !== "expired") {
