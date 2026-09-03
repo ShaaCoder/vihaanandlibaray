@@ -98,9 +98,9 @@ async function sendEmail(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Vihaan Education Academy <onboarding@resend.dev>",
+      from: "Vihaan Education Academy <noreply@vihaaneducationacademy.com>",
       to: [to],
-      reply_to: "shaacoder@gmail.com",
+      reply_to: "vihaaneducationacademy@gmail.com",
       subject,
       html,
     }),
