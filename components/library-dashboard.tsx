@@ -260,6 +260,65 @@ const handlePrintPayment = (payment: LibraryPayment) => {
   setReceiptStudent(student);
 };
 
+  const escapeCsvValue = (value: string | number | null | undefined): string => {
+    const str = String(value ?? '');
+    if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  };
+
+  const downloadCsv = (filename: string, headers: string[], rows: (string | number | null | undefined)[][]) => {
+    const csvContent = [headers, ...rows]
+      .map(row => row.map(escapeCsvValue).join(','))
+      .join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadStudentsCsv = () => {
+    const headers = ['Name', 'Phone', 'Email', 'Membership Type', 'Start Date', 'End Date', 'Status', 'Created At'];
+    const rows = filteredStudents.map(s => [
+      s.name,
+      s.phone,
+      s.email || '',
+      s.membership_type,
+      s.membership_start || '',
+      s.membership_end || '',
+      s.status,
+      new Date(s.created_at).toLocaleString(),
+    ]);
+    downloadCsv(`library-students-${new Date().toISOString().split('T')[0]}.csv`, headers, rows);
+    toast({ title: 'Success', description: `Downloaded ${rows.length} student records` });
+  };
+
+  const handleDownloadPaymentsCsv = () => {
+    const headers = ['Receipt ID', 'Date', 'Student Name', 'Student Phone', 'Amount', 'Payment Type', 'Status', 'Notes', 'Created At'];
+    const rows = payments.map(p => {
+      const student = libraryStudents.find(s => s.id === p.student_id);
+      return [
+        p.id.slice(0, 8).toUpperCase(),
+        new Date(p.payment_date).toLocaleDateString(),
+        student?.name || '-',
+        student?.phone || '-',
+        p.amount,
+        p.payment_type,
+        p.status,
+        p.notes || '',
+        new Date(p.created_at).toLocaleString(),
+      ];
+    });
+    downloadCsv(`library-payments-${new Date().toISOString().split('T')[0]}.csv`, headers, rows);
+    toast({ title: 'Success', description: `Downloaded ${rows.length} payment records` });
+  };
+
   const resetStudentForm = () => {
     setStudentForm({
       name: '',
@@ -511,7 +570,12 @@ return (
 
         <Card className="border-blue-100">
           <CardHeader className="px-4 sm:px-6">
-            <CardTitle>Students List</CardTitle>
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle>Students List</CardTitle>
+              <Button type="button" size="sm" variant="outline" onClick={handleDownloadStudentsCsv} className="gap-1.5 shrink-0">
+                <Download className="h-3.5 w-3.5" /> CSV
+              </Button>
+            </div>
             <div className="space-y-3 mt-4">
               <div className="flex gap-2">
                 <div className="flex-1 relative">
@@ -710,7 +774,12 @@ return (
 
         <Card className="border-blue-100">
           <CardHeader className="px-4 sm:px-6">
-            <CardTitle>Payment History</CardTitle>
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle>Payment History</CardTitle>
+              <Button type="button" size="sm" variant="outline" onClick={handleDownloadPaymentsCsv} className="gap-1.5 shrink-0">
+                <Download className="h-3.5 w-3.5" /> CSV
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="px-0 sm:px-6">
             <div className="overflow-x-auto">
