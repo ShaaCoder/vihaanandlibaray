@@ -13,7 +13,7 @@ import { LibraryStudent, LibraryAttendance, LibraryPayment } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Users, UserPlus, Clock, CreditCard, TrendingUp, Trash2, CreditCard as Edit2, Search, Download, CircleCheck as CheckCircle, CircleAlert as AlertCircle, DollarSign, Calendar, Phone as PhoneIcon, Mail, Power, PowerOff, Printer } from 'lucide-react';
+import { Users, UserPlus, Clock, CreditCard, TrendingUp, Trash2, CreditCard as Edit2, Search, Download, CircleCheck as CheckCircle, CircleAlert as AlertCircle, DollarSign, Calendar, Phone as PhoneIcon, Mail, Power, PowerOff, Printer, MailCheck, Loader2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -54,6 +54,12 @@ const [receiptPayment, setReceiptPayment] =
 
 const [receiptStudent, setReceiptStudent] =
   useState<LibraryStudent | undefined>(undefined);
+const [isSendingReminders, setIsSendingReminders] = useState(false);
+const [reminderResult, setReminderResult] = useState<
+  | { sent: number; skipped: number; failed: number; total: number; details: { student: string; email: string; type: string; status: string; error?: string }[] }
+  | null
+>(null);
+const [showReminderDialog, setShowReminderDialog] = useState(false);
   const [studentForm, setStudentForm] = useState<{
     name: string;
     phone: string;
@@ -319,6 +325,36 @@ const handlePrintPayment = (payment: LibraryPayment) => {
     toast({ title: 'Success', description: `Downloaded ${rows.length} payment records` });
   };
 
+  const handleSendFeeReminders = async () => {
+    setIsSendingReminders(true);
+    try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const response = await fetch(`${supabaseUrl}/functions/v1/send-fee-reminders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+        },
+      });
+      if (!response.ok) {
+        const errBody = await response.text();
+        throw new Error(`Request failed (${response.status}): ${errBody}`);
+      }
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error');
+      }
+      setReminderResult(data.summary ? { ...data.summary, details: data.details || [] } : null);
+      setShowReminderDialog(true);
+      toast({ title: 'Fee reminders sent', description: `${data.summary.sent} email(s) sent, ${data.summary.skipped} skipped, ${data.summary.failed} failed` });
+      loadData();
+    } catch (error) {
+      toast({ title: 'Error', description: error instanceof Error ? error.message : 'Failed to send fee reminders', variant: 'destructive' });
+    } finally {
+      setIsSendingReminders(false);
+    }
+  };
+
   const resetStudentForm = () => {
     setStudentForm({
       name: '',
@@ -437,6 +473,24 @@ return (
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <p className="text-2xl font-bold text-red-600">{stats.expiredMemberships}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50">
+            <CardHeader className="p-4">
+              <CardTitle className="text-sm text-gray-600">Fee Reminders</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 pt-0">
+              <p className="text-xs text-gray-500 mb-3">Send email notifications to students with expired or expiring memberships.</p>
+              <Button
+                type="button"
+                size="sm"
+                onClick={handleSendFeeReminders}
+                disabled={isSendingReminders}
+                className="w-full gap-1.5 bg-blue-600 hover:bg-blue-700"
+              >
+                {isSendingReminders ? <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Sending...</> : <><MailCheck className="h-3.5 w-3.5" /> Send Reminders</>}
+              </Button>
             </CardContent>
           </Card>
 
@@ -881,6 +935,49 @@ return (
           </CardContent>
         </Card>
       </TabsContent>
+
+      {/* Fee Reminder Results Dialog */}
+      <Dialog open={showReminderDialog} onOpenChange={setShowReminderDialog}>
+        <DialogContent className="w-[calc(100vw-2rem)] max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Fee Reminder Results</DialogTitle>
+            <DialogDescription>
+              {reminderResult ? `${reminderResult.sent} sent, ${reminderResult.skipped} skipped, ${reminderResult.failed} failed out of ${reminderResult.total} students` : ''}
+            </DialogDescription>
+          </DialogHeader>
+          {reminderResult && reminderResult.details.length > 0 && (
+            <div className="max-h-[400px] overflow-y-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Student</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {reminderResult.details.map((d, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-medium text-xs">{d.student}</TableCell>
+                      <TableCell className="text-xs">{d.email}</TableCell>
+                      <TableCell className="text-xs capitalize">{d.type.replace('_', ' ')}</TableCell>
+                      <TableCell>
+                        <span className={`px-2 py-0.5 rounded text-xs font-medium ${d.status === 'sent' ? 'bg-green-100 text-green-700' : d.status === 'skipped' ? 'bg-gray-100 text-gray-600' : 'bg-red-100 text-red-700'}`} title={d.error || ''}>
+                          {d.status}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowReminderDialog(false)} className="w-full sm:w-auto">Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Payment Dialog */}
       <Dialog open={showDeletePaymentDialog} onOpenChange={setShowDeletePaymentDialog}>
