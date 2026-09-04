@@ -47,6 +47,8 @@ export function LibraryDashboard() {
   const [deletePaymentId, setDeletePaymentId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
+  const [paymentSearchQuery, setPaymentSearchQuery] = useState('');
+const [paymentMonthFilter, setPaymentMonthFilter] = useState('all');
   const [filterMembership, setFilterMembership] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState<string>('all');
 const [receiptPayment, setReceiptPayment] =
@@ -374,7 +376,28 @@ const handlePrintPayment = (payment: LibraryPayment) => {
     const matchesStatus = filterStatus === 'all' || student.status === filterStatus;
     return matchesSearch && matchesMembership && matchesStatus;
   });
+const filteredPayments = payments.filter(payment => {
+  const student = libraryStudents.find(
+    student => student.id === payment.student_id
+  );
 
+  const search = paymentSearchQuery.trim().toLowerCase();
+
+  // Search by student name or phone number
+  const matchesSearch =
+    search === '' ||
+    student?.name?.toLowerCase().includes(search) ||
+    student?.phone?.toLowerCase().includes(search);
+
+  // Filter by payment month
+  const paymentDate = new Date(payment.payment_date);
+
+  const matchesMonth =
+    paymentMonthFilter === 'all' ||
+    paymentDate.getMonth().toString() === paymentMonthFilter;
+
+  return matchesSearch && matchesMonth;
+});
   const stats = {
     totalStudents: libraryStudents.length,
     activeStudents: libraryStudents.filter(s => s.status === 'active').length,
@@ -826,52 +849,201 @@ return (
           </CardContent>
         </Card>
 
-        <Card className="border-blue-100">
-          <CardHeader className="px-4 sm:px-6">
-            <div className="flex items-center justify-between gap-2">
-              <CardTitle>Payment History</CardTitle>
-              <Button type="button" size="sm" variant="outline" onClick={handleDownloadPaymentsCsv} className="gap-1.5 shrink-0">
-                <Download className="h-3.5 w-3.5" /> CSV
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="px-0 sm:px-6">
-            <div className="overflow-x-auto">
-              <Table className="min-w-[620px] text-xs sm:text-sm">
-                <TableHeader>
-                  <TableRow className="border-blue-100">
-                    <TableHead>Date</TableHead>
-                    <TableHead>Student</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {payments.slice(0, 20).map((payment) => {
-                    const student = libraryStudents.find(s => s.id === payment.student_id);
-                    return (
-                      <TableRow key={payment.id} className="border-blue-50 hover:bg-blue-50">
-                        <TableCell>{new Date(payment.payment_date).toLocaleDateString()}</TableCell>
-                        <TableCell>{student?.name || '-'}</TableCell>
-                        <TableCell className="font-medium">₹{payment.amount}</TableCell>
-                        <TableCell>{payment.payment_type}</TableCell>
-                        <TableCell><span className={`px-2 py-1 rounded text-xs font-medium ${payment.status === 'completed' ? 'bg-green-100 text-green-700' : payment.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{payment.status}</span></TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            <Button type="button" size="sm" variant="outline" onClick={() => handlePrintPayment(payment)} title="Print fee slip"><Printer className="h-3 w-3" /></Button>
-                            <Button type="button" size="sm" variant="destructive" onClick={() => { setDeletePaymentId(payment.id); setShowDeletePaymentDialog(true); }} title="Delete payment"><Trash2 className="h-3 w-3" /></Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+<Card className="border-blue-100">
+  <CardHeader className="px-4 sm:px-6">
+    <div className="flex items-center justify-between gap-2">
+      <CardTitle>Payment History</CardTitle>
+
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={handleDownloadPaymentsCsv}
+        className="gap-1.5 shrink-0"
+      >
+        <Download className="h-3.5 w-3.5" />
+        CSV
+      </Button>
+    </div>
+
+    {/* Payment Filters */}
+    <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_220px]">
+
+      {/* Search by Name / Phone */}
+      <div className="relative">
+        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
+        <Input
+          placeholder="Search by student name or phone..."
+          value={paymentSearchQuery}
+          onChange={(e) => setPaymentSearchQuery(e.target.value)}
+          className="pl-10 border-blue-200 focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Month Filter */}
+      <Select
+        value={paymentMonthFilter}
+        onValueChange={setPaymentMonthFilter}
+      >
+        <SelectTrigger className="border-blue-200 focus:border-blue-500">
+          <SelectValue placeholder="Filter by month" />
+        </SelectTrigger>
+
+        <SelectContent>
+          <SelectItem value="all">All Months</SelectItem>
+          <SelectItem value="0">January</SelectItem>
+          <SelectItem value="1">February</SelectItem>
+          <SelectItem value="2">March</SelectItem>
+          <SelectItem value="3">April</SelectItem>
+          <SelectItem value="4">May</SelectItem>
+          <SelectItem value="5">June</SelectItem>
+          <SelectItem value="6">July</SelectItem>
+          <SelectItem value="7">August</SelectItem>
+          <SelectItem value="8">September</SelectItem>
+          <SelectItem value="9">October</SelectItem>
+          <SelectItem value="10">November</SelectItem>
+          <SelectItem value="11">December</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+
+    {/* Result Count */}
+    <p className="mt-2 text-xs text-gray-500">
+      Showing {filteredPayments.length} of {payments.length} payments
+    </p>
+  </CardHeader>
+
+  {/* IMPORTANT: Payment Table */}
+  <CardContent className="px-0 sm:px-6">
+    <div className="overflow-x-auto">
+      <Table className="min-w-[620px] text-xs sm:text-sm">
+
+        <TableHeader>
+          <TableRow className="border-blue-100">
+            <TableHead>Date</TableHead>
+            <TableHead>Student</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Type</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {filteredPayments.slice(0, 20).map((payment) => {
+            const student = libraryStudents.find(
+              (s) => s.id === payment.student_id
+            );
+
+            return (
+              <TableRow
+                key={payment.id}
+                className="border-blue-50 hover:bg-blue-50"
+              >
+
+                {/* Date */}
+                <TableCell>
+                  {new Date(
+                    payment.payment_date
+                  ).toLocaleDateString()}
+                </TableCell>
+
+                {/* Student */}
+                <TableCell>
+                  <div>
+                    <p className="font-medium">
+                      {student?.name || '-'}
+                    </p>
+
+                    {student?.phone && (
+                      <p className="text-xs text-gray-500">
+                        {student.phone}
+                      </p>
+                    )}
+                  </div>
+                </TableCell>
+
+                {/* Amount */}
+                <TableCell className="font-medium">
+                  ₹{payment.amount}
+                </TableCell>
+
+                {/* Type */}
+                <TableCell>
+                  <span className="capitalize">
+                    {payment.payment_type.replace('_', ' ')}
+                  </span>
+                </TableCell>
+
+                {/* Status */}
+                <TableCell>
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-medium ${
+                      payment.status === 'completed'
+                        ? 'bg-green-100 text-green-700'
+                        : payment.status === 'pending'
+                        ? 'bg-yellow-100 text-yellow-700'
+                        : 'bg-red-100 text-red-700'
+                    }`}
+                  >
+                    {payment.status}
+                  </span>
+                </TableCell>
+
+                {/* Actions */}
+                <TableCell>
+                  <div className="flex gap-1">
+
+                    {/* Print Receipt */}
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handlePrintPayment(payment)}
+                      title="Print fee slip"
+                    >
+                      <Printer className="h-3 w-3" />
+                    </Button>
+
+                    {/* Delete */}
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => {
+                        setDeletePaymentId(payment.id);
+                        setShowDeletePaymentDialog(true);
+                      }}
+                      title="Delete payment"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+
+                  </div>
+                </TableCell>
+
+              </TableRow>
+            );
+          })}
+
+          {/* No Results */}
+          {filteredPayments.length === 0 && (
+            <TableRow>
+              <TableCell
+                colSpan={6}
+                className="h-24 text-center text-gray-500"
+              >
+                No payments found.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+
+      </Table>
+    </div>
+  </CardContent>
+</Card>
       </TabsContent>
 
       {/* Analytics Tab */}
